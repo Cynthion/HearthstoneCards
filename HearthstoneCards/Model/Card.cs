@@ -24,5 +24,9 @@ namespace HearthstoneCards.Model
         public string Img { get; set; }
         public string ImgGold { get; set; }
         public string Locale { get; set; }
+
+        public string Class { get; set; }
+        public string HowToGet { get; set; }
+        public string HowToGetGold { get; set; }
     }
 }
