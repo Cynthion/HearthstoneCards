@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HearthstoneCards", "HearthstoneCards\HearthstoneCards.csproj", "{72F56EDE-5391-4FB3-9B2D-B2DDCCA139D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPDevToolkit", "..\WPDevToolkit\WPDevToolkit\WPDevToolkit.csproj", "{05326645-4961-4166-ADDC-6340C46EEE58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,18 @@ Global
 		{72F56EDE-5391-4FB3-9B2D-B2DDCCA139D9}.Release|x86.ActiveCfg = Release|x86
 		{72F56EDE-5391-4FB3-9B2D-B2DDCCA139D9}.Release|x86.Build.0 = Release|x86
 		{72F56EDE-5391-4FB3-9B2D-B2DDCCA139D9}.Release|x86.Deploy.0 = Release|x86
+		{05326645-4961-4166-ADDC-6340C46EEE58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05326645-4961-4166-ADDC-6340C46EEE58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05326645-4961-4166-ADDC-6340C46EEE58}.Debug|ARM.ActiveCfg = Debug|ARM
+		{05326645-4961-4166-ADDC-6340C46EEE58}.Debug|ARM.Build.0 = Debug|ARM
+		{05326645-4961-4166-ADDC-6340C46EEE58}.Debug|x86.ActiveCfg = Debug|x86
+		{05326645-4961-4166-ADDC-6340C46EEE58}.Debug|x86.Build.0 = Debug|x86
+		{05326645-4961-4166-ADDC-6340C46EEE58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05326645-4961-4166-ADDC-6340C46EEE58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05326645-4961-4166-ADDC-6340C46EEE58}.Release|ARM.ActiveCfg = Release|ARM
+		{05326645-4961-4166-ADDC-6340C46EEE58}.Release|ARM.Build.0 = Release|ARM
+		{05326645-4961-4166-ADDC-6340C46EEE58}.Release|x86.ActiveCfg = Release|x86
+		{05326645-4961-4166-ADDC-6340C46EEE58}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

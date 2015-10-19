@@ -1,20 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using HearthstoneCards.Common;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
 
@@ -25,7 +16,7 @@ namespace HearthstoneCards
     /// </summary>
     public sealed partial class App : Application
     {
-        private TransitionCollection transitions;
+        private TransitionCollection _transitions;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -35,6 +26,14 @@ namespace HearthstoneCards
         {
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
+
+            // global exception handling
+            // this.UnhandledException += App_UnhandledException;
+        }
+
+        private void App_UnhandledException(object sender, UnhandledExceptionEventArgs unhandledExceptionEventArgs)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -51,18 +50,18 @@ namespace HearthstoneCards
                 this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-
-            Frame rootFrame = Window.Current.Content as Frame;
+            //Frame rootFrame = Window.Current.Content as Frame;
+            RootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-            if (rootFrame == null)
+            if (RootFrame == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
+                RootFrame = new Frame();
 
                 // TODO: change this value to a cache size that is appropriate for your application
-                rootFrame.CacheSize = 1;
+                RootFrame.CacheSize = 1;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -70,28 +69,28 @@ namespace HearthstoneCards
                 }
 
                 // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
+                Window.Current.Content = RootFrame;
             }
 
-            if (rootFrame.Content == null)
+            if (RootFrame.Content == null)
             {
                 // Removes the turnstile navigation for startup.
-                if (rootFrame.ContentTransitions != null)
+                if (RootFrame.ContentTransitions != null)
                 {
-                    this.transitions = new TransitionCollection();
-                    foreach (var c in rootFrame.ContentTransitions)
+                    this._transitions = new TransitionCollection();
+                    foreach (var c in RootFrame.ContentTransitions)
                     {
-                        this.transitions.Add(c);
+                        this._transitions.Add(c);
                     }
                 }
 
-                rootFrame.ContentTransitions = null;
-                rootFrame.Navigated += this.RootFrame_FirstNavigated;
+                RootFrame.ContentTransitions = null;
+                RootFrame.Navigated += this.RootFrame_FirstNavigated;
 
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                if (!rootFrame.Navigate(typeof(MainPage), e.Arguments))
+                if (!RootFrame.Navigate(typeof(MainPage), e.Arguments))
                 {
                     throw new Exception("Failed to create initial page");
                 }
@@ -109,7 +108,7 @@ namespace HearthstoneCards
         private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
         {
             var rootFrame = sender as Frame;
-            rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
+            rootFrame.ContentTransitions = this._transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
             rootFrame.Navigated -= this.RootFrame_FirstNavigated;
         }
 
@@ -120,12 +119,81 @@ namespace HearthstoneCards
         /// </summary>
         /// <param name="sender">The source of the suspend request.</param>
         /// <param name="e">Details about the suspend request.</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
+        private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
 
             // TODO: Save application state and stop any background activity
+
+            await SuspensionManager.SaveAsync();
+
             deferral.Complete();
         }
+
+        #region OAuth2 Authentication
+
+        // from http://msicc.net/?p=4054
+        public static ContinuationManager ContinuationManager { get; private set; } // must be global
+        public static Frame RootFrame { get; set; }
+
+        protected async override void OnActivated(IActivatedEventArgs e)
+        {
+            ContinuationManager = new ContinuationManager();
+
+            CreateRootFrame();
+
+            // Restore the saved session state only when appropriate
+            if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+            {
+                try
+                {
+                    await SuspensionManager.RestoreAsync();
+                }
+                catch (SuspensionManagerException)
+                {
+                    //Something went wrong restoring state.
+                    //Assume there is no state and continue
+                }
+            }
+
+            //Check if this is a continuation
+            var continuationEventArgs = e as IContinuationActivatedEventArgs;
+            if (continuationEventArgs != null)
+            {
+                ContinuationManager.Continue(continuationEventArgs);
+            }
+
+            Window.Current.Activate();
+        }
+
+        private void CreateRootFrame()
+        {
+            // Do not repeat app initialization when the Window already has content,
+            // just ensure that the window is active
+            if (RootFrame != null)
+                return;
+
+            // Create a Frame to act as the navigation context and navigate to the first page
+            RootFrame = new Frame();
+
+            //Associate the frame with a SuspensionManager key                                
+            SuspensionManager.RegisterFrame(RootFrame, "AppFrame");
+
+            // Set the default language
+            RootFrame.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
+
+            RootFrame.NavigationFailed += OnNavigationFailed;
+
+            // Place the frame in the current Window
+            Window.Current.Content = RootFrame;
+        }
+
+        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        {
+            // TODO change this code for your needs
+            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
+        }
+
+        #endregion
     }
 }
