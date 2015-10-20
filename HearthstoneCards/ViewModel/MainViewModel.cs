@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -13,6 +15,13 @@ namespace HearthstoneCards.ViewModel
 {
     public class MainViewModel : AsyncLoader, ILocatable
     {
+        public ObservableCollection<string> Classes { get; private set; }
+
+        public MainViewModel()
+        {
+            Classes = new ObservableCollection<string>(new List<string>{"Shaman", "Priest", "Druid"});
+        }
+
         protected override async Task<LoadResult> DoLoadAsync()
         {
             var api = SingletonLocator.Get<ApiCaller>();
