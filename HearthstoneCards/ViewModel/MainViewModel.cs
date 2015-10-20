@@ -17,21 +17,26 @@ namespace HearthstoneCards.ViewModel
         {
             var api = SingletonLocator.Get<ApiCaller>();
 
-            //var json = await api.GetAllCardsAsync();
-            string fileContent = String.Empty;
-            StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(@"ms-appx:///Assets/TestDb.txt"));
-            using (StreamReader sRead = new StreamReader(await file.OpenStreamForReadAsync()))
+            try
             {
-                fileContent = await sRead.ReadToEndAsync();
+                //var json = await api.GetAllCardsAsync();
+                string fileContent;
+                var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(@"ms-appx:///Assets/TestDb.txt"));
+                using (var reader = new StreamReader(await file.OpenStreamForReadAsync()))
+                {
+                    fileContent = await reader.ReadToEndAsync();
+                }
+                var json = await new StringReader(fileContent).ReadToEndAsync();
+                if (json != null)
+                {
+                    var globalCollection = JsonConvert.DeserializeObject<GlobalCollection>(json);
+                }
+                return LoadResult.Success;
             }
-            var json = await new StringReader(fileContent).ReadToEndAsync();
-            if (json != null)
+            catch (Exception e)
             {
-                var globalCollection = JsonConvert.DeserializeObject<GlobalCollection>(json);
+                return new LoadResult(e.Message);
             }
-
-            // TODO fix
-            return LoadResult.Success;
         }
     }
 }

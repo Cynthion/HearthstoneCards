@@ -9,6 +9,42 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         
+        <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
+        <Button  Grid.Row="0" Grid.Column="3"
+            Content="Go"/>
+        <!-- Cost -->
+        <TextBlock Grid.Row="1" Grid.Column="0"
+            Text="Cost"/>
+        <TextBox Grid.Row="1" Grid.Column="1"/>
+        <TextBlock Grid.Row="1" Grid.Column="2"
+            Text="-"/>
+        <TextBox Grid.Row="1" Grid.Column="3"/>
+        <!-- Attack -->
+        <TextBlock Grid.Row="2" Grid.Column="0"
+            Text="Attack"/>
+        <TextBox Grid.Row="2" Grid.Column="1"/>
+        <TextBlock Grid.Row="2" Grid.Column="2"
+            Text="-"/>
+        <TextBox Grid.Row="2" Grid.Column="3"/>
+        <!-- Health -->
+        <TextBlock Grid.Row="3" Grid.Column="0"
+            Text="Health"/>
+        <TextBox Grid.Row="3" Grid.Column="1"/>
+        <TextBlock Grid.Row="3" Grid.Column="2"
+            Text="-"/>
+        <TextBox Grid.Row="3" Grid.Column="3"/>
     </Grid>
 </local:BasePage>
