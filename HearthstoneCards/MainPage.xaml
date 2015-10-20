@@ -19,6 +19,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
@@ -46,5 +49,19 @@
         <TextBlock Grid.Row="3" Grid.Column="2"
             Text="-"/>
         <TextBox Grid.Row="3" Grid.Column="3"/>
+        <local:MultiSelector Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Title="Class"/>
+        <!--<Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4">
+            <Button.Flyout>
+                <Flyout>
+                    <ListBox
+                        SelectionMode="Multiple">
+                        <ListBoxItem Content="ListBoxItem" IsSelected="True" />
+                        <ListBoxItem Content="ListBoxItem"/>
+                        <ListBoxItem Content="ListBoxItem" IsSelected="True"/>
+                    </ListBox>
+
+                </Flyout>
+            </Button.Flyout>
+        </Button>-->
     </Grid>
 </local:BasePage>
