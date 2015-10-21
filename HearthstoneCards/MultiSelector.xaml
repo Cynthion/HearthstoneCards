@@ -32,6 +32,7 @@
             Style="{StaticResource GridStyle}"
             Tapped="Grid_OnTapped">
             <TextBlock
+                Margin="10"
                 Text="{Binding Title}"
                 Style="{StaticResource TitleMediumSized}"/>
             <FlyoutBase.AttachedFlyout>
@@ -40,12 +41,13 @@
                     Placement="Full">
                     <StackPanel>
                         <ListBox
-                            x:Name="XOptionList"
                             ItemsSource="{Binding Options}"
                             SelectionChanged="XOptionList_OnSelectionChanged"
                             VerticalAlignment="Center"
                             SelectionMode="Multiple"
-                            ItemTemplate="{Binding ItemTemplate}">
+                            ItemTemplate="{Binding ItemTemplate}"
+                            Style="{StaticResource FullWidthListBoxStyle}"
+                            ItemContainerStyle="{StaticResource CheckboxListBoxItemStyle}">
                         </ListBox>
                         <Button
                             Style="{StaticResource BorderlessButton}"
@@ -67,8 +69,10 @@
         </Grid>
         <TextBlock 
             Grid.Row="1"
+            Margin="10"
             Text="{Binding Status}"/>
-        <!-- WrapGrid --><!--
+        <!-- WrapGrid -->
+        <!--
         <ListView
             Grid.Row="2"
             ItemsSource="{Binding SelectedOptions}">

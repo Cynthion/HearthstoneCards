@@ -55,7 +55,10 @@
             Options="{Binding Classes}">
             <local:MultiSelector.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding}" Foreground="Brown"/>
+                    <Grid
+                        Background="Yellow">
+                        <TextBlock Text="{Binding}" Foreground="Brown"/>
+                    </Grid>
                 </DataTemplate>
             </local:MultiSelector.ItemTemplate>
         </local:MultiSelector>
