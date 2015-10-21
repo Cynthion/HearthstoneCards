@@ -19,7 +19,7 @@ namespace HearthstoneCards.ViewModel
 
         public MainViewModel()
         {
-            Classes = new ObservableCollection<string>(new List<string>{"Shaman", "Priest", "Druid"});
+            Classes = new ObservableCollection<string>(new List<string>{"Shaman", "Priest", "Druid", "Paladin", "Rogue", "Hunter", "Warrior", "Warlock", "Mage"});
         }
 
         protected override async Task<LoadResult> DoLoadAsync()
