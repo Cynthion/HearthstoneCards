@@ -17,15 +17,16 @@ namespace HearthstoneCards.ViewModel
 {
     public class MainViewModel : AsyncLoader, ILocatable
     {
-        private GlobalCollection _globalCollection;
+        private readonly List<Card> _allCards; 
 
-        public IList<SelectionItem<string>> Classes { get; private set; }
+        public IList<SelectionItem<string>> ClassOptions { get; private set; }
 
         public ObservableRangeCollection<Card> FilterResults { get; private set; }
+        private int _filterResultCount;
 
         public MainViewModel()
         {
-            Classes = new List<SelectionItem<string>>(new List<SelectionItem<string>>
+            ClassOptions = new List<SelectionItem<string>>(new List<SelectionItem<string>>
             {
                 new SelectionItem<string>("Druid", "../Assets/Icons/Classes/druid.png"),
                 new SelectionItem<string>("Hunter", "../Assets/Icons/Classes/hunter.png"),
@@ -38,11 +39,12 @@ namespace HearthstoneCards.ViewModel
                 new SelectionItem<string>("Warrior", "../Assets/Icons/Classes/warrior.png")
             });
             FilterResults = new ObservableRangeCollection<Card>();
+            _allCards = new List<Card>();
         }
 
         protected override async Task<LoadResult> DoLoadAsync()
         {
-            if (_globalCollection == null)
+            if (_allCards.Count == 0)
             {
                 // TODO check if needs to be re-newed (serialized date)
                 // var api = SingletonLocator.Get<ApiCaller>();
@@ -60,7 +62,11 @@ namespace HearthstoneCards.ViewModel
                     var json = await new StringReader(fileContent).ReadToEndAsync();
                     if (json != null)
                     {
-                        _globalCollection = JsonConvert.DeserializeObject<GlobalCollection>(json);
+                        var globalCollection = JsonConvert.DeserializeObject<GlobalCollection>(json);
+                        foreach (var set in globalCollection.Sets)
+                        {
+                            _allCards.AddRange(set.Cards);
+                        }
                     }
 
                     // TODO remove
@@ -79,7 +85,28 @@ namespace HearthstoneCards.ViewModel
         {
             // TODO query
             // TODO remove fake query
-            FilterResults.AddRange(_globalCollection.Sets[0].Cards.Take(20));
+            var result = 
+                from card in _allCards
+                where ClassOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Name))
+                orderby card.Cost ascending
+                select card;
+
+            FilterResults.Clear();
+            FilterResults.AddRange(result);
+            FilterResultCount = FilterResults.Count;
+        }
+
+        public int FilterResultCount
+        {
+            get { return _filterResultCount; }
+            private set
+            {
+                if (_filterResultCount != value)
+                {
+                    _filterResultCount = value;
+                    NotifyPropertyChanged();
+                }
+            }
         }
     }
 }
