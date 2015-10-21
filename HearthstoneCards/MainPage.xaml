@@ -62,23 +62,24 @@
                         <TextBox Grid.Row="3" Grid.Column="3"/>
                         <!-- Class Filter -->
                         <local:MultiSelector
-            Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4"
-            Title="Class"
-            Options="{Binding Classes}">
+                            Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4"
+                            Title="Class"
+                            Options="{Binding Classes}"
+                            SelectionChanged="MultiSelector_OnSelectionChanged">
                             <local:MultiSelector.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
                                         <StackPanel Orientation="Horizontal">
                                             <Image
-                                Margin="0,0,10,0"
-                                Width="50"
-                                Height="50"
-                                Source="{Binding Value}"
-                                Stretch="UniformToFill"/>
-                                            <TextBlock 
-                                Text="{Binding Key}"
-                                Foreground="White"
-                                VerticalAlignment="Center"/>
+                                                Margin="0,0,10,0"
+                                                Width="50"
+                                                Height="50"
+                                                Source="{Binding Value}"
+                                                Stretch="UniformToFill"/>
+                                                            <TextBlock 
+                                                Text="{Binding Key}"
+                                                Foreground="White"
+                                                VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Grid>
                                 </DataTemplate>

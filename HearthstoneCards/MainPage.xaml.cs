@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using HearthstoneCards.ViewModel;
 using WPDevToolkit;
@@ -29,6 +30,11 @@ namespace HearthstoneCards
         {
             // load UI
             await TaskHelper.HandleTaskObservedAsync(_mainVm.LoadAsync());
+        }
+
+        private void MultiSelector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _mainVm.OnQueryChanged();
         }
     }
 }

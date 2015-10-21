@@ -14,6 +14,8 @@ namespace HearthstoneCards
 
     public sealed partial class MultiSelector : UserControl
     {
+        public event SelectionChangedEventHandler SelectionChanged;
+
         public MultiSelector()
         {
             InitializeComponent();
@@ -45,6 +47,7 @@ namespace HearthstoneCards
 
         private static void SelectionOptions_OnChanged(DependencyObject dobj)
         {
+            
             // 1. sort
             var selectedOptions = ((List<SelectionItem<string>>)dobj.GetValue(SelectedOptionsProperty)).OrderBy(i => i.Key).ToList();
 
@@ -114,6 +117,11 @@ namespace HearthstoneCards
 
         private void XOptionList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (SelectionChanged != null)
+            {
+                SelectionChanged(this, e);
+            }
+
             foreach (SelectionItem<string> addedItem in e.AddedItems)
             {
                 if (!SelectedOptions.Contains(addedItem))
