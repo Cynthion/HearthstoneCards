@@ -49,6 +49,7 @@
         <TextBlock Grid.Row="3" Grid.Column="2"
             Text="-"/>
         <TextBox Grid.Row="3" Grid.Column="3"/>
+        <!-- Class Filter -->
         <local:MultiSelector
             Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4"
             Title="Class"
@@ -63,7 +64,9 @@
                                 Height="50"
                                 Source="{Binding Value}"
                                 Stretch="UniformToFill"/>
-                            <TextBlock Text="{Binding Key}" Foreground="Brown"/>
+                            <TextBlock 
+                                Text="{Binding Key}"
+                                VerticalAlignment="Center"/>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
