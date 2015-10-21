@@ -79,23 +79,5 @@
             Margin="10"
             Text="{Binding Status}"
             Style="{StaticResource BodyNormalSized}"/>
-        <!-- WrapGrid -->
-        <!--
-        <ListView
-            Grid.Row="2"
-            ItemsSource="{Binding SelectedOptions}">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <ItemsWrapGrid Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>-->
     </Grid>
-    
-    
 </UserControl>

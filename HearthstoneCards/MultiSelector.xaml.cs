@@ -47,7 +47,6 @@ namespace HearthstoneCards
 
         private static void SelectionOptions_OnChanged(DependencyObject dobj)
         {
-            
             // 1. sort
             var selectedOptions = ((List<SelectionItem<string>>)dobj.GetValue(SelectedOptionsProperty)).OrderBy(i => i.Key).ToList();
 
@@ -117,17 +116,11 @@ namespace HearthstoneCards
 
         private void XOptionList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (SelectionChanged != null)
-            {
-                SelectionChanged(this, e);
-            }
-
             foreach (SelectionItem<string> addedItem in e.AddedItems)
             {
                 if (!SelectedOptions.Contains(addedItem))
                 {
                     SelectedOptions.Add(addedItem);
-
                 }
             }
             foreach (SelectionItem<string> removedItem in e.RemovedItems)
@@ -138,6 +131,10 @@ namespace HearthstoneCards
                 }
             }
             SelectionOptions_OnChanged(this);
+            if (SelectionChanged != null)
+            {
+                SelectionChanged(this, e);
+            }
         }
 
         private void Grid_OnTapped(object sender, TappedRoutedEventArgs e)

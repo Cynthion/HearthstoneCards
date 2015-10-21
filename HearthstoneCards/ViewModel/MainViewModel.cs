@@ -87,7 +87,7 @@ namespace HearthstoneCards.ViewModel
             // TODO remove fake query
             var result = 
                 from card in _allCards
-                where ClassOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Name))
+                where ClassOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Class))
                 orderby card.Cost ascending
                 select card;
 
