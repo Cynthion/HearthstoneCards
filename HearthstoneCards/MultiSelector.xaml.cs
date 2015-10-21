@@ -1,12 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
+using WPDevToolkit.Selection;
 
 namespace HearthstoneCards
 {
+    // TODO make generic, use interfaces
+
     public sealed partial class MultiSelector : UserControl
     {
         public MultiSelector()
@@ -23,13 +28,11 @@ namespace HearthstoneCards
         public static readonly DependencyProperty StatusProperty =
             DependencyProperty.Register("Status", typeof(string), typeof(MultiSelector), new PropertyMetadata(default(string)));
 
-        // TODO string -> generic T
-        public static readonly DependencyProperty OptionsProperty = 
-            DependencyProperty.Register("Options", typeof(IList), typeof(MultiSelector), new PropertyMetadata(null));
+        public static readonly DependencyProperty OptionsProperty =
+            DependencyProperty.Register("Options", typeof(List<SelectionItem<string>>), typeof(MultiSelector), new PropertyMetadata(new List<SelectionItem<string>>()));
 
-        // TODO string -> generic T
         public static readonly DependencyProperty SelectedOptionsProperty =
-            DependencyProperty.Register("SelectedOptions", typeof(IList<string>), typeof(MultiSelector), new PropertyMetadata(new List<string>(), SelectedOptions_PropertyChangedCallback));
+            DependencyProperty.Register("SelectedOptions", typeof(List<SelectionItem<string>>), typeof(MultiSelector), new PropertyMetadata(new List<SelectionItem<string>>(), SelectedOptions_PropertyChangedCallback));
 
         // If list content changes, this needs to be called manually. (DependencyProperty value does not change.)
         private static void SelectedOptions_PropertyChangedCallback(DependencyObject dobj, DependencyPropertyChangedEventArgs eventArgs)
@@ -43,8 +46,7 @@ namespace HearthstoneCards
         private static void SelectionOptions_OnChanged(DependencyObject dobj)
         {
             // 1. sort
-            var selectedOptions = (List<string>)dobj.GetValue(SelectedOptionsProperty);
-            selectedOptions.Sort();
+            var selectedOptions = ((List<SelectionItem<string>>)dobj.GetValue(SelectedOptionsProperty)).OrderBy(i => i.Key).ToList();
 
             // 2. change selection status
             var status = string.Empty;
@@ -92,15 +94,15 @@ namespace HearthstoneCards
             private set { SetValue(StatusProperty, value); }
         }
 
-        public IList Options
+        public List<SelectionItem<string>> Options
         {
-            get { return (IList)GetValue(OptionsProperty); }
+            get { return (List<SelectionItem<string>>)GetValue(OptionsProperty); }
             set { SetValue(OptionsProperty, value); }
         }
 
-        public IList<string> SelectedOptions
+        public List<SelectionItem<string>> SelectedOptions
         {
-            get { return (IList<string>)GetValue(SelectedOptionsProperty); }
+            get { return (List<SelectionItem<string>>)GetValue(SelectedOptionsProperty); }
             set { SetValue(SelectedOptionsProperty, value);}
         }
 
@@ -112,22 +114,22 @@ namespace HearthstoneCards
 
         private void XOptionList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            foreach (string addedItem in e.AddedItems)
-            {
-                if (!SelectedOptions.Contains(addedItem))
-                {
-                    SelectedOptions.Add(addedItem);
+            //foreach (string addedItem in e.AddedItems)
+            //{
+            //    if (!SelectedOptions.Contains(addedItem))
+            //    {
+            //        SelectedOptions.Add(addedItem);
 
-                }
-            }
-            foreach (string removedItem in e.RemovedItems)
-            {
-                if (SelectedOptions.Contains(removedItem))
-                {
-                    SelectedOptions.Remove(removedItem);
-                }
-            }
-            SelectionOptions_OnChanged(this);
+            //    }
+            //}
+            //foreach (string removedItem in e.RemovedItems)
+            //{
+            //    if (SelectedOptions.Contains(removedItem))
+            //    {
+            //        SelectedOptions.Remove(removedItem);
+            //    }
+            //}
+            //SelectionOptions_OnChanged(this);
         }
 
         private void Grid_OnTapped(object sender, TappedRoutedEventArgs e)

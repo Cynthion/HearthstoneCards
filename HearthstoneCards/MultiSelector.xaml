@@ -57,13 +57,13 @@
                                 Style="{StaticResource BodySmallSized}"/>
                         </Button>
                     </StackPanel>
-                    <!--<Flyout.FlyoutPresenterStyle>
+                    <Flyout.FlyoutPresenterStyle>
                         <Style TargetType="FlyoutPresenter">
-                            <Setter Property="Background" Value="Transparent" />
-                            <Setter Property="VerticalContentAlignment" Value="Bottom" />
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Background" Value="Red" />
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                         </Style>
-                    </Flyout.FlyoutPresenterStyle>-->
+                    </Flyout.FlyoutPresenterStyle>
                 </Flyout>
             </FlyoutBase.AttachedFlyout>
         </Grid>

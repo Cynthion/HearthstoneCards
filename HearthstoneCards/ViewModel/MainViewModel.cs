@@ -16,12 +16,12 @@ namespace HearthstoneCards.ViewModel
 {
     public class MainViewModel : AsyncLoader, ILocatable
     {
-        public ObservableCollection<SelectionItem<string>> Classes { get; private set; }
+        public IList<SelectionItem<string>> Classes { get; private set; }
 
         public MainViewModel()
         {
             //Classes = new ObservableCollection<string>(new List<string>{"Shaman", "Priest", "Druid", "Paladin", "Rogue", "Hunter", "Warrior", "Warlock", "Mage"});
-            Classes = new ObservableCollection<SelectionItem<string>>(new List<SelectionItem<string>>
+            Classes = new List<SelectionItem<string>>(new List<SelectionItem<string>>
             {
                 new SelectionItem<string>("Priest", "../Assets/Icons/Classes/priest.png")
             });
