@@ -64,18 +64,18 @@ namespace HearthstoneCards
                 {
                     for (var i = 0; i < selectedOptions.Count - 1; i++)
                     {
-                        status += selectedOptions[i] + ", ";
+                        status += selectedOptions[i].Key + ", ";
                     }
-                    status += selectedOptions[selectedOptions.Count - 1];
+                    status += selectedOptions[selectedOptions.Count - 1].Key;
                 }
                 else
                 {
                     const int threshold = 3;
                     for (var i = 0; i < threshold - 1; i++)
                     {
-                        status += selectedOptions[i] + ", ";
+                        status += selectedOptions[i].Key + ", ";
                     }
-                    status += selectedOptions[threshold - 1];
+                    status += selectedOptions[threshold - 1].Key;
                     status += string.Format(" and {0} more.", selectedOptions.Count - threshold);
                 }
             }
@@ -114,22 +114,22 @@ namespace HearthstoneCards
 
         private void XOptionList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //foreach (string addedItem in e.AddedItems)
-            //{
-            //    if (!SelectedOptions.Contains(addedItem))
-            //    {
-            //        SelectedOptions.Add(addedItem);
+            foreach (SelectionItem<string> addedItem in e.AddedItems)
+            {
+                if (!SelectedOptions.Contains(addedItem))
+                {
+                    SelectedOptions.Add(addedItem);
 
-            //    }
-            //}
-            //foreach (string removedItem in e.RemovedItems)
-            //{
-            //    if (SelectedOptions.Contains(removedItem))
-            //    {
-            //        SelectedOptions.Remove(removedItem);
-            //    }
-            //}
-            //SelectionOptions_OnChanged(this);
+                }
+            }
+            foreach (SelectionItem<string> removedItem in e.RemovedItems)
+            {
+                if (SelectedOptions.Contains(removedItem))
+                {
+                    SelectedOptions.Remove(removedItem);
+                }
+            }
+            SelectionOptions_OnChanged(this);
         }
 
         private void Grid_OnTapped(object sender, TappedRoutedEventArgs e)

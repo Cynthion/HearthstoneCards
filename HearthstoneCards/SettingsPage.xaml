@@ -8,7 +8,17 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-
+    <Grid
+        Margin="20, 50, 20, 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button
+            Grid.Row="0"
+            Margin="10"
+            Style="{StaticResource BorderlessButton}"
+            HorizontalAlignment="Center"
+            Content="Refresh Database"/>
     </Grid>
 </local:BasePage>

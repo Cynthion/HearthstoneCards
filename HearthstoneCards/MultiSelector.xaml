@@ -60,7 +60,6 @@
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Text="Done"
-                                
                                     Style="{StaticResource BodySmallSized}"/>
                             </Grid>
                         </Button>
