@@ -8,72 +8,83 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <DataTemplate x:Key="CardItemTemplate">
+            <TextBlock Text="{Binding Name}"/>
+        </DataTemplate>
+    </Page.Resources>
+    
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        
-        <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
-        <Button  Grid.Row="0" Grid.Column="3"
+        <Hub>
+            <!-- Filters -->
+            <HubSection>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
+                        <Button  Grid.Row="0" Grid.Column="3"
             Content="Go"/>
-        <!-- Cost -->
-        <TextBlock Grid.Row="1" Grid.Column="0"
+                        <!-- Cost -->
+                        <TextBlock Grid.Row="1" Grid.Column="0"
             Text="Cost"/>
-        <TextBox Grid.Row="1" Grid.Column="1"/>
-        <TextBlock Grid.Row="1" Grid.Column="2"
+                        <TextBox Grid.Row="1" Grid.Column="1"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2"
             Text="-"/>
-        <TextBox Grid.Row="1" Grid.Column="3"/>
-        <!-- Attack -->
-        <TextBlock Grid.Row="2" Grid.Column="0"
+                        <TextBox Grid.Row="1" Grid.Column="3"/>
+                        <!-- Attack -->
+                        <TextBlock Grid.Row="2" Grid.Column="0"
             Text="Attack"/>
-        <TextBox Grid.Row="2" Grid.Column="1"/>
-        <TextBlock Grid.Row="2" Grid.Column="2"
+                        <TextBox Grid.Row="2" Grid.Column="1"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2"
             Text="-"/>
-        <TextBox Grid.Row="2" Grid.Column="3"/>
-        <!-- Health -->
-        <TextBlock Grid.Row="3" Grid.Column="0"
+                        <TextBox Grid.Row="2" Grid.Column="3"/>
+                        <!-- Health -->
+                        <TextBlock Grid.Row="3" Grid.Column="0"
             Text="Health"/>
-        <TextBox Grid.Row="3" Grid.Column="1"/>
-        <TextBlock Grid.Row="3" Grid.Column="2"
+                        <TextBox Grid.Row="3" Grid.Column="1"/>
+                        <TextBlock Grid.Row="3" Grid.Column="2"
             Text="-"/>
-        <TextBox Grid.Row="3" Grid.Column="3"/>
-        <!-- Class Filter -->
-        <local:MultiSelector
+                        <TextBox Grid.Row="3" Grid.Column="3"/>
+                        <!-- Class Filter -->
+                        <local:MultiSelector
             Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4"
             Title="Class"
             Options="{Binding Classes}">
-            <local:MultiSelector.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <StackPanel Orientation="Horizontal">
-                            <Image
+                            <local:MultiSelector.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image
                                 Margin="0,0,10,0"
-                                Width="30"
-                                Height="30"
+                                Width="50"
+                                Height="50"
                                 Source="{Binding Value}"
                                 Stretch="UniformToFill"/>
-                            <TextBlock 
+                                            <TextBlock 
                                 Text="{Binding Key}"
                                 Foreground="White"
                                 VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </local:MultiSelector.ItemTemplate>
-        </local:MultiSelector>
-        <!--<Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4">
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </local:MultiSelector.ItemTemplate>
+                        </local:MultiSelector>
+                        <!--<Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4">
             <Button.Flyout>
                 <Flyout>
                     <ListBox
@@ -86,5 +97,39 @@
                 </Flyout>
             </Button.Flyout>
         </Button>-->
+
+                        <TextBlock
+                            Grid.Row="6"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Right"
+                            Text="Result:"/>
+
+                    </Grid>
+                </DataTemplate>
+            </HubSection>
+            
+            <!-- Lists -->
+            <HubSection>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel
+                            Grid.Row="0"
+                            Orientation="Horizontal">
+                            <Button>V1</Button>
+                            <Button>V2</Button>
+                        </StackPanel>
+                        <ListView
+                            Grid.Row="1"
+                            ItemsSource="{Binding FilterResults}"
+                            ItemTemplate="{StaticResource CardItemTemplate}"/>
+                    </Grid>
+                </DataTemplate>
+            </HubSection>
+        </Hub>
     </Grid>
+
 </local:BasePage>

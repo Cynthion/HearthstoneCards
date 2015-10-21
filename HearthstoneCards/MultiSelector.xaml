@@ -34,7 +34,7 @@
             <TextBlock
                 Margin="10"
                 Text="{Binding Title}"
-                Style="{StaticResource TitleMediumSized}"/>
+                Style="{StaticResource TitleMediumSizedBold}"/>
             <FlyoutBase.AttachedFlyout>
                 <Flyout
                     x:Name="XSelectionFlyout"
@@ -55,12 +55,12 @@
                             Click="ButtonBase_OnClick"
                             HorizontalAlignment="Stretch">
                             <Grid Background="Blue"
-                                  Height="30">
+                                  Height="50">
                                 <TextBlock
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Text="Done"
-                                    Style="{StaticResource BodySmallSized}"/>
+                                    Style="{StaticResource TitleMediumSizedBold}"/>
                             </Grid>
                         </Button>
                     </StackPanel>
@@ -77,7 +77,8 @@
         <TextBlock 
             Grid.Row="1"
             Margin="10"
-            Text="{Binding Status}"/>
+            Text="{Binding Status}"
+            Style="{StaticResource BodyNormalSized}"/>
         <!-- WrapGrid -->
         <!--
         <ListView

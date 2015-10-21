@@ -19,6 +19,7 @@
             Margin="10"
             Style="{StaticResource BorderlessButton}"
             HorizontalAlignment="Center"
-            Content="Refresh Database"/>
+            Content="Refresh Database"
+            Click="RefreshDbButton_OnClick"/>
     </Grid>
 </local:BasePage>

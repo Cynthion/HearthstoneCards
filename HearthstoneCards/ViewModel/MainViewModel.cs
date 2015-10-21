@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
@@ -16,7 +17,11 @@ namespace HearthstoneCards.ViewModel
 {
     public class MainViewModel : AsyncLoader, ILocatable
     {
+        private GlobalCollection _globalCollection;
+
         public IList<SelectionItem<string>> Classes { get; private set; }
+
+        public ObservableRangeCollection<Card> FilterResults { get; private set; }
 
         public MainViewModel()
         {
@@ -32,32 +37,49 @@ namespace HearthstoneCards.ViewModel
                 new SelectionItem<string>("Warlock", "../Assets/Icons/Classes/warlock.png"),
                 new SelectionItem<string>("Warrior", "../Assets/Icons/Classes/warrior.png")
             });
+            FilterResults = new ObservableRangeCollection<Card>();
         }
 
         protected override async Task<LoadResult> DoLoadAsync()
         {
-            var api = SingletonLocator.Get<ApiCaller>();
+            if (_globalCollection == null)
+            {
+                // TODO check if needs to be re-newed (serialized date)
+                // var api = SingletonLocator.Get<ApiCaller>();
 
-            try
-            {
-                //var json = await api.GetAllCardsAsync();
-                string fileContent;
-                var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(@"ms-appx:///Assets/TestDb.txt"));
-                using (var reader = new StreamReader(await file.OpenStreamForReadAsync()))
+                // load from local storage
+                try
                 {
-                    fileContent = await reader.ReadToEndAsync();
+                    // TODO load from storage, not from file
+                    string fileContent;
+                    var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(@"ms-appx:///Assets/TestDb.txt"));
+                    using (var reader = new StreamReader(await file.OpenStreamForReadAsync()))
+                    {
+                        fileContent = await reader.ReadToEndAsync();
+                    }
+                    var json = await new StringReader(fileContent).ReadToEndAsync();
+                    if (json != null)
+                    {
+                        _globalCollection = JsonConvert.DeserializeObject<GlobalCollection>(json);
+                    }
+
+                    // TODO remove
+                    OnQueryChanged();
+                    return LoadResult.Success;
                 }
-                var json = await new StringReader(fileContent).ReadToEndAsync();
-                if (json != null)
+                catch (Exception e)
                 {
-                    var globalCollection = JsonConvert.DeserializeObject<GlobalCollection>(json);
+                    return new LoadResult(e.Message);
                 }
-                return LoadResult.Success;
             }
-            catch (Exception e)
-            {
-                return new LoadResult(e.Message);
-            }
+            return LoadResult.Success;
+        }
+
+        public void OnQueryChanged()
+        {
+            // TODO query
+            // TODO remove fake query
+            FilterResults.AddRange(_globalCollection.Sets[0].Cards.Take(20));
         }
     }
 }
