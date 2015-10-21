@@ -10,16 +10,21 @@ using HearthstoneCards.Model;
 using Newtonsoft.Json;
 using WPDevToolkit;
 using WPDevToolkit.Interfaces;
+using WPDevToolkit.Selection;
 
 namespace HearthstoneCards.ViewModel
 {
     public class MainViewModel : AsyncLoader, ILocatable
     {
-        public ObservableCollection<string> Classes { get; private set; }
+        public ObservableCollection<SelectionItem<string>> Classes { get; private set; }
 
         public MainViewModel()
         {
-            Classes = new ObservableCollection<string>(new List<string>{"Shaman", "Priest", "Druid", "Paladin", "Rogue", "Hunter", "Warrior", "Warlock", "Mage"});
+            //Classes = new ObservableCollection<string>(new List<string>{"Shaman", "Priest", "Druid", "Paladin", "Rogue", "Hunter", "Warrior", "Warlock", "Mage"});
+            Classes = new ObservableCollection<SelectionItem<string>>(new List<SelectionItem<string>>
+            {
+                new SelectionItem<string>("Priest", "../Assets/Icons/Classes/priest.png")
+            });
         }
 
         protected override async Task<LoadResult> DoLoadAsync()

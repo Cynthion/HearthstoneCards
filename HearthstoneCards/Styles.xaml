@@ -11,9 +11,9 @@
         <Setter Property="FontSize" Value="{ThemeResource TextStyleLargeFontSize}"/>
         <Setter Property="FontFamily" Value="{ThemeResource PhoneFontFamilyNormal}"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
-        <Setter Property="VerticalContentAlignment" Value="Top"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Padding" Value="{ThemeResource CheckBoxAndRadioButtonTextPaddingThickness}"/>
         <Setter Property="MinWidth" Value="{ThemeResource CheckBoxAndRadioButtonMinWidthSize}"/>
         <Setter Property="Template">
@@ -96,7 +96,7 @@
                                 <ColumnDefinition Width="25.5"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0" VerticalAlignment="Top">
+                            <Grid Grid.Column="0">
                                 <Border x:Name="CheckBackground" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" HorizontalAlignment="Left" Height="25.5" IsHitTestVisible="False" VerticalAlignment="Center" Width="25.5"/>
                                 <Rectangle x:Name="NormalRectangle" Fill="{ThemeResource CheckBoxBackgroundThemeBrush}" HorizontalAlignment="Center" Height="13" IsHitTestVisible="False" Visibility="Collapsed" VerticalAlignment="Center" Width="13"/>
                                 <!-- changed fill -->
@@ -170,7 +170,8 @@
                     <Grid
                         Background="Aqua">
                         <CheckBox
-                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Center"
                             IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsSelected, Mode=TwoWay}"
                             Background="Green">
                             <ContentPresenter/>

@@ -57,7 +57,14 @@
                 <DataTemplate>
                     <Grid
                         Background="Yellow">
-                        <TextBlock Text="{Binding}" Foreground="Brown"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Width="50"
+                                Height="50"
+                                Source="{Binding Value}"
+                                Stretch="UniformToFill"/>
+                            <TextBlock Text="{Binding Key}" Foreground="Brown"/>
+                        </StackPanel>
                     </Grid>
                 </DataTemplate>
             </local:MultiSelector.ItemTemplate>
