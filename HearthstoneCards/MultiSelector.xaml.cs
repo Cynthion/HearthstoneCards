@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -15,7 +14,7 @@ namespace HearthstoneCards
             InitializeComponent();
             XLayoutRoot.DataContext = this;
 
-            Status = "None";
+            SelectionOptions_OnChanged(this);
         }
 
         public static readonly DependencyProperty TitleProperty =
@@ -37,6 +36,9 @@ namespace HearthstoneCards
         {
             SelectionOptions_OnChanged(dobj);
         }
+
+        public static readonly DependencyProperty ItemTemplateProperty =
+            DependencyProperty.Register("ItemTemplate", typeof(DataTemplate), typeof(MultiSelector), new PropertyMetadata(default(DataTemplate)));
 
         private static void SelectionOptions_OnChanged(DependencyObject dobj)
         {
@@ -100,6 +102,12 @@ namespace HearthstoneCards
         {
             get { return (IList<string>)GetValue(SelectedOptionsProperty); }
             set { SetValue(SelectedOptionsProperty, value);}
+        }
+
+        public DataTemplate ItemTemplate
+        {
+            get { return (DataTemplate)GetValue(ItemTemplateProperty); }
+            set { SetValue(ItemTemplateProperty, value); }
         }
 
         private void XOptionList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

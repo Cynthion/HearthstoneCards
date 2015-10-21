@@ -52,7 +52,13 @@
         <local:MultiSelector
             Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4"
             Title="Class"
-            Options="{Binding Classes}"/>
+            Options="{Binding Classes}">
+            <local:MultiSelector.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Foreground="Brown"/>
+                </DataTemplate>
+            </local:MultiSelector.ItemTemplate>
+        </local:MultiSelector>
         <!--<Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4">
             <Button.Flyout>
                 <Flyout>

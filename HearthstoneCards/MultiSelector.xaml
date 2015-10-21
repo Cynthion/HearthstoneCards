@@ -9,6 +9,19 @@
     d:DesignWidth="400">
     <!--DataContext="{Binding RelativeSource={RelativeSource Self}}">-->
 
+    <UserControl.Resources>
+        <Style x:Key="GridStyle" TargetType="Grid">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="DarkBlue" Offset="0.0" />
+                        <GradientStop Color="Black" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
     <Grid x:Name="XLayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -16,9 +29,11 @@
         </Grid.RowDefinitions>
         <Grid 
             Grid.Row="0"
+            Style="{StaticResource GridStyle}"
             Tapped="Grid_OnTapped">
             <TextBlock
-                Text="{Binding Title}"/>
+                Text="{Binding Title}"
+                Style="{StaticResource TitleMediumSized}"/>
             <FlyoutBase.AttachedFlyout>
                 <Flyout
                     x:Name="XSelectionFlyout"
@@ -29,11 +44,16 @@
                             ItemsSource="{Binding Options}"
                             SelectionChanged="XOptionList_OnSelectionChanged"
                             VerticalAlignment="Center"
-                            SelectionMode="Multiple">
+                            SelectionMode="Multiple"
+                            ItemTemplate="{Binding ItemTemplate}">
                         </ListBox>
                         <Button
-                            Content="Done"
-                            Click="ButtonBase_OnClick"/>
+                            Style="{StaticResource BorderlessButton}"
+                            Click="ButtonBase_OnClick">
+                            <TextBlock
+                                Text="Done"
+                                Style="{StaticResource BodySmallSized}"/>
+                        </Button>
                     </StackPanel>
                     <!--<Flyout.FlyoutPresenterStyle>
                         <Style TargetType="FlyoutPresenter">
