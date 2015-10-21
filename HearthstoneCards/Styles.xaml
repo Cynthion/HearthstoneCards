@@ -172,8 +172,9 @@
                         <CheckBox
                             VerticalAlignment="Center"
                             VerticalContentAlignment="Center"
-                            IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsSelected, Mode=TwoWay}"
-                            Background="Green">
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsSelected, Mode=TwoWay}">
                             <ContentPresenter/>
                         </CheckBox>
                     </Grid>

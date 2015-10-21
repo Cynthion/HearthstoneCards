@@ -38,7 +38,7 @@
             <FlyoutBase.AttachedFlyout>
                 <Flyout
                     x:Name="XSelectionFlyout"
-                    Placement="Full">
+                    Placement="Top">
                     <StackPanel>
                         <ListBox
                             ItemsSource="{Binding Options}"
@@ -59,7 +59,7 @@
                     </StackPanel>
                     <Flyout.FlyoutPresenterStyle>
                         <Style TargetType="FlyoutPresenter">
-                            <Setter Property="Background" Value="Red" />
+                            <Setter Property="Background" Value="Red"/>
                             <Setter Property="VerticalContentAlignment" Value="Center"/>
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                         </Style>

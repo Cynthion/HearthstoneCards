@@ -20,7 +20,6 @@ namespace HearthstoneCards.ViewModel
 
         public MainViewModel()
         {
-            //Classes = new ObservableCollection<string>(new List<string>{"Shaman", "Priest", "Druid", "Paladin", "Rogue", "Hunter", "Warrior", "Warlock", "Mage"});
             Classes = new List<SelectionItem<string>>(new List<SelectionItem<string>>
             {
                 new SelectionItem<string>("Druid", "../Assets/Icons/Classes/druid.png"),
@@ -31,7 +30,7 @@ namespace HearthstoneCards.ViewModel
                 new SelectionItem<string>("Rogue", "../Assets/Icons/Classes/rogue.png"),
                 new SelectionItem<string>("Shaman", "../Assets/Icons/Classes/shaman.png"),
                 new SelectionItem<string>("Warlock", "../Assets/Icons/Classes/warlock.png"),
-                new SelectionItem<string>("Warrior", "../Assets/Icons/Classes/warrior.png"),
+                new SelectionItem<string>("Warrior", "../Assets/Icons/Classes/warrior.png")
             });
         }
 
