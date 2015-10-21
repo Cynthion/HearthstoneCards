@@ -9,6 +9,7 @@
 
             <!-- Styles from merged Resource Dictionary -->
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="LightStyles.xaml"/>
                 <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

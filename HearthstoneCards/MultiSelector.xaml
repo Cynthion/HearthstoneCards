@@ -14,8 +14,8 @@
             <Setter Property="Background">
                 <Setter.Value>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="DarkBlue" Offset="0.0" />
-                        <GradientStop Color="Black" Offset="1.0" />
+                        <GradientStop Color="Blue" Offset="0.0" />
+                        <GradientStop Color="{StaticResource PhoneBackgroundColor}" Offset="1.0" />
                     </LinearGradientBrush>
                 </Setter.Value>
             </Setter>
@@ -38,7 +38,7 @@
             <FlyoutBase.AttachedFlyout>
                 <Flyout
                     x:Name="XSelectionFlyout"
-                    Placement="Top">
+                    Placement="Full">
                     <StackPanel>
                         <ListBox
                             ItemsSource="{Binding Options}"
@@ -50,20 +50,28 @@
                             ItemContainerStyle="{StaticResource CheckboxListBoxItemStyle}">
                         </ListBox>
                         <Button
+                            Margin="10"
                             Style="{StaticResource BorderlessButton}"
-                            Click="ButtonBase_OnClick">
-                            <TextBlock
-                                Text="Done"
-                                Style="{StaticResource BodySmallSized}"/>
+                            Click="ButtonBase_OnClick"
+                            HorizontalAlignment="Stretch">
+                            <Grid Background="Blue"
+                                  Height="30">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Text="Done"
+                                
+                                    Style="{StaticResource BodySmallSized}"/>
+                            </Grid>
                         </Button>
                     </StackPanel>
-                    <Flyout.FlyoutPresenterStyle>
+                    <!--<Flyout.FlyoutPresenterStyle>
                         <Style TargetType="FlyoutPresenter">
-                            <Setter Property="Background" Value="Red"/>
-                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                         </Style>
-                    </Flyout.FlyoutPresenterStyle>
+                    </Flyout.FlyoutPresenterStyle>-->
                 </Flyout>
             </FlyoutBase.AttachedFlyout>
         </Grid>
