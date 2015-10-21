@@ -1,0 +1,69 @@
+﻿<UserControl
+    x:Class="HearthstoneCards.MultiSelector"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+    <!--DataContext="{Binding RelativeSource={RelativeSource Self}}">-->
+
+    <Grid x:Name="XLayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid 
+            Grid.Row="0"
+            Tapped="Grid_OnTapped">
+            <TextBlock
+                Text="{Binding Title}"/>
+            <FlyoutBase.AttachedFlyout>
+                <Flyout
+                    x:Name="XSelectionFlyout"
+                    Placement="Full">
+                    <StackPanel>
+                        <ListBox
+                            x:Name="XOptionList"
+                            ItemsSource="{Binding Options}"
+                            SelectionChanged="XOptionList_OnSelectionChanged"
+                            VerticalAlignment="Center"
+                            SelectionMode="Multiple">
+                        </ListBox>
+                        <Button
+                            Content="Done"
+                            Click="ButtonBase_OnClick"/>
+                    </StackPanel>
+                    <!--<Flyout.FlyoutPresenterStyle>
+                        <Style TargetType="FlyoutPresenter">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="VerticalContentAlignment" Value="Bottom" />
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        </Style>
+                    </Flyout.FlyoutPresenterStyle>-->
+                </Flyout>
+            </FlyoutBase.AttachedFlyout>
+        </Grid>
+        <TextBlock 
+            Grid.Row="1"
+            Text="{Binding Status}"/>
+        <!-- WrapGrid --><!--
+        <ListView
+            Grid.Row="2"
+            ItemsSource="{Binding SelectedOptions}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>-->
+    </Grid>
+    
+    
+</UserControl>

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Input;
 
 namespace HearthstoneCards
 {
@@ -12,6 +14,8 @@ namespace HearthstoneCards
         {
             InitializeComponent();
             XLayoutRoot.DataContext = this;
+
+            Status = "None";
         }
 
         public static readonly DependencyProperty TitleProperty =
@@ -42,7 +46,11 @@ namespace HearthstoneCards
 
             // 2. change selection status
             var status = string.Empty;
-            if (selectedOptions.Count == ((IList)dobj.GetValue(OptionsProperty)).Count)
+            if (selectedOptions.Count == 0)
+            {
+                status = "None";
+            }
+            else if (selectedOptions.Count == ((IList)dobj.GetValue(OptionsProperty)).Count)
             {
                 status = "All";
             }
@@ -79,7 +87,7 @@ namespace HearthstoneCards
         public string Status
         {
             get { return (string)GetValue(StatusProperty); }
-            // private set { SetValue(StatusProperty, value); }
+            private set { SetValue(StatusProperty, value); }
         }
 
         public IList Options
@@ -112,6 +120,16 @@ namespace HearthstoneCards
                 }
             }
             SelectionOptions_OnChanged(this);
+        }
+
+        private void Grid_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            FlyoutBase.ShowAttachedFlyout(sender as Grid);
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            XSelectionFlyout.Hide();
         }
     }
 }
