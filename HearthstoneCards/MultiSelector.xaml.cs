@@ -20,8 +20,6 @@ namespace HearthstoneCards
         {
             InitializeComponent();
             XLayoutRoot.DataContext = this;
-
-            SelectionOptions_OnChanged(this);
         }
 
         public static readonly DependencyProperty TitleProperty =
@@ -31,32 +29,25 @@ namespace HearthstoneCards
             DependencyProperty.Register("Status", typeof(string), typeof(MultiSelector), new PropertyMetadata(default(string)));
 
         public static readonly DependencyProperty OptionsProperty =
-            DependencyProperty.Register("Options", typeof(List<SelectionItem<string>>), typeof(MultiSelector), new PropertyMetadata(new List<SelectionItem<string>>()));
-
-        public static readonly DependencyProperty SelectedOptionsProperty =
-            DependencyProperty.Register("SelectedOptions", typeof(List<SelectionItem<string>>), typeof(MultiSelector), new PropertyMetadata(new List<SelectionItem<string>>(), SelectedOptions_PropertyChangedCallback));
-
-        // If list content changes, this needs to be called manually. (DependencyProperty value does not change.)
-        private static void SelectedOptions_PropertyChangedCallback(DependencyObject dobj, DependencyPropertyChangedEventArgs eventArgs)
-        {
-            SelectionOptions_OnChanged(dobj);
-        }
+            DependencyProperty.Register("Options", typeof(IList), typeof(MultiSelector), new PropertyMetadata(new List<string>()));
 
         public static readonly DependencyProperty ItemTemplateProperty =
             DependencyProperty.Register("ItemTemplate", typeof(DataTemplate), typeof(MultiSelector), new PropertyMetadata(default(DataTemplate)));
 
-        private static void SelectionOptions_OnChanged(DependencyObject dobj)
+        private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // 1. sort
-            var selectedOptions = ((List<SelectionItem<string>>)dobj.GetValue(SelectedOptionsProperty)).OrderBy(i => i.Key).ToList();
+            var listBox = (ListBox)sender;
 
-            // 2. change selection status
+            // TODO sort?
+            var selectedOptions = listBox.SelectedItems;
+
+            // change status
             var status = string.Empty;
             if (selectedOptions.Count == 0)
             {
                 status = "None";
             }
-            else if (selectedOptions.Count == ((IList)dobj.GetValue(OptionsProperty)).Count)
+            else if (selectedOptions.Count == ((IList)GetValue(OptionsProperty)).Count)
             {
                 status = "All";
             }
@@ -66,22 +57,28 @@ namespace HearthstoneCards
                 {
                     for (var i = 0; i < selectedOptions.Count - 1; i++)
                     {
-                        status += selectedOptions[i].Key + ", ";
+                        status += selectedOptions[i] + ", ";
                     }
-                    status += selectedOptions[selectedOptions.Count - 1].Key;
+                    status += selectedOptions[selectedOptions.Count - 1];
                 }
                 else
                 {
                     const int threshold = 3;
                     for (var i = 0; i < threshold - 1; i++)
                     {
-                        status += selectedOptions[i].Key + ", ";
+                        status += selectedOptions[i] + ", ";
                     }
-                    status += selectedOptions[threshold - 1].Key;
+                    status += selectedOptions[threshold - 1];
                     status += string.Format(" and {0} more.", selectedOptions.Count - threshold);
                 }
             }
-            dobj.SetValue(StatusProperty, status);
+            SetValue(StatusProperty, status);
+
+            // fire public control event
+            if (SelectionChanged != null)
+            {
+                SelectionChanged(this, e);
+            }
         }
 
         public string Title
@@ -96,45 +93,16 @@ namespace HearthstoneCards
             private set { SetValue(StatusProperty, value); }
         }
 
-        public List<SelectionItem<string>> Options
+        public IList Options
         {
-            get { return (List<SelectionItem<string>>)GetValue(OptionsProperty); }
+            get { return (IList)GetValue(OptionsProperty); }
             set { SetValue(OptionsProperty, value); }
-        }
-
-        public List<SelectionItem<string>> SelectedOptions
-        {
-            get { return (List<SelectionItem<string>>)GetValue(SelectedOptionsProperty); }
-            set { SetValue(SelectedOptionsProperty, value);}
         }
 
         public DataTemplate ItemTemplate
         {
             get { return (DataTemplate)GetValue(ItemTemplateProperty); }
             set { SetValue(ItemTemplateProperty, value); }
-        }
-
-        private void XOptionList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            foreach (SelectionItem<string> addedItem in e.AddedItems)
-            {
-                if (!SelectedOptions.Contains(addedItem))
-                {
-                    SelectedOptions.Add(addedItem);
-                }
-            }
-            foreach (SelectionItem<string> removedItem in e.RemovedItems)
-            {
-                if (SelectedOptions.Contains(removedItem))
-                {
-                    SelectedOptions.Remove(removedItem);
-                }
-            }
-            SelectionOptions_OnChanged(this);
-            if (SelectionChanged != null)
-            {
-                SelectionChanged(this, e);
-            }
         }
 
         private void Grid_OnTapped(object sender, TappedRoutedEventArgs e)

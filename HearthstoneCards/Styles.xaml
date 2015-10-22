@@ -167,7 +167,6 @@
     <!-- CheckboxListBoxItem -->
     <Style x:Key="CheckboxListBoxItemStyle" TargetType="ListBoxItem">
         <Setter Property="Margin" Value="10, 0"/>
-        <!-- TODO how to bind to SelectionItem.IsSelected -->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">

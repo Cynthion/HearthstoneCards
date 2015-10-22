@@ -42,7 +42,7 @@
                     <StackPanel>
                         <ListBox
                             ItemsSource="{Binding Options}"
-                            SelectionChanged="XOptionList_OnSelectionChanged"
+                            SelectionChanged="OnSelectionChanged"
                             VerticalAlignment="Center"
                             SelectionMode="Multiple"
                             ItemTemplate="{Binding ItemTemplate}"

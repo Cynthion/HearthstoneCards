@@ -19,14 +19,14 @@ namespace HearthstoneCards.ViewModel
     {
         private readonly List<Card> _allCards; 
 
-        public IList<SelectionItem<string>> ClassOptions { get; private set; }
+        public ObservableCollection<SelectionItem<string>> ClassOptions { get; private set; }
 
         public ObservableRangeCollection<Card> FilterResults { get; private set; }
         private int _filterResultCount;
 
         public MainViewModel()
         {
-            ClassOptions = new List<SelectionItem<string>>(new List<SelectionItem<string>>
+            ClassOptions = new ObservableCollection<SelectionItem<string>>(new List<SelectionItem<string>>
             {
                 new SelectionItem<string>("Druid", "../Assets/Icons/Classes/druid.png"),
                 new SelectionItem<string>("Hunter", "../Assets/Icons/Classes/hunter.png"),
