@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:slideView="using:HearthstoneCards.SlideView"
+    xmlns:helper="using:HearthstoneCards.Helper"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -17,40 +18,78 @@
                 <TextBlock Text="{Binding Class}"/>
             </StackPanel>
         </DataTemplate>
+        <DataTemplate x:Key="ClassOptionItemTemplate">
+            <StackPanel
+                Margin="20, 0"
+                Orientation="Horizontal"
+                VerticalAlignment="Center">
+                <Image
+                    Margin="0,0,10,0"
+                    Width="50"
+                    Height="50"
+                    Source="{Binding Value}"
+                    Stretch="UniformToFill"/>
+                <TextBlock 
+                    Text="{Binding Key}"
+                    Foreground="White"
+                    VerticalAlignment="Center"/>
+            </StackPanel>
+        </DataTemplate>
+
     </Page.Resources>
     
     <slideView:SlideView>
         <Grid Width="300" Background="Red">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            <TextBlock 
+                Grid.Row="1" Text="Classes"/>
+            <ListView 
+                Grid.Row="2"
+                ItemsSource="{Binding ClassOptions}"
+                SelectionMode="Multiple">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Key}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="helper:BindingHelper.IsSelectedContainerBinding" Value="IsSelected"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListViewItem">
+                                    <CheckBox
+                                        Background="Green"
+                                        VerticalAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Stretch"
+                                        IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsSelected, Mode=TwoWay}">
+                                        <ContentPresenter/>
+                                    </CheckBox>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
             
-            <local:MultiSelector
+            <!--<local:MultiSelector
                 Grid.Row="1"
                 Title="Class"
                 Options="{Binding ClassOptions}"
+                ItemTemplate="{StaticResource ClassOptionItemTemplate}"
                 SelectionChanged="MultiSelector_OnSelectionChanged">
-                <local:MultiSelector.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel
-                            Margin="20, 0"
-                            Orientation="Horizontal"
-                            VerticalAlignment="Center">
-                            <Image
-                                Margin="0,0,10,0"
-                                Width="50"
-                                Height="50"
-                                Source="{Binding Value}"
-                                Stretch="UniformToFill"/>
-                            <TextBlock 
-                                Text="{Binding Key}"
-                                Foreground="White"
-                                VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </local:MultiSelector.ItemTemplate>
-            </local:MultiSelector>
+                <local:MultiSelector.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource CheckboxListBoxItemStyle}">
+                        <Setter Property="IsSelected" Value="True"/>
+                    </Style>
+                </local:MultiSelector.ItemContainerStyle>
+            </local:MultiSelector>-->
         </Grid>
         <Grid Background="Yellow"/>
     </slideView:SlideView>

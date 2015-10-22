@@ -26,66 +26,17 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid 
             Grid.Row="0"
             Style="{StaticResource GridStyle}"
             Tapped="Grid_OnTapped">
+            
             <TextBlock
                 Margin="10"
                 Text="{Binding Title}"
                 Style="{StaticResource TitleMediumSizedBold}"/>
-            <FlyoutBase.AttachedFlyout>
-                <ListPickerFlyout
-                    SelectionMode="Multiple"
-                    ItemsSource="{Binding Options}"
-                    ItemTemplate="{Binding ItemTemplate}"/>
-                <!--<Flyout
-                    x:Name="XSelectionFlyout"
-                    Placement="Top">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Button
-                            Grid.Row="0"
-                            Margin="10"
-                            Style="{StaticResource BorderlessButton}"
-                            Click="ButtonBase_OnClick"
-                            HorizontalAlignment="Stretch">
-                            <Grid Background="Blue"
-                                  Height="50">
-                                <TextBlock
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Text="Done"
-                                    Style="{StaticResource TitleMediumSizedBold}"/>
-                            </Grid>
-                        </Button>
-                        <ScrollViewer
-                            Grid.Row="1">
-                            <ListBox
-                                ItemsSource="{Binding Options}"
-                                SelectionChanged="OnSelectionChanged"
-                                VerticalAlignment="Center"
-                                SelectionMode="Multiple"
-                                ItemTemplate="{Binding ItemTemplate}"
-                                Style="{StaticResource FullWidthListBoxStyle}"
-                                ItemContainerStyle="{StaticResource CheckboxListBoxItemStyle}">
-                            </ListBox>
-                        </ScrollViewer>
-                    </Grid>
-                    --><!--<Flyout.FlyoutPresenterStyle>
-                        <Style TargetType="FlyoutPresenter">
-                            <Setter Property="MaxHeight" Value="300"/>
-                            <Setter Property="Margin" Value="20"/>
-                            <Setter Property="VerticalContentAlignment" Value="Center"/>
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </Flyout.FlyoutPresenterStyle>--><!--
-                </Flyout>-->
-            </FlyoutBase.AttachedFlyout>
         </Grid>
         <TextBlock 
             Grid.Row="1"

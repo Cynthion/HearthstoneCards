@@ -15,13 +15,13 @@
         </Grid.RowDefinitions>
         <ListBox
             Grid.Row="0"
-            ItemsSource="{Binding Options}"
-            SelectionChanged="OnSelectionChanged"
             VerticalAlignment="Center"
             SelectionMode="Multiple"
-            ItemTemplate="{Binding ItemTemplate}"
-            Style="{StaticResource FullWidthListBoxStyle}"
-            ItemContainerStyle="{StaticResource CheckboxListBoxItemStyle}">
+            SelectionChanged="OnSelectionChanged"
+            ItemsSource="{Binding MultiSelector.Options}"
+            ItemTemplate="{Binding MultiSelector.ItemTemplate}"
+            ItemContainerStyle="{Binding MultiSelector.ItemContainerStyle}"
+            Style="{StaticResource FullWidthListBoxStyle}">
         </ListBox>
         <Button
             Grid.Row="1"

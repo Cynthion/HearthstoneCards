@@ -28,7 +28,7 @@ namespace HearthstoneCards.ViewModel
         {
             ClassOptions = new ObservableCollection<SelectionItem<string>>(new List<SelectionItem<string>>
             {
-                new SelectionItem<string>("Druid", "../Assets/Icons/Classes/druid.png"),
+                new SelectionItem<string>("Druid", "../Assets/Icons/Classes/druid.png") { IsSelected = true },
                 new SelectionItem<string>("Hunter", "../Assets/Icons/Classes/hunter.png"),
                 new SelectionItem<string>("Mage", "../Assets/Icons/Classes/mage.png"),
                 new SelectionItem<string>("Paladin", "../Assets/Icons/Classes/paladin.png"),

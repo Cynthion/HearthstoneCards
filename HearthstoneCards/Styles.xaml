@@ -3,6 +3,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:slideView="using:HearthstoneCards.SlideView">
 
+
+    
+    <!-- GLOBAL -->
+    <!-- TextBlock -->
+    <Style x:Key="BodyNormalSized" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe WP SemiLight"/>
+        <Setter Property="FontSize" Value="16"/>
+    </Style>
+    <Style TargetType="TextBlock" BasedOn="{StaticResource BodyNormalSized}"/>
+    <!-- SlideView -->
     <Style TargetType="slideView:SlideView">
         <Setter Property="Background"
                 Value="Transparent" />
@@ -28,8 +38,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-    <!-- GLOBAL -->
     <!-- Checkbox Style (accent forecolor) -->
     <Style TargetType="CheckBox">
         <Setter Property="Background" Value="{ThemeResource CheckBoxBackgroundThemeBrush}"/>
@@ -168,10 +176,7 @@
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
     </Style>
-    <Style x:Key="BodyNormalSized" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="Segoe WP SemiLight"/>
-        <Setter Property="FontSize" Value="16"/>
-    </Style>
+
     <Style x:Key="BodySmallSized" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="Segoe WP SemiLight"/>
         <Setter Property="FontSize" Value="14"/>

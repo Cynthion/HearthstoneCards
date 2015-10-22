@@ -93,6 +93,7 @@
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Helper\ApiCaller.cs" />
+    <Compile Include="Helper\BindingHelper.cs" />
     <Compile Include="Helper\CardConverter.cs" />
     <Compile Include="Helper\GlobalCollectionConverter.cs" />
     <Compile Include="Helper\Storage.cs" />
