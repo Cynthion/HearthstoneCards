@@ -6,6 +6,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media.Animation;
+using HearthstoneCards.Common;
 using WPDevToolkit.Selection;
 
 namespace HearthstoneCards
@@ -107,12 +109,13 @@ namespace HearthstoneCards
 
         private void Grid_OnTapped(object sender, TappedRoutedEventArgs e)
         {
-            FlyoutBase.ShowAttachedFlyout(sender as Grid);
+            //FlyoutBase.ShowAttachedFlyout(sender as Grid);
+            ((Frame)Window.Current.Content).Navigate(typeof(MultiSelectorPage), this, new ContinuumNavigationTransitionInfo());
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            XSelectionFlyout.Hide();
+            // XSelectionFlyout.Hide();
         }
     }
 }

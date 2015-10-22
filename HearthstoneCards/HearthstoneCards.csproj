@@ -105,6 +105,9 @@
     <Compile Include="MultiSelector.xaml.cs">
       <DependentUpon>MultiSelector.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MultiSelectorPage.xaml.cs">
+      <DependentUpon>MultiSelectorPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -169,6 +172,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MultiSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MultiSelectorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

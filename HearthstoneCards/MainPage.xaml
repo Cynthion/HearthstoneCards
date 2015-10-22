@@ -72,20 +72,21 @@
                             SelectionChanged="MultiSelector_OnSelectionChanged">
                             <local:MultiSelector.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Image
-                                                Margin="0,0,10,0"
-                                                Width="50"
-                                                Height="50"
-                                                Source="{Binding Value}"
-                                                Stretch="UniformToFill"/>
-                                                            <TextBlock 
-                                                Text="{Binding Key}"
-                                                Foreground="White"
-                                                VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Grid>
+                                    <StackPanel
+                                        Margin="20, 0"
+                                        Orientation="Horizontal"
+                                        VerticalAlignment="Center">
+                                        <Image
+                                            Margin="0,0,10,0"
+                                            Width="50"
+                                            Height="50"
+                                            Source="{Binding Value}"
+                                            Stretch="UniformToFill"/>
+                                        <TextBlock 
+                                            Text="{Binding Key}"
+                                            Foreground="White"
+                                            VerticalAlignment="Center"/>
+                                    </StackPanel>
                                 </DataTemplate>
                             </local:MultiSelector.ItemTemplate>
                         </local:MultiSelector>

@@ -2,7 +2,8 @@
     x:Class="HearthstoneCards.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:HearthstoneCards">
+    xmlns:local="using:HearthstoneCards"
+    xmlns:converter="using:WPDevToolkit.Converter">
 
     <Application.Resources>
         <ResourceDictionary>
@@ -12,6 +13,10 @@
                 <ResourceDictionary Source="LightStyles.xaml"/>
                 <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- CONVERTERS -->
+            <converter:ScreenSizeConverter x:Key="ScreenSizeConverter"/>
+
         </ResourceDictionary>
     </Application.Resources>
     
