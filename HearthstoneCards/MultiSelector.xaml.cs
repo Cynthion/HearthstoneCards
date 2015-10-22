@@ -36,7 +36,7 @@ namespace HearthstoneCards
         public static readonly DependencyProperty ItemTemplateProperty =
             DependencyProperty.Register("ItemTemplate", typeof(DataTemplate), typeof(MultiSelector), new PropertyMetadata(default(DataTemplate)));
 
-        private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        internal void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var listBox = (ListBox)sender;
 
@@ -110,12 +110,9 @@ namespace HearthstoneCards
         private void Grid_OnTapped(object sender, TappedRoutedEventArgs e)
         {
             //FlyoutBase.ShowAttachedFlyout(sender as Grid);
-            ((Frame)Window.Current.Content).Navigate(typeof(MultiSelectorPage), this, new ContinuumNavigationTransitionInfo());
+            ((Frame)Window.Current.Content).Navigate(typeof(MultiSelectorPage), this);
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-            // XSelectionFlyout.Hide();
-        }
+
     }
 }

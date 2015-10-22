@@ -9,6 +9,34 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ListBox
+            Grid.Row="0"
+            ItemsSource="{Binding Options}"
+            SelectionChanged="OnSelectionChanged"
+            VerticalAlignment="Center"
+            SelectionMode="Multiple"
+            ItemTemplate="{Binding ItemTemplate}"
+            Style="{StaticResource FullWidthListBoxStyle}"
+            ItemContainerStyle="{StaticResource CheckboxListBoxItemStyle}">
+        </ListBox>
+        <Button
+            Grid.Row="1"
+            Margin="10"
+            Style="{StaticResource BorderlessButton}"
+            Click="ButtonBase_OnClick"
+            HorizontalAlignment="Stretch">
+            <Grid Background="Blue"
+                  Height="50">
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Text="Done"
+                Style="{StaticResource TitleMediumSizedBold}"/>
+            </Grid>
+        </Button>
     </Grid>
 </local:BasePage>

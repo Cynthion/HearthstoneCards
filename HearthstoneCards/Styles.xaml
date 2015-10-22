@@ -1,8 +1,34 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:slideView="using:HearthstoneCards.SlideView">
 
-  
+    <Style TargetType="slideView:SlideView">
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <slideView:SlideViewPanel />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="slideView:SlideView">
+                    <Border Background="{TemplateBinding Background}">
+                        <Grid>
+                            <Grid.RenderTransform>
+                                <TranslateTransform x:Name="SlidingTransform" />
+                            </Grid.RenderTransform>
+                            <ItemsPresenter x:Name="ItemsList" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <!-- GLOBAL -->
     <!-- Checkbox Style (accent forecolor) -->
     <Style TargetType="CheckBox">

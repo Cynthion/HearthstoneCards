@@ -5,6 +5,7 @@
     xmlns:local="using:HearthstoneCards"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:slideView="using:HearthstoneCards.SlideView"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -18,9 +19,45 @@
         </DataTemplate>
     </Page.Resources>
     
-    <Grid>
+    <slideView:SlideView>
+        <Grid Width="300" Background="Red">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <local:MultiSelector
+                Grid.Row="1"
+                Title="Class"
+                Options="{Binding ClassOptions}"
+                SelectionChanged="MultiSelector_OnSelectionChanged">
+                <local:MultiSelector.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel
+                            Margin="20, 0"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center">
+                            <Image
+                                Margin="0,0,10,0"
+                                Width="50"
+                                Height="50"
+                                Source="{Binding Value}"
+                                Stretch="UniformToFill"/>
+                            <TextBlock 
+                                Text="{Binding Key}"
+                                Foreground="White"
+                                VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </local:MultiSelector.ItemTemplate>
+            </local:MultiSelector>
+        </Grid>
+        <Grid Background="Yellow"/>
+    </slideView:SlideView>
+    
+    <!--<Grid>
         <Hub>
-            <!-- Filters -->
+            --><!-- Filters --><!--
             <HubSection>
                 <DataTemplate>
                     <Grid>
@@ -43,28 +80,28 @@
                         <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
                         <Button  Grid.Row="0" Grid.Column="3"
             Content="Go"/>
-                        <!-- Cost -->
+                        --><!-- Cost --><!--
                         <TextBlock Grid.Row="1" Grid.Column="0"
             Text="Cost"/>
                         <TextBox Grid.Row="1" Grid.Column="1"/>
                         <TextBlock Grid.Row="1" Grid.Column="2"
             Text="-"/>
                         <TextBox Grid.Row="1" Grid.Column="3"/>
-                        <!-- Attack -->
+                        --><!-- Attack --><!--
                         <TextBlock Grid.Row="2" Grid.Column="0"
             Text="Attack"/>
                         <TextBox Grid.Row="2" Grid.Column="1"/>
                         <TextBlock Grid.Row="2" Grid.Column="2"
             Text="-"/>
                         <TextBox Grid.Row="2" Grid.Column="3"/>
-                        <!-- Health -->
+                        --><!-- Health --><!--
                         <TextBlock Grid.Row="3" Grid.Column="0"
             Text="Health"/>
                         <TextBox Grid.Row="3" Grid.Column="1"/>
                         <TextBlock Grid.Row="3" Grid.Column="2"
             Text="-"/>
                         <TextBox Grid.Row="3" Grid.Column="3"/>
-                        <!-- Class Filter -->
+                        --><!-- Class Filter --><!--
                         <local:MultiSelector
                             Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4"
                             Title="Class"
@@ -90,7 +127,7 @@
                                 </DataTemplate>
                             </local:MultiSelector.ItemTemplate>
                         </local:MultiSelector>
-                        <!--<Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4">
+                        --><!--<Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4">
             <Button.Flyout>
                 <Flyout>
                     <ListBox
@@ -102,7 +139,7 @@
 
                 </Flyout>
             </Button.Flyout>
-        </Button>-->
+        </Button>--><!--
                         <StackPanel 
                             Grid.Row="6"
                             Grid.Column="0"
@@ -121,7 +158,7 @@
                 </DataTemplate>
             </HubSection>
             
-            <!-- Lists -->
+            --><!-- Lists --><!--
             <HubSection>
                 <DataTemplate>
                     <Grid>
@@ -143,6 +180,6 @@
                 </DataTemplate>
             </HubSection>
         </Hub>
-    </Grid>
+    </Grid>-->
 
 </local:BasePage>
