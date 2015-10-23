@@ -13,6 +13,8 @@
         <caroussel:Caroussel
             x:Name="XLightStoneElement"
             ItemsSource="{Binding PresentedResults}"
+            TransitionDuration="1000"
+            MaxVisibleItems="7"
             SelectedIndex="0"
             Rotation="50"
             Depth="660"

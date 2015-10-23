@@ -6,85 +6,95 @@ namespace HearthstoneCards.Caroussel
 {
     public static class StoryboardExtensions
     {
-        public static void AddAnimation(this Storyboard storyboard, DependencyObject element, Timeline timeline, String propertyPath)
+        public static void AddAnimation(this Storyboard storyboard, DependencyObject element, Timeline timeline, string propertyPath)
         {
             storyboard.Children.Add(timeline);
             Storyboard.SetTarget(timeline, element);
             Storyboard.SetTargetProperty(timeline, propertyPath);
         }
 
-        public static void AddAnimation(this Storyboard storyboard, DependencyObject element,
-                                        int duration, double toValue, String propertyPath,
-                                        EasingFunctionBase easingFunction = null)
+        public static void AddAnimation(this Storyboard storyboard, DependencyObject element, int duration, double toValue, string propertyPath, EasingFunctionBase easingFunction = null)
         {
-            DoubleAnimation timeline = new DoubleAnimation();
-            timeline.To = toValue;
-            timeline.Duration = TimeSpan.FromMilliseconds(duration);
+            var animation = new DoubleAnimation
+            {
+                To = toValue,
+                Duration = TimeSpan.FromMilliseconds(duration)
+            };
             if (easingFunction != null)
-                timeline.EasingFunction = easingFunction;
+            {
+                animation.EasingFunction = easingFunction;
+            }
 
-            storyboard.Children.Add(timeline);
-
-            Storyboard.SetTarget(timeline, element);
-            Storyboard.SetTargetProperty(timeline, propertyPath);
+            storyboard.Children.Add(animation);
+            Storyboard.SetTarget(animation, element);
+            Storyboard.SetTargetProperty(animation, propertyPath);
         }
 
-        public static void AddAnimation(this Storyboard storyboard, DependencyObject element,
-                                         int duration, double fromValue, double toValue, String propertyPath,
-                                         EasingFunctionBase easingFunction = null)
+        public static void AddAnimation(this Storyboard storyboard, DependencyObject element, int duration, double fromValue, double toValue, string propertyPath, EasingFunctionBase easingFunction = null)
         {
-            DoubleAnimation timeline = new DoubleAnimation();
-            timeline.From = fromValue;
-            timeline.To = toValue;
-            timeline.Duration = TimeSpan.FromMilliseconds(duration);
+            var animation = new DoubleAnimation
+            {
+                From = fromValue,
+                To = toValue,
+                Duration = TimeSpan.FromMilliseconds(duration)
+            };
             if (easingFunction != null)
-                timeline.EasingFunction = easingFunction;
+            {
+                animation.EasingFunction = easingFunction;
+            }
 
-            storyboard.Children.Add(timeline);
-
-            Storyboard.SetTarget(timeline, element);
-            Storyboard.SetTargetProperty(timeline, propertyPath);
+            storyboard.Children.Add(animation);
+            Storyboard.SetTarget(animation, element);
+            Storyboard.SetTargetProperty(animation, propertyPath);
         }
 
-        public static void Animate(this DependencyObject element, string propertyPath,
-                               int duration, double toValue, EasingFunctionBase easingFunction = null, EventHandler<Object> completed = null)
+        public static void Animate(this DependencyObject element, string propertyPath, int duration, double toValue, EasingFunctionBase easingFunction = null, EventHandler<object> completed = null)
         {
-            DoubleAnimation timeline = new DoubleAnimation();
-            timeline.To = toValue;
-            timeline.Duration = TimeSpan.FromMilliseconds(duration);
+            var timeline = new DoubleAnimation
+            {
+                To = toValue,
+                Duration = TimeSpan.FromMilliseconds(duration)
+            };
             if (easingFunction != null)
+            {
                 timeline.EasingFunction = easingFunction;
+            }
 
-            Storyboard sb = new Storyboard();
+            var storyboard = new Storyboard();
             if (completed != null)
-                sb.Completed += completed;
+            {
+                storyboard.Completed += completed;
+            }
 
-            sb.Children.Add(timeline);
-            Storyboard.SetTarget(sb, element);
-            Storyboard.SetTargetProperty(sb, propertyPath);
-            sb.Begin();
-
+            storyboard.Children.Add(timeline);
+            Storyboard.SetTarget(storyboard, element);
+            Storyboard.SetTargetProperty(storyboard, propertyPath);
+            storyboard.Begin();
         }
 
-        public static void Animate(this DependencyObject element, string propertyPath,
-                              int duration, int startingDuration, double toValue, EasingFunctionBase easingFunction = null, EventHandler<Object> completed = null)
+        public static void Animate(this DependencyObject element, string propertyPath, int duration, int startingDuration, double toValue, EasingFunctionBase easingFunction = null, EventHandler<object> completed = null)
         {
-            DoubleAnimation timeline = new DoubleAnimation();
-            timeline.To = toValue;
-            timeline.Duration = TimeSpan.FromMilliseconds(duration);
+            var timeline = new DoubleAnimation
+            {
+                To = toValue,
+                Duration = TimeSpan.FromMilliseconds(duration)
+            };
             if (easingFunction != null)
+            {
                 timeline.EasingFunction = easingFunction;
+            }
 
-            Storyboard sb = new Storyboard();
+            var storyboard = new Storyboard();
             if (completed != null)
-                sb.Completed += completed;
+            {
+                storyboard.Completed += completed;
+            }
 
-            sb.Children.Add(timeline);
-            Storyboard.SetTarget(sb, element);
-            Storyboard.SetTargetProperty(sb, propertyPath);
-            sb.BeginTime = TimeSpan.FromMilliseconds(startingDuration);
-            sb.Begin();
-
+            storyboard.Children.Add(timeline);
+            Storyboard.SetTarget(storyboard, element);
+            Storyboard.SetTargetProperty(storyboard, propertyPath);
+            storyboard.BeginTime = TimeSpan.FromMilliseconds(startingDuration);
+            storyboard.Begin();
         }
     }
 }

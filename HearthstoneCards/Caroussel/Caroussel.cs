@@ -21,7 +21,7 @@ namespace HearthstoneCards.Caroussel
         private bool _isGesture;
 
         // mirror
-        private readonly Rectangle _rectangle = new Rectangle();
+        // private readonly Rectangle _rectangle = new Rectangle();
 
         // internalList keep reference on all UIElement
         private readonly List<UIElement> _internalList = new List<UIElement>();
@@ -32,7 +32,7 @@ namespace HearthstoneCards.Caroussel
         private bool _isUpdatingPosition;
 
         // storyboard on gesture
-        private Storyboard _storyboard = new Storyboard();
+        // private Storyboard _storyboard = new Storyboard();
 
         // temp size
         private double _desiredWidth;
@@ -77,24 +77,24 @@ namespace HearthstoneCards.Caroussel
 
         private static void OnSelectedIndexChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var newIndex = (int) d.GetValue(SelectedIndexProperty);
+            //var newIndex = (int) d.GetValue(SelectedIndexProperty);
             
-            // set SelectedItem
-            d.SetValue(SelectedItemProperty, ((IList)d.GetValue(ItemsSourceProperty))[newIndex]);
+            //// set SelectedItem
+            //d.SetValue(SelectedItemProperty, ((IList)d.GetValue(ItemsSourceProperty))[newIndex]);
 
-            // load more items, if it's done incrementally
-            if (d.GetValue(ItemsSourceProperty) is ISupportIncrementalLoading)
-            {
-                var items = (IList) d.GetValue(ItemsSourceProperty);
-                var range = (int) d.GetValue(MaxVisibleItemsProperty);
-                var loadMore = newIndex + (range/2.0) > items.Count || newIndex - (range/2.0) < 0;
+            //// load more items, if it's done incrementally
+            //if (d.GetValue(ItemsSourceProperty) is ISupportIncrementalLoading)
+            //{
+            //    var items = (IList) d.GetValue(ItemsSourceProperty);
+            //    var range = (int) d.GetValue(MaxVisibleItemsProperty);
+            //    var loadMore = newIndex + (range/2.0) > items.Count || newIndex - (range/2.0) < 0;
 
-                if (loadMore)
-                {
-                    var list = (ISupportIncrementalLoading) d.GetValue(ItemsSourceProperty);
-                    list.LoadMoreItemsAsync(0);
-                }
-            }
+            //    if (loadMore)
+            //    {
+            //        var list = (ISupportIncrementalLoading) d.GetValue(ItemsSourceProperty);
+            //        list.LoadMoreItemsAsync(0);
+            //    }
+            //}
 
             OnLightStonePropertyChanged(d, e);
         }
@@ -113,9 +113,8 @@ namespace HearthstoneCards.Caroussel
             if (args.NewValue == null || args.NewValue == args.OldValue)
                 return;
 
-            var lightStone = dependencyObject as Caroussel;
-
-            if (lightStone == null)
+            var caroussel = dependencyObject as Caroussel;
+            if (caroussel == null)
                 return;
 
             var obsList = args.NewValue as INotifyCollectionChanged;
@@ -128,22 +127,24 @@ namespace HearthstoneCards.Caroussel
                         case NotifyCollectionChangedAction.Remove:
                             foreach (var oldItem in eventArgs.OldItems)
                             {
-                                for (var i = 0; i < lightStone._internalList.Count; i++)
+                                for (var i = 0; i < caroussel._internalList.Count; i++)
                                 {
-                                    var fxElement = lightStone._internalList[i] as FrameworkElement;
+                                    var fxElement = caroussel._internalList[i] as FrameworkElement;
                                     if (fxElement == null || fxElement.DataContext != oldItem) continue;
-                                    lightStone.RemoveAt(i);
+                                    caroussel.RemoveAt(i);
                                 }
                             }
                             break;
                         case NotifyCollectionChangedAction.Add:
                             foreach (var newItem in eventArgs.NewItems)
-                                lightStone.CreateItem(newItem, 0);
+                            {
+                                caroussel.CreateItem(newItem, 0);
+                            }
                             break;
                     }
                 };
             }
-            lightStone.Bind();
+            caroussel.Bind();
         }
 
         private void Bind()
@@ -157,7 +158,7 @@ namespace HearthstoneCards.Caroussel
                 {
                     CreateItem(item);
                 }
-                Children.Add(_rectangle);
+                //Children.Add(_rectangle);
             }
         }
 
@@ -228,7 +229,7 @@ namespace HearthstoneCards.Caroussel
         /// </summary>
         private void UpdatePosition()
         {
-            _storyboard = new Storyboard();
+            var storyboard = new Storyboard();
 
             _isUpdatingPosition = true;
 
@@ -266,19 +267,17 @@ namespace HearthstoneCards.Caroussel
                 SetZIndex(item, zindex);
                 var opacity = 1d - (Math.Abs((double)(i - SelectedIndex) / (MaxVisibleItems + 1)));
 
-                var newVisibility = deltaFromSelectedIndex > MaxVisibleItems
-                               ? Visibility.Collapsed
-                               : Visibility.Visible;
+                var newVisibility = deltaFromSelectedIndex > MaxVisibleItems ? Visibility.Collapsed : Visibility.Visible;
 
                 // item already present
                 if (item.Visibility == newVisibility)
                 {
-                    _storyboard.AddAnimation(item, TransitionDuration, rotation, "(UIElement.Projection).(PlaneProjection.RotationY)", EasingFunction);
-                    _storyboard.AddAnimation(item, TransitionDuration, depth, "(UIElement.Projection).(PlaneProjection.GlobalOffsetZ)", EasingFunction);
-                    _storyboard.AddAnimation(item, TransitionDuration, translateX, "(UIElement.Projection).(PlaneProjection.GlobalOffsetX)", EasingFunction);
-                    _storyboard.AddAnimation(item, TransitionDuration, offsetX, "(UIElement.Projection).(PlaneProjection.LocalOffsetX)", EasingFunction);
-                    _storyboard.AddAnimation(item, TransitionDuration, translateY, "(UIElement.Projection).(PlaneProjection.GlobalOffsetY)", EasingFunction);
-                    _storyboard.AddAnimation(item, TransitionDuration, opacity, "Opacity", EasingFunction);
+                    storyboard.AddAnimation(item, TransitionDuration, rotation, "(UIElement.Projection).(PlaneProjection.RotationY)", EasingFunction);
+                    storyboard.AddAnimation(item, TransitionDuration, depth, "(UIElement.Projection).(PlaneProjection.GlobalOffsetZ)", EasingFunction);
+                    storyboard.AddAnimation(item, TransitionDuration, translateX, "(UIElement.Projection).(PlaneProjection.GlobalOffsetX)", EasingFunction);
+                    storyboard.AddAnimation(item, TransitionDuration, offsetX, "(UIElement.Projection).(PlaneProjection.LocalOffsetX)", EasingFunction);
+                    storyboard.AddAnimation(item, TransitionDuration, translateY, "(UIElement.Projection).(PlaneProjection.GlobalOffsetY)", EasingFunction);
+                    storyboard.AddAnimation(item, TransitionDuration, opacity, "Opacity", EasingFunction);
                 }
                 else if (newVisibility == Visibility.Visible)
                 {
@@ -288,25 +287,27 @@ namespace HearthstoneCards.Caroussel
                 }
                 else if (newVisibility == Visibility.Collapsed)
                 {
-                    _storyboard.AddAnimation(item, TransitionDuration, rotation, "(UIElement.Projection).(PlaneProjection.RotationY)", EasingFunction);
-                    _storyboard.AddAnimation(item, TransitionDuration, depth, "(UIElement.Projection).(PlaneProjection.GlobalOffsetZ)", EasingFunction);
-                    _storyboard.AddAnimation(item, TransitionDuration, translateX, "(UIElement.Projection).(PlaneProjection.GlobalOffsetX)", EasingFunction);
-                    _storyboard.AddAnimation(item, TransitionDuration, offsetX, "(UIElement.Projection).(PlaneProjection.LocalOffsetX)", EasingFunction);
-                    _storyboard.AddAnimation(item, TransitionDuration, translateY, "(UIElement.Projection).(PlaneProjection.GlobalOffsetY)", EasingFunction);
-                    _storyboard.AddAnimation(item, TransitionDuration, 0d, "Opacity", EasingFunction);
-                    _storyboard.Completed += (sender, o) =>
+                    storyboard.AddAnimation(item, TransitionDuration, rotation, "(UIElement.Projection).(PlaneProjection.RotationY)", EasingFunction);
+                    storyboard.AddAnimation(item, TransitionDuration, depth, "(UIElement.Projection).(PlaneProjection.GlobalOffsetZ)", EasingFunction);
+                    storyboard.AddAnimation(item, TransitionDuration, translateX, "(UIElement.Projection).(PlaneProjection.GlobalOffsetX)", EasingFunction);
+                    storyboard.AddAnimation(item, TransitionDuration, offsetX, "(UIElement.Projection).(PlaneProjection.LocalOffsetX)", EasingFunction);
+                    storyboard.AddAnimation(item, TransitionDuration, translateY, "(UIElement.Projection).(PlaneProjection.GlobalOffsetY)", EasingFunction);
+                    storyboard.AddAnimation(item, TransitionDuration, 0d, "Opacity", EasingFunction);
+                    storyboard.Completed += (sender, o) =>
+                    {
                         item.Visibility = Visibility.Collapsed;
+                    };
                 }
             }
 
             // start storyboard
             // when storyboard completed, InvalidateArrange()
-            _storyboard.Completed += (sender, o) =>
+            storyboard.Completed += (sender, o) =>
             {
                 _isUpdatingPosition = false;
                 InvalidateArrange();
             };
-            _storyboard.Begin();
+            storyboard.Begin();
         }
 
         public IList ItemsSource
@@ -378,10 +379,7 @@ namespace HearthstoneCards.Caroussel
 
             Clip = new RectangleGeometry { Rect = new Rect(0, 0, finalSize.Width, finalSize.Height) };
 
-            // Set 
-            SetZIndex(_rectangle, 1);
-
-            // Storyboard for all Items to appear
+            // storyboard for all items to appear
             var localStoryboard = new Storyboard();
 
             for (var i = 0; i < _internalList.Count; i++)
@@ -389,7 +387,10 @@ namespace HearthstoneCards.Caroussel
                 var container = _internalList[i];
 
                 var desiredSize = container.DesiredSize;
-                if (double.IsNaN(desiredSize.Width) || double.IsNaN(desiredSize.Height)) continue;
+                if (double.IsNaN(desiredSize.Width) || double.IsNaN(desiredSize.Height))
+                {
+                    continue;
+                }
 
                 // get the good center and top position
                 if (centerLeft == 0 && centerTop == 0 && desiredSize.Width > 0 && desiredSize.Height > 0)
@@ -401,23 +402,24 @@ namespace HearthstoneCards.Caroussel
                     centerTop = (finalSize.Height - _desiredHeight) / 2;
                 }
 
-                // Get position from SelectedIndex
+                // get position from SelectedIndex
                 var deltaFromSelectedIndex = Math.Abs(SelectedIndex - i);
 
-                // Get rect position
+                // get rect position
                 var rect = new Rect(centerLeft, centerTop, _desiredWidth, _desiredHeight);
 
                 container.Arrange(rect);
                 SetLeft(container, centerLeft);
                 SetTop(container, centerTop);
 
-                // Apply Transform
-                PlaneProjection planeProjection = container.Projection as PlaneProjection;
-
+                // apply transform
+                var planeProjection = container.Projection as PlaneProjection;
                 if (planeProjection == null)
+                {
                     continue;
+                }
 
-                // Get properies 
+                // get properies 
                 var depth = (i == SelectedIndex) ? 0 : -(Depth);
                 var rotation = (i == SelectedIndex) ? 0 : ((i < SelectedIndex) ? Rotation : -(Rotation));
                 var translateX = (i == SelectedIndex) ? 0 : ((i < SelectedIndex) ? -TranslateX : TranslateX);
@@ -425,11 +427,11 @@ namespace HearthstoneCards.Caroussel
                 var translateY = TranslateY;
 
                 // CenterOfRotationX
-                // to Get good center of rotation for SelectedIndex, must know the animation behavior
+                // to get good center of rotation for SelectedIndex, must know the animation behavior
                 var centerOfRotationSelectedIndex = _isGesture ? 1 : 0;
                 var centerOfRotationX = (i == SelectedIndex) ? centerOfRotationSelectedIndex : ((i > SelectedIndex) ? 1 : 0);
 
-                // Apply on current item
+                // apply on current item
                 planeProjection.CenterOfRotationX = centerOfRotationX;
                 planeProjection.GlobalOffsetY = translateY;
                 planeProjection.GlobalOffsetZ = depth;
@@ -439,33 +441,32 @@ namespace HearthstoneCards.Caroussel
 
                 // calculate zindex and opacity
                 var zindex = (_internalList.Count * 100) - deltaFromSelectedIndex;
-                var opacity = 1d - (Math.Abs((double)(i - SelectedIndex) / (MaxVisibleItems + 1)));
-
-                // Items appears
-                if (container.Visibility == Visibility.Visible && container.Opacity == 0d)
-                {
-                    localStoryboard.AddAnimation(container, TransitionDuration, rotation, "(UIElement.Projection).(PlaneProjection.RotationY)", EasingFunction);
-                    localStoryboard.AddAnimation(container, TransitionDuration, depth, "(UIElement.Projection).(PlaneProjection.GlobalOffsetZ)", EasingFunction);
-                    localStoryboard.AddAnimation(container, TransitionDuration, translateX, "(UIElement.Projection).(PlaneProjection.GlobalOffsetX)", EasingFunction);
-                    localStoryboard.AddAnimation(container, TransitionDuration, offsetX, "(UIElement.Projection).(PlaneProjection.LocalOffsetX)", EasingFunction);
-                    localStoryboard.AddAnimation(container, TransitionDuration, translateY, "(UIElement.Projection).(PlaneProjection.GlobalOffsetY)", EasingFunction);
-                    localStoryboard.AddAnimation(container, TransitionDuration, 0, opacity, "Opacity", EasingFunction);
-                }
-                else
-                {
-
-                    container.Opacity = opacity;
-                }
                 SetZIndex(container, zindex);
+                // var opacity = 1d - (Math.Abs((double)(i - SelectedIndex) / (MaxVisibleItems + 1)));
+
+                // items appears
+                //if (container.Visibility == Visibility.Visible && container.Opacity == 0d)
+                //{
+                //    //localStoryboard.AddAnimation(container, TransitionDuration, rotation, "(UIElement.Projection).(PlaneProjection.RotationY)", EasingFunction);
+                //    //localStoryboard.AddAnimation(container, TransitionDuration, depth, "(UIElement.Projection).(PlaneProjection.GlobalOffsetZ)", EasingFunction);
+                //    //localStoryboard.AddAnimation(container, TransitionDuration, translateX, "(UIElement.Projection).(PlaneProjection.GlobalOffsetX)", EasingFunction);
+                //    //localStoryboard.AddAnimation(container, TransitionDuration, offsetX, "(UIElement.Projection).(PlaneProjection.LocalOffsetX)", EasingFunction);
+                //    //localStoryboard.AddAnimation(container, TransitionDuration, translateY, "(UIElement.Projection).(PlaneProjection.GlobalOffsetY)", EasingFunction);
+                //    //localStoryboard.AddAnimation(container, TransitionDuration, 0, opacity, "Opacity", EasingFunction);
+                //}
+                //else
+                //{
+                //    container.Opacity = opacity;
+                //}
             }
 
-            _rectangle.Fill = new SolidColorBrush(Colors.Black);
-            _rectangle.Opacity = 0.9;
-            SetLeft(_rectangle, 0);
-            SetTop(_rectangle, (ActualHeight / 2));
-            SetZIndex(_rectangle, 1);
-            _rectangle.Width = ActualWidth;
-            _rectangle.Height = ActualHeight;
+            //_rectangle.Fill = new SolidColorBrush(Colors.Gray);
+            //_rectangle.Opacity = 0.9;
+            //SetLeft(_rectangle, 0);
+            //SetTop(_rectangle, (ActualHeight / 2));
+            //SetZIndex(_rectangle, 1);
+            //_rectangle.Width = ActualWidth;
+            //_rectangle.Height = ActualHeight;
 
             if (localStoryboard.Children.Count > 0)
                 localStoryboard.Begin();
@@ -493,7 +494,10 @@ namespace HearthstoneCards.Caroussel
                 var child = _internalList[i];
                 var rect = child.TransformToVisual(this).TransformBounds(new Rect(0, 0, child.DesiredSize.Width, child.DesiredSize.Height));
 
-                if (!(positionX >= rect.Left) || !(positionX <= (rect.Left + rect.Width))) continue;
+                if (!(positionX >= rect.Left) || !(positionX <= (rect.Left + rect.Width)))
+                {
+                    continue;
+                }
 
                 _isGesture = (i > SelectedIndex);
 
@@ -526,7 +530,7 @@ namespace HearthstoneCards.Caroussel
             // here is a manipulation
             if (_isGesture)
             {
-                SelectedIndex = (SelectedIndex < (_internalList.Count - 1)) ? SelectedIndex + 1 : SelectedIndex;
+                SelectedIndex = SelectedIndex < (_internalList.Count - 1) ? SelectedIndex + 1 : SelectedIndex;
             }
             else if (SelectedIndex > 0)
             {
