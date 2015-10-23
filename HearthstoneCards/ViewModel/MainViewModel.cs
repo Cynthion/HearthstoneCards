@@ -55,10 +55,6 @@ namespace HearthstoneCards.ViewModel
             {
                 // load card images
                 var tasks = new List<Task>(args.NewItems.Count);
-                //foreach (Card card in args.NewItems)
-                //{
-                //    tasks.Add(card.LoadImageAsync());
-                //}
                 foreach (Card[] cards in args.NewItems)
                 {
                     foreach (var card in cards)
@@ -111,7 +107,6 @@ namespace HearthstoneCards.ViewModel
 
         public async Task OnQueryChangedAsync()
         {
-            // TODO query
             // TODO remove fake query
             // TODO add ooption for collectible
             var result = 

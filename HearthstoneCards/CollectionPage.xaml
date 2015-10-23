@@ -1,0 +1,57 @@
+﻿<local:BasePage
+    x:Class="HearthstoneCards.CollectionPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HearthstoneCards"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:caroussel="using:HearthstoneCards.Caroussel"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <caroussel:LightStone
+        ItemsSource="{Binding PresentedResults}">
+        
+        <caroussel:LightStone.EasingFunction>
+            <CubicEase EasingMode="EaseOut"/>
+        </caroussel:LightStone.EasingFunction>
+
+        <caroussel:LightStone.ItemTemplate>
+            <DataTemplate>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Image 
+                        Source="{Binding Image}"
+                        Width="600"
+                        VerticalAlignment="Bottom"
+                        Stretch="Uniform"/>
+
+                    <Rectangle
+                        Grid.Row="1"
+                        Fill="Black"
+                        Margin="0,10"/>
+
+                    <Image
+                        Grid.Row="1" 
+                        Margin="0,10"
+                        Source="{Binding BitmapImage}"
+                        Width="600" 
+                        VerticalAlignment="Top" 
+                        Stretch="Uniform"
+                        Opacity="0.1">
+                        <Image.RenderTransform>
+                            <CompositeTransform ScaleY="1"/>
+                        </Image.RenderTransform>
+                        <Image.Projection>
+                            <PlaneProjection RotationX="180"/>
+                        </Image.Projection>
+                    </Image>
+                </Grid>
+            </DataTemplate>
+        </caroussel:LightStone.ItemTemplate>
+        
+    </caroussel:LightStone>
+</local:BasePage>

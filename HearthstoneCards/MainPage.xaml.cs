@@ -3,6 +3,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using HearthstoneCards.Model;
 using HearthstoneCards.ViewModel;
 using WPDevToolkit;
 
@@ -36,6 +37,15 @@ namespace HearthstoneCards
         private async void MultiSelector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             await _mainVm.OnQueryChangedAsync();
+        }
+
+        private void CardList_OnItemClick(object sender, ItemClickEventArgs e)
+        {
+            var card = e.ClickedItem as Card;
+            if (card != null)
+            {
+                Frame.Navigate(typeof (CollectionPage));
+            }
         }
     }
 }

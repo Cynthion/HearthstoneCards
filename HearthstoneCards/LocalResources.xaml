@@ -2,11 +2,11 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:HearthstoneCards"
-    xmlns:helper="using:HearthstoneCards.Helper">
+    xmlns:wpDevToolkit="using:WPDevToolkit">
 
     <!-- MainPage -->
     <Style x:Key="SelectionListViewItemStyle"  TargetType="ListViewItem">
-        <Setter Property="helper:BindingHelper.IsSelectedContainerBinding" Value="IsSelected"/>
+        <Setter Property="wpDevToolkit:BindingHelper.IsSelectedContainerBinding" Value="IsSelected"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListViewItem">

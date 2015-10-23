@@ -49,7 +49,9 @@
             <DataTemplate>
                 <ListView
                     ItemsSource="{Binding PresentedResults}"
-                    ItemTemplate="{StaticResource CardItemTemplate}"/>
+                    ItemTemplate="{StaticResource CardItemTemplate}"
+                    IsItemClickEnabled="True"
+                    ItemClick="CardList_OnItemClick"/>
             </DataTemplate>
         </HubSection>
     </Hub>
