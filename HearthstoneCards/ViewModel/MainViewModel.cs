@@ -55,12 +55,9 @@ namespace HearthstoneCards.ViewModel
             {
                 // load card images
                 var tasks = new List<Task>(args.NewItems.Count);
-                foreach (Card[] newItems in args.NewItems)
+                foreach (Card card in args.NewItems)
                 {
-                    foreach (var card in newItems)
-                    {
-                        tasks.Add(card.LoadImageAsync());
-                    }
+                    tasks.Add(card.LoadImageAsync());
                 }
                 await Task.WhenAll(tasks);
             }
@@ -109,8 +106,9 @@ namespace HearthstoneCards.ViewModel
         {
             // TODO query
             // TODO remove fake query
+            // TODO add ooption for collectible
             var result = 
-                from card in _allCards
+                from card in _allCards.Where(c => c.IsCollectible)
                 where ClassOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Class))
                 orderby card.Cost ascending
                 select card;

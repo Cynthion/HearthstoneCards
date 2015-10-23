@@ -54,6 +54,7 @@
 
     <Style x:Key="CardImageStyle" TargetType="Image">
         <Setter Property="Stretch" Value="Uniform"/>
+        <Setter Property="Height" Value="200"/>
         <!--<Setter Property="Height" Value="465"/>
         <Setter Property="Width" Value="307"/>-->
     </Style>
@@ -89,8 +90,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Border
-                Grid.Column="0"
-                Grid.Row="0">
+                Grid.Column="0">
                 <Image
                     Style="{StaticResource CardImageStyle}"
                     Source="{Binding Image}"/>
@@ -98,7 +98,6 @@
             
             <StackPanel
                 Grid.Column="1"
-                Grid.Row="0"
                 Margin="10, 0">
                 <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
                 <TextBlock Text="{Binding Rarity}"/>
