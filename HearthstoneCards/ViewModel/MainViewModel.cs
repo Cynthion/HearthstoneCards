@@ -55,9 +55,16 @@ namespace HearthstoneCards.ViewModel
             {
                 // load card images
                 var tasks = new List<Task>(args.NewItems.Count);
-                foreach (Card card in args.NewItems)
+                //foreach (Card card in args.NewItems)
+                //{
+                //    tasks.Add(card.LoadImageAsync());
+                //}
+                foreach (Card[] cards in args.NewItems)
                 {
-                    tasks.Add(card.LoadImageAsync());
+                    foreach (var card in cards)
+                    {
+                        tasks.Add(card.LoadImageAsync());
+                    }
                 }
                 await Task.WhenAll(tasks);
             }
