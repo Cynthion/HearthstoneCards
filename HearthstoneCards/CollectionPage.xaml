@@ -26,41 +26,27 @@
             <caroussel:Caroussel.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
                         <Image
                             Width="200"
                             Source="{Binding Image}"
                             VerticalAlignment="Bottom"
                             Stretch="Uniform"/>
-
-                        <Rectangle
-                            Grid.Row="1"
-                            Margin="0,10">
-                        </Rectangle>
-
-                        <!--<Image
-                            Grid.Row="1"
-                            Width="200"
-                            Margin="0,10"
-                            Source="{Binding Image}"
-                            VerticalAlignment="Top" 
-                            Stretch="Uniform"
-                            Opacity="0.1">
-                            <Image.RenderTransform>
-                                <CompositeTransform ScaleY="1"/>
-                            </Image.RenderTransform>
-                            <Image.Projection>
-                                <PlaneProjection RotationX="180"/>
-                            </Image.Projection>
-                        </Image>-->
                     </Grid>
                 </DataTemplate>
             </caroussel:Caroussel.ItemTemplate>
-        
         </caroussel:Caroussel>
+
+        <Border
+            DataContext="{Binding ElementName=XLightStoneElement, Path=SelectedItem}"
+            Margin="0,10">
+            <StackPanel>
+                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Rarity}"/>
+                <TextBlock Text="{Binding Class}"/>
+                <TextBlock Text="{Binding Type}"/>
+                <TextBlock Text="{Binding CardSet}"/>
+            </StackPanel>
+        </Border>
 
         <!--<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" >
             <TextBlock Text="Rotation" Margin="10" Style="{StaticResource BodyNormalSized}"/>

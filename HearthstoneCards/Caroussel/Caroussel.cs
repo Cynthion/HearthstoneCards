@@ -57,6 +57,9 @@ namespace HearthstoneCards.Caroussel
         public static readonly DependencyProperty SelectedIndexProperty =
             DependencyProperty.Register("SelectedIndex", typeof(int), typeof(Caroussel), new PropertyMetadata(0, OnSelectedIndexChanged));
 
+        public static readonly DependencyProperty SelectedItemProperty = // read-only
+            DependencyProperty.Register("SelectedItem", typeof(object), typeof(Caroussel), new PropertyMetadata(null)); // TODO correct default value
+
         public static readonly DependencyProperty MaxVisibleItemsProperty =
             DependencyProperty.Register("MaxVisibleItems", typeof(int), typeof(Caroussel), new PropertyMetadata(10, OnLightStonePropertyChanged));
 
@@ -74,10 +77,14 @@ namespace HearthstoneCards.Caroussel
 
         private static void OnSelectedIndexChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            var newIndex = (int) d.GetValue(SelectedIndexProperty);
+            
+            // set SelectedItem
+            d.SetValue(SelectedItemProperty, ((IList)d.GetValue(ItemsSourceProperty))[newIndex]);
+
             // load more items, if it's done incrementally
             if (d.GetValue(ItemsSourceProperty) is ISupportIncrementalLoading)
             {
-                var newIndex = (int) d.GetValue(SelectedIndexProperty);
                 var items = (IList) d.GetValue(ItemsSourceProperty);
                 var range = (int) d.GetValue(MaxVisibleItemsProperty);
                 var loadMore = newIndex + (range/2.0) > items.Count || newIndex - (range/2.0) < 0;
@@ -292,13 +299,13 @@ namespace HearthstoneCards.Caroussel
                 }
             }
 
-            // when storyboard completed, Invalidate
+            // start storyboard
+            // when storyboard completed, InvalidateArrange()
             _storyboard.Completed += (sender, o) =>
             {
                 _isUpdatingPosition = false;
                 InvalidateArrange();
             };
-
             _storyboard.Begin();
         }
 
@@ -324,6 +331,11 @@ namespace HearthstoneCards.Caroussel
         {
             get { return (int)GetValue(SelectedIndexProperty); }
             set { SetValue(SelectedIndexProperty, value); }
+        }
+
+        public int SelectedItem
+        {
+            get { return (int)GetValue(SelectedItemProperty); }
         }
 
         public int MaxVisibleItems
