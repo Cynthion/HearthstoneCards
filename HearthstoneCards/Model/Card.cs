@@ -38,7 +38,7 @@ namespace HearthstoneCards.Model
 
         public async Task LoadImageAsync()
         {
-            if (ImgUrl != null && Image == null)
+            if (Image == null)
             {
                 Image = await ImageLoader.LoadImageAsync(ImgUrl);
             }

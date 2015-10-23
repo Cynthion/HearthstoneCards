@@ -77,15 +77,20 @@
     </DataTemplate>
 
     <DataTemplate x:Key="CardItemTemplate">
-        <Grid Background="Red">
+        <Grid
+            Margin="0, 0, 0, 5">
+            <Grid.Resources>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource TitleSmallSized}">
+                    <Setter Property="TextWrapping" Value="WrapWholeWords"/>
+                </Style>
+            </Grid.Resources>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Border
                 Grid.Column="0"
-                Grid.Row="0"
-                Background="GreenYellow">
+                Grid.Row="0">
                 <Image
                     Style="{StaticResource CardImageStyle}"
                     Source="{Binding Image}"/>
@@ -93,7 +98,9 @@
             
             <StackPanel
                 Grid.Column="1"
-                Grid.Row="0">
+                Grid.Row="0"
+                Margin="10, 0">
+                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
                 <TextBlock Text="{Binding Rarity}"/>
                 <TextBlock Text="{Binding Class}"/>
                 <TextBlock Text="{Binding Type}"/>
