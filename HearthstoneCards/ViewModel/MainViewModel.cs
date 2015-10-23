@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using Windows.UI.Core;
 using HearthstoneCards.Helper;
 using HearthstoneCards.Model;
 using Newtonsoft.Json;
@@ -15,14 +18,16 @@ using WPDevToolkit.Selection;
 
 namespace HearthstoneCards.ViewModel
 {
-    public class MainViewModel : AsyncLoader, ILocatable
+    public class MainViewModel : AsyncLoader, ILocatable, IIncrementalSource<Card>
     {
         private readonly List<Card> _allCards; 
+        private readonly List<Card> _filteredResults;
+        public IncrementalObservableCollection<MainViewModel, Card> PresentedResults { get; private set; }
 
         public ObservableCollection<SelectionItem<string>> ClassOptions { get; private set; }
 
-        public ObservableRangeCollection<Card> FilterResults { get; private set; }
         private int _filterResultCount;
+        private bool _isIncrementalLoading;
 
         public MainViewModel()
         {
@@ -38,8 +43,27 @@ namespace HearthstoneCards.ViewModel
                 new SelectionItem<string>("Warlock", "../Assets/Icons/Classes/warlock.png"),
                 new SelectionItem<string>("Warrior", "../Assets/Icons/Classes/warrior.png")
             });
-            FilterResults = new ObservableRangeCollection<Card>();
             _allCards = new List<Card>();
+            _filteredResults = new List<Card>();
+            PresentedResults = new IncrementalObservableCollection<MainViewModel, Card>(this, 5);
+            PresentedResults.CollectionChanged += PresentedResultsOnCollectionChanged;
+        }
+
+        public async void PresentedResultsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        {
+            if (args.Action == NotifyCollectionChangedAction.Add)
+            {
+                // load card images
+                var tasks = new List<Task>(args.NewItems.Count);
+                foreach (Card[] newItems in args.NewItems)
+                {
+                    foreach (var card in newItems)
+                    {
+                        tasks.Add(card.LoadImageAsync());
+                    }
+                }
+                await Task.WhenAll(tasks);
+            }
         }
 
         protected override async Task<LoadResult> DoLoadAsync()
@@ -91,12 +115,33 @@ namespace HearthstoneCards.ViewModel
                 orderby card.Cost ascending
                 select card;
 
-            FilterResults.Clear();
-            FilterResults.AddRange(result);
-            FilterResultCount = FilterResults.Count;
-            
-            // load all images
-            await Task.WhenAll(result.Select(card => card.LoadImageAsync()));
+            _filteredResults.Clear();
+            PresentedResults.Clear();
+
+            _filteredResults.AddRange(result);
+            FilterResultCount = _filteredResults.Count;
+
+            // present results
+            PresentedResults.LoadMoreItemsAsync();
+        }
+
+        public async Task<IEnumerable<Card>> GetPagedItems(int pageIndex, int pageSize)
+        {
+            CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => IsIncrementalLoading = true);
+            try
+            {
+                var index = pageIndex * pageSize;
+                var pagedItems = new List<Card>(pageSize);
+                for (var i = index; i < index + pageSize && i < _filteredResults.Count; i++)
+                {
+                    pagedItems.Add(_filteredResults[i]);
+                }
+                return pagedItems;
+            }
+            finally
+            {
+                CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => IsIncrementalLoading = false);
+            }
         }
 
         public int FilterResultCount
@@ -107,6 +152,19 @@ namespace HearthstoneCards.ViewModel
                 if (_filterResultCount != value)
                 {
                     _filterResultCount = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public bool IsIncrementalLoading
+        {
+            get { return _isIncrementalLoading; }
+            private set
+            {
+                if (_isIncrementalLoading != value)
+                {
+                    _isIncrementalLoading = value;
                     NotifyPropertyChanged();
                 }
             }

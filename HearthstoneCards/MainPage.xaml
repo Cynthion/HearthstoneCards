@@ -48,7 +48,7 @@
         <HubSection>
             <DataTemplate>
                 <ListView
-                    ItemsSource="{Binding FilterResults}"
+                    ItemsSource="{Binding PresentedResults}"
                     ItemTemplate="{StaticResource CardItemTemplate}"/>
             </DataTemplate>
         </HubSection>
