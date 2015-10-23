@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using HearthstoneCards.ViewModel;
 using WPDevToolkit;
@@ -32,9 +33,9 @@ namespace HearthstoneCards
             await TaskHelper.HandleTaskObservedAsync(_mainVm.LoadAsync());
         }
 
-        private void MultiSelector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void MultiSelector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _mainVm.OnQueryChanged();
+            await _mainVm.OnQueryChangedAsync();
         }
     }
 }

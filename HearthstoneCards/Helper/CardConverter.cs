@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HearthstoneCards.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -40,8 +36,8 @@ namespace HearthstoneCards.Helper
             card.IsCollectible = ExtractValue<bool>(jo, "collectible");
             card.IsElite = ExtractValue<bool>(jo, "elite");
 
-            card.Img = ExtractValue<string>(jo, "img");
-            card.ImgGold = ExtractValue<string>(jo, "imgGold");
+            card.ImgUrl = ExtractValue<string>(jo, "img");
+            card.ImgGoldUrl = ExtractValue<string>(jo, "imgGold");
             card.Locale = ExtractValue<string>(jo, "locale");
             card.Class = ExtractValue<string>(jo, "playerClass");
             card.HowToGet = ExtractValue<string>(jo, "howToGet");

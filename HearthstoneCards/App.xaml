@@ -12,6 +12,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="LightStyles.xaml"/>
                 <ResourceDictionary Source="Styles.xaml"/>
+                <ResourceDictionary Source="LocalResources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <!-- CONVERTERS -->

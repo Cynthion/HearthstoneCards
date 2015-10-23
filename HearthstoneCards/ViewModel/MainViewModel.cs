@@ -28,7 +28,7 @@ namespace HearthstoneCards.ViewModel
         {
             ClassOptions = new ObservableCollection<SelectionItem<string>>(new List<SelectionItem<string>>
             {
-                new SelectionItem<string>("Druid", "../Assets/Icons/Classes/druid.png") { IsSelected = true },
+                new SelectionItem<string>("Druid", "../Assets/Icons/Classes/druid.png"),
                 new SelectionItem<string>("Hunter", "../Assets/Icons/Classes/hunter.png"),
                 new SelectionItem<string>("Mage", "../Assets/Icons/Classes/mage.png"),
                 new SelectionItem<string>("Paladin", "../Assets/Icons/Classes/paladin.png"),
@@ -70,7 +70,7 @@ namespace HearthstoneCards.ViewModel
                     }
 
                     // TODO remove
-                    OnQueryChanged();
+                    await OnQueryChangedAsync();
                     return LoadResult.Success;
                 }
                 catch (Exception e)
@@ -81,7 +81,7 @@ namespace HearthstoneCards.ViewModel
             return LoadResult.Success;
         }
 
-        public void OnQueryChanged()
+        public async Task OnQueryChangedAsync()
         {
             // TODO query
             // TODO remove fake query
@@ -94,6 +94,9 @@ namespace HearthstoneCards.ViewModel
             FilterResults.Clear();
             FilterResults.AddRange(result);
             FilterResultCount = FilterResults.Count;
+            
+            // load all images
+            await Task.WhenAll(result.Select(card => card.LoadImageAsync()));
         }
 
         public int FilterResultCount

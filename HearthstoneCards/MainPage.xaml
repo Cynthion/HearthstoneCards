@@ -10,215 +10,48 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Page.Resources>
-        <DataTemplate x:Key="CardItemTemplate">
-            <StackPanel>
-                <TextBlock Text="{Binding Name}"/>
-                <TextBlock Text="{Binding Cost}"/>
-                <TextBlock Text="{Binding Class}"/>
-            </StackPanel>
-        </DataTemplate>
-        <DataTemplate x:Key="ClassOptionItemTemplate">
-            <StackPanel
-                Margin="20, 0"
-                Orientation="Horizontal"
-                VerticalAlignment="Center">
-                <Image
-                    Margin="0,0,10,0"
-                    Width="50"
-                    Height="50"
-                    Source="{Binding Value}"
-                    Stretch="UniformToFill"/>
-                <TextBlock 
-                    Text="{Binding Key}"
-                    Foreground="White"
-                    VerticalAlignment="Center"/>
-            </StackPanel>
-        </DataTemplate>
+    <Hub>
+        <HubSection Style="{StaticResource NarrowHubSectionStyle}">
+            <DataTemplate>
+                <Grid Background="Black">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock 
+                        Grid.Row="1" Text="Classes"/>
+                    <ListView
+                        Grid.Row="2"
+                        ItemsSource="{Binding ClassOptions}"
+                        SelectionMode="Multiple"
+                        ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
+                        ItemTemplate="{StaticResource ClassOptionItemTemplate}"
+                        SelectionChanged="MultiSelector_OnSelectionChanged">
+                    </ListView>
 
-    </Page.Resources>
-    
-    <slideView:SlideView>
-        <Grid Width="300" Background="Red">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <TextBlock 
-                Grid.Row="1" Text="Classes"/>
-            <ListView 
-                Grid.Row="2"
-                ItemsSource="{Binding ClassOptions}"
-                SelectionMode="Multiple">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Key}"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="helper:BindingHelper.IsSelectedContainerBinding" Value="IsSelected"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="ListViewItem">
-                                    <CheckBox
-                                        Background="Green"
-                                        VerticalAlignment="Center"
-                                        VerticalContentAlignment="Center"
-                                        HorizontalAlignment="Stretch"
-                                        HorizontalContentAlignment="Stretch"
-                                        IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsSelected, Mode=TwoWay}">
-                                        <ContentPresenter/>
-                                    </CheckBox>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListView.ItemContainerStyle>
-            </ListView>
-            
-            <!--<local:MultiSelector
-                Grid.Row="1"
-                Title="Class"
-                Options="{Binding ClassOptions}"
-                ItemTemplate="{StaticResource ClassOptionItemTemplate}"
-                SelectionChanged="MultiSelector_OnSelectionChanged">
-                <local:MultiSelector.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource CheckboxListBoxItemStyle}">
-                        <Setter Property="IsSelected" Value="True"/>
-                    </Style>
-                </local:MultiSelector.ItemContainerStyle>
-            </local:MultiSelector>-->
-        </Grid>
-        <Grid Background="Yellow"/>
-    </slideView:SlideView>
-    
-    <!--<Grid>
-        <Hub>
-            --><!-- Filters --><!--
-            <HubSection>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-
-                        <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
-                        <Button  Grid.Row="0" Grid.Column="3"
-            Content="Go"/>
-                        --><!-- Cost --><!--
-                        <TextBlock Grid.Row="1" Grid.Column="0"
-            Text="Cost"/>
-                        <TextBox Grid.Row="1" Grid.Column="1"/>
-                        <TextBlock Grid.Row="1" Grid.Column="2"
-            Text="-"/>
-                        <TextBox Grid.Row="1" Grid.Column="3"/>
-                        --><!-- Attack --><!--
-                        <TextBlock Grid.Row="2" Grid.Column="0"
-            Text="Attack"/>
-                        <TextBox Grid.Row="2" Grid.Column="1"/>
-                        <TextBlock Grid.Row="2" Grid.Column="2"
-            Text="-"/>
-                        <TextBox Grid.Row="2" Grid.Column="3"/>
-                        --><!-- Health --><!--
-                        <TextBlock Grid.Row="3" Grid.Column="0"
-            Text="Health"/>
-                        <TextBox Grid.Row="3" Grid.Column="1"/>
-                        <TextBlock Grid.Row="3" Grid.Column="2"
-            Text="-"/>
-                        <TextBox Grid.Row="3" Grid.Column="3"/>
-                        --><!-- Class Filter --><!--
-                        <local:MultiSelector
-                            Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4"
+                    <!--<local:MultiSelector
+                            Grid.Row="1"
                             Title="Class"
                             Options="{Binding ClassOptions}"
+                            ItemTemplate="{StaticResource ClassOptionItemTemplate}"
                             SelectionChanged="MultiSelector_OnSelectionChanged">
-                            <local:MultiSelector.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel
-                                        Margin="20, 0"
-                                        Orientation="Horizontal"
-                                        VerticalAlignment="Center">
-                                        <Image
-                                            Margin="0,0,10,0"
-                                            Width="50"
-                                            Height="50"
-                                            Source="{Binding Value}"
-                                            Stretch="UniformToFill"/>
-                                        <TextBlock 
-                                            Text="{Binding Key}"
-                                            Foreground="White"
-                                            VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </local:MultiSelector.ItemTemplate>
-                        </local:MultiSelector>
-                        --><!--<Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4">
-            <Button.Flyout>
-                <Flyout>
-                    <ListBox
-                        SelectionMode="Multiple">
-                        <ListBoxItem Content="ListBoxItem" IsSelected="True" />
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem" IsSelected="True"/>
-                    </ListBox>
-
-                </Flyout>
-            </Button.Flyout>
-        </Button>--><!--
-                        <StackPanel 
-                            Grid.Row="6"
-                            Grid.Column="0"
-                            VerticalAlignment="Bottom"
-                            HorizontalAlignment="Right"
-                            Orientation="Horizontal">
-                            <TextBlock
-                            Style="{StaticResource TitleMediumSizedBold}"
-                            Text="Result: "/>
-                            <TextBlock
-                            Style="{StaticResource TitleMediumSizedBold}"
-                            Text="{Binding FilterResultCount}"/>
-                        </StackPanel>
-                        
-                    </Grid>
-                </DataTemplate>
-            </HubSection>
-            
-            --><!-- Lists --><!--
-            <HubSection>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <StackPanel
-                            Grid.Row="0"
-                            Orientation="Horizontal">
-                            <Button>V1</Button>
-                            <Button>V2</Button>
-                        </StackPanel>
-                        <ListView
-                            Grid.Row="1"
-                            ItemsSource="{Binding FilterResults}"
-                            ItemTemplate="{StaticResource CardItemTemplate}"/>
-                    </Grid>
-                </DataTemplate>
-            </HubSection>
-        </Hub>
-    </Grid>-->
-
+                            <local:MultiSelector.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem" BasedOn="{StaticResource CheckboxListBoxItemStyle}">
+                                    <Setter Property="IsSelected" Value="True"/>
+                                </Style>
+                            </local:MultiSelector.ItemContainerStyle>
+                        </local:MultiSelector>-->
+                </Grid>
+            </DataTemplate>
+        </HubSection>
+        <HubSection>
+            <DataTemplate>
+                <ListView
+                    ItemsSource="{Binding FilterResults}"
+                    ItemTemplate="{StaticResource CardItemTemplate}"/>
+            </DataTemplate>
+        </HubSection>
+    </Hub>
+    
 </local:BasePage>

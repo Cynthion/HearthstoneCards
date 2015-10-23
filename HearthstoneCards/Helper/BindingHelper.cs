@@ -4,6 +4,8 @@ using Windows.UI.Xaml.Data;
 
 namespace HearthstoneCards.Helper
 {
+    // inspired by http://stackoverflow.com/questions/26345820/binding-selecteditems-in-listview-to-a-viewmodel-in-windows-phone-8-1
+
     public class BindingHelper
     {
         public static string GetIsSelectedContainerBinding(DependencyObject obj)
