@@ -42,9 +42,10 @@ namespace HearthstoneCards
         private void CardList_OnItemClick(object sender, ItemClickEventArgs e)
         {
             var card = e.ClickedItem as Card;
-            if (card != null)
+            var listView = sender as ListView;
+            if (card != null && listView != null)
             {
-                Frame.Navigate(typeof (CollectionPage));
+                Frame.Navigate(typeof (CollectionPage), listView.Items.IndexOf(card));
             }
         }
     }

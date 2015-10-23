@@ -6,6 +6,7 @@ using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
@@ -15,8 +16,9 @@ namespace HearthstoneCards.Caroussel
 {
     public class LightStone : Canvas
     {
-        // Temp 
-        private double _initialOffset;
+        // Gestures
+        private double _initialX;
+        private bool _isGesture;
 
         // Mirror
         private readonly Rectangle _rectangle = new Rectangle();
@@ -36,9 +38,6 @@ namespace HearthstoneCards.Caroussel
         private double _desiredWidth;
         private double _desiredHeight;
 
-        // gesture movement
-        private bool _isIncrementing;
-
         public LightStone()
         {
             PointerPressed += OnPointerPressed;
@@ -56,7 +55,7 @@ namespace HearthstoneCards.Caroussel
             DependencyProperty.Register("TransitionDuration", typeof(int), typeof(LightStone), new PropertyMetadata(300));
 
         public static readonly DependencyProperty SelectedIndexProperty =
-            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(LightStone), new PropertyMetadata(0, OnLightStonePropertyChanged));
+            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(LightStone), new PropertyMetadata(0, OnSelectedIndexChanged));
 
         public static readonly DependencyProperty MaxVisibleItemsProperty =
             DependencyProperty.Register("MaxVisibleItems", typeof(int), typeof(LightStone), new PropertyMetadata(10, OnLightStonePropertyChanged));
@@ -72,6 +71,26 @@ namespace HearthstoneCards.Caroussel
 
         public static readonly DependencyProperty RotationProperty =
             DependencyProperty.Register("Rotation", typeof(double), typeof(LightStone), new PropertyMetadata(0.0, OnLightStonePropertyChanged));
+
+        private static void OnSelectedIndexChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            // load more items, if it's done incrementally
+            if (d.GetValue(ItemsSourceProperty) is ISupportIncrementalLoading)
+            {
+                var newIndex = (int) d.GetValue(SelectedIndexProperty);
+                var items = (IList) d.GetValue(ItemsSourceProperty);
+                var range = (int) d.GetValue(MaxVisibleItemsProperty);
+                var loadMore = newIndex + (range/2.0) > items.Count || newIndex - (range/2.0) < 0;
+
+                if (loadMore)
+                {
+                    var list = (ISupportIncrementalLoading) d.GetValue(ItemsSourceProperty);
+                    list.LoadMoreItemsAsync(0);
+                }
+            }
+
+            OnLightStonePropertyChanged(d, e);
+        }
 
         private static void OnLightStonePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -138,7 +157,24 @@ namespace HearthstoneCards.Caroussel
         /// <summary>
         /// Create an item (load data template and bind).
         /// </summary>
-        private void CreateItem(object item, Double opacity = 1)
+        private void CreateItem(object item, double opacity = 1)
+        {
+            // distinguish between object being a single item or a list of items
+            var itemList = item as IEnumerable;
+            if (itemList != null)
+            {
+                foreach (var item2 in itemList)
+                {
+                    CreateItem2(item2, opacity);
+                }
+            }
+            else
+            {
+                CreateItem2(item, opacity);
+            }
+        }
+
+        private void CreateItem2(object item, double opacity)
         {
             var element = ItemTemplate.LoadContent() as FrameworkElement;
             if (element != null)
@@ -206,7 +242,7 @@ namespace HearthstoneCards.Caroussel
 
                 // CenterOfRotationX
                 // to get good center of rotation for SelectedIndex, must know the animation behavior
-                var centerOfRotationSelectedIndex = _isIncrementing ? 1 : 0;
+                var centerOfRotationSelectedIndex = _isGesture ? 1 : 0;
                 var centerOfRotationX = (i == SelectedIndex) ? centerOfRotationSelectedIndex : ((i > SelectedIndex) ? 1 : 0);
                 planeProjection.CenterOfRotationX = centerOfRotationX;
 
@@ -378,7 +414,7 @@ namespace HearthstoneCards.Caroussel
 
                 // CenterOfRotationX
                 // to Get good center of rotation for SelectedIndex, must know the animation behavior
-                var centerOfRotationSelectedIndex = _isIncrementing ? 1 : 0;
+                var centerOfRotationSelectedIndex = _isGesture ? 1 : 0;
                 var centerOfRotationX = (i == SelectedIndex) ? centerOfRotationSelectedIndex : ((i > SelectedIndex) ? 1 : 0);
 
                 // Apply on current item
@@ -447,7 +483,7 @@ namespace HearthstoneCards.Caroussel
 
                 if (!(positionX >= rect.Left) || !(positionX <= (rect.Left + rect.Width))) continue;
 
-                _isIncrementing = (i > SelectedIndex);
+                _isGesture = (i > SelectedIndex);
 
                 SelectedIndex = i;
                 return;
@@ -456,25 +492,27 @@ namespace HearthstoneCards.Caroussel
 
         private void OnPointerPressed(object sender, PointerRoutedEventArgs args)
         {
-            _initialOffset = args.GetCurrentPoint(this).Position.X;
+            _initialX = args.GetCurrentPoint(this).Position.X;
         }
 
         private void OnPointerReleased(object sender, PointerRoutedEventArgs pointerRoutedEventArgs)
         {
-            // Minimum amount to declare as a manipulation
-            const int moveThreshold = 40;
+            // minimum amount to declare as a manipulation
+            const int threshold = 40;
 
             // last position
-            var clientX = pointerRoutedEventArgs.GetCurrentPoint(this).Position.X;
+            var currentX = pointerRoutedEventArgs.GetCurrentPoint(this).Position.X;
 
-            // Here is a "Tap on Item"
-            if (!(Math.Abs(clientX - _initialOffset) > moveThreshold))
+            if (!(Math.Abs(currentX - _initialX) > threshold))
+            {
+                // here is a "Tap on Item"
                 return;
+            }
 
-            _isIncrementing = (clientX < _initialOffset);
+            _isGesture = (currentX < _initialX);
 
-            // Here is a manipulation
-            if (clientX < _initialOffset)
+            // here is a manipulation
+            if (_isGesture)
             {
                 SelectedIndex = (SelectedIndex < (_internalList.Count - 1)) ? SelectedIndex + 1 : SelectedIndex;
             }
@@ -482,7 +520,7 @@ namespace HearthstoneCards.Caroussel
             {
                 SelectedIndex--;
             }
-            _initialOffset = clientX;
+            _initialX = currentX;
         }
     }
 }
