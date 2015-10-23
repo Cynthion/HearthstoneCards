@@ -46,8 +46,6 @@ namespace HearthstoneCards.Caroussel
             Storyboard.SetTargetProperty(timeline, propertyPath);
         }
 
-
-
         public static void Animate(this DependencyObject element, string propertyPath,
                                int duration, double toValue, EasingFunctionBase easingFunction = null, EventHandler<Object> completed = null)
         {
@@ -67,7 +65,6 @@ namespace HearthstoneCards.Caroussel
             sb.Begin();
 
         }
-
 
         public static void Animate(this DependencyObject element, string propertyPath,
                               int duration, int startingDuration, double toValue, EasingFunctionBase easingFunction = null, EventHandler<Object> completed = null)

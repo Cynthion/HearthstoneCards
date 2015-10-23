@@ -10,7 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <caroussel:LightStone
+        <caroussel:Caroussel
             x:Name="XLightStoneElement"
             ItemsSource="{Binding PresentedResults}"
             SelectedIndex="0"
@@ -23,7 +23,7 @@
                 <CubicEase EasingMode="EaseOut"/>
             </caroussel:LightStone.EasingFunction>-->
 
-            <caroussel:LightStone.ItemTemplate>
+            <caroussel:Caroussel.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -58,9 +58,9 @@
                         </Image>-->
                     </Grid>
                 </DataTemplate>
-            </caroussel:LightStone.ItemTemplate>
+            </caroussel:Caroussel.ItemTemplate>
         
-        </caroussel:LightStone>
+        </caroussel:Caroussel>
 
         <!--<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" >
             <TextBlock Text="Rotation" Margin="10" Style="{StaticResource BodyNormalSized}"/>

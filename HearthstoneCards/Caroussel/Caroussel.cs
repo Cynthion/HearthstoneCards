@@ -14,13 +14,13 @@ using Windows.UI.Xaml.Shapes;
 
 namespace HearthstoneCards.Caroussel
 {
-    public class LightStone : Canvas
+    public class Caroussel : Canvas
     {
-        // Gestures
+        // gestures
         private double _initialX;
         private bool _isGesture;
 
-        // Mirror
+        // mirror
         private readonly Rectangle _rectangle = new Rectangle();
 
         // internalList keep reference on all UIElement
@@ -38,7 +38,7 @@ namespace HearthstoneCards.Caroussel
         private double _desiredWidth;
         private double _desiredHeight;
 
-        public LightStone()
+        public Caroussel()
         {
             PointerPressed += OnPointerPressed;
             PointerReleased += OnPointerReleased;
@@ -46,31 +46,31 @@ namespace HearthstoneCards.Caroussel
         }
 
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(IList), typeof(LightStone), new PropertyMetadata(new List<string>(), ItemsSourceChangedCallback));
+            DependencyProperty.Register("ItemsSource", typeof(IList), typeof(Caroussel), new PropertyMetadata(new List<string>(), ItemsSourceChangedCallback));
 
         public static readonly DependencyProperty EasingFunctionProperty =
-            DependencyProperty.Register("EasingFunction", typeof(EasingFunctionBase), typeof(LightStone), new PropertyMetadata(new ExponentialEase { EasingMode = EasingMode.EaseOut }));
+            DependencyProperty.Register("EasingFunction", typeof(EasingFunctionBase), typeof(Caroussel), new PropertyMetadata(new ExponentialEase { EasingMode = EasingMode.EaseOut }));
 
         public static readonly DependencyProperty TransitionDurationProperty =
-            DependencyProperty.Register("TransitionDuration", typeof(int), typeof(LightStone), new PropertyMetadata(300));
+            DependencyProperty.Register("TransitionDuration", typeof(int), typeof(Caroussel), new PropertyMetadata(300));
 
         public static readonly DependencyProperty SelectedIndexProperty =
-            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(LightStone), new PropertyMetadata(0, OnSelectedIndexChanged));
+            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(Caroussel), new PropertyMetadata(0, OnSelectedIndexChanged));
 
         public static readonly DependencyProperty MaxVisibleItemsProperty =
-            DependencyProperty.Register("MaxVisibleItems", typeof(int), typeof(LightStone), new PropertyMetadata(10, OnLightStonePropertyChanged));
+            DependencyProperty.Register("MaxVisibleItems", typeof(int), typeof(Caroussel), new PropertyMetadata(10, OnLightStonePropertyChanged));
 
         public static readonly DependencyProperty DepthProperty =
-            DependencyProperty.Register("Depth", typeof(int), typeof(LightStone), new PropertyMetadata(0, OnLightStonePropertyChanged));
+            DependencyProperty.Register("Depth", typeof(int), typeof(Caroussel), new PropertyMetadata(0, OnLightStonePropertyChanged));
 
         public static readonly DependencyProperty TranslateXProperty =
-            DependencyProperty.Register("TranslateX", typeof(int), typeof(LightStone), new PropertyMetadata(0, OnLightStonePropertyChanged));
+            DependencyProperty.Register("TranslateX", typeof(int), typeof(Caroussel), new PropertyMetadata(0, OnLightStonePropertyChanged));
 
         public static readonly DependencyProperty TranslateYProperty =
-            DependencyProperty.Register("TranslateY", typeof(int), typeof(LightStone), new PropertyMetadata(0, OnLightStonePropertyChanged));
+            DependencyProperty.Register("TranslateY", typeof(int), typeof(Caroussel), new PropertyMetadata(0, OnLightStonePropertyChanged));
 
         public static readonly DependencyProperty RotationProperty =
-            DependencyProperty.Register("Rotation", typeof(double), typeof(LightStone), new PropertyMetadata(0.0, OnLightStonePropertyChanged));
+            DependencyProperty.Register("Rotation", typeof(double), typeof(Caroussel), new PropertyMetadata(0.0, OnLightStonePropertyChanged));
 
         private static void OnSelectedIndexChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -97,7 +97,7 @@ namespace HearthstoneCards.Caroussel
             if (e.NewValue == null)
                 return;
 
-            var lightStone = (LightStone)d;
+            var lightStone = (Caroussel)d;
             lightStone.UpdatePosition();
         }
 
@@ -106,7 +106,7 @@ namespace HearthstoneCards.Caroussel
             if (args.NewValue == null || args.NewValue == args.OldValue)
                 return;
 
-            var lightStone = dependencyObject as LightStone;
+            var lightStone = dependencyObject as Caroussel;
 
             if (lightStone == null)
                 return;
