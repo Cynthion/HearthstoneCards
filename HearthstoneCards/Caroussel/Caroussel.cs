@@ -53,6 +53,9 @@ namespace HearthstoneCards.Caroussel
         public static readonly DependencyProperty SelectedIndexProperty =
             DependencyProperty.Register("SelectedIndex", typeof(int), typeof(Caroussel), new PropertyMetadata(0, OnSelectedIndexPropertyChanged));
 
+        public static readonly DependencyProperty SelectedItemProperty =
+            DependencyProperty.Register("SelectedItem", typeof(object), typeof(Caroussel), new PropertyMetadata(null));
+
         public static readonly DependencyProperty MaxVisibleItemsProperty =
             DependencyProperty.Register("MaxVisibleItems", typeof(int), typeof(Caroussel), new PropertyMetadata(5, OnLightStonePropertyChanged));
 
@@ -113,13 +116,16 @@ namespace HearthstoneCards.Caroussel
 
         private static void OnSelectedIndexPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            // set selected item
+            d.SetValue(SelectedItemProperty, ((IList)d.GetValue(ItemsSourceProperty))[(int)e.NewValue]);
+
             // load more incremental items, if necessary
             var itemSource = (d.GetValue(ItemsSourceProperty) as ISupportIncrementalLoading);
             if (itemSource != null)
             {
                 var newIndex = (int)e.NewValue;
                 var maxVisible = (int)d.GetValue(MaxVisibleItemsProperty);
-                var loadMore = (newIndex + maxVisible) > ((IList)itemSource).Count;
+                var loadMore = (newIndex + maxVisible) >= ((IList)itemSource).Count;
                 if (loadMore)
                 {
                     itemSource.LoadMoreItemsAsync(0);
@@ -612,6 +618,12 @@ namespace HearthstoneCards.Caroussel
         {
             get { return (int)GetValue(SelectedIndexProperty); }
             set { SetValue(SelectedIndexProperty, value); }
+        }
+
+        public object SelectedItem
+        {
+            get { return GetValue(SelectedItemProperty); }
+            //set { SetValue(SelectedItemProperty, value); }
         }
 
         public int MaxVisibleItems

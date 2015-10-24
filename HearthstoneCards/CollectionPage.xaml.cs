@@ -25,9 +25,7 @@ namespace HearthstoneCards
         {
             this.InitializeComponent();
 
-            // TODO change
             DataContext = SingletonLocator.Get<MainViewModel>();
-            // DataContext = new CarousselViewModel();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -37,8 +35,14 @@ namespace HearthstoneCards
                 XLightStoneElement.SelectedIndex = (int)e.Parameter;
             }
 
-            DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait | DisplayOrientations.Landscape;
+            DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait | DisplayOrientations.PortraitFlipped | DisplayOrientations.Landscape | DisplayOrientations.LandscapeFlipped;
             base.OnNavigatedTo(e);
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
+            base.OnNavigatedFrom(e);
         }
     }
 }
