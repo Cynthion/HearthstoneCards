@@ -314,6 +314,7 @@ namespace HearthstoneCards.Caroussel
 
             var translateY = TranslateY;
 
+            // [][][o][][]
             if (i == SelectedIndex)
             {
                 // rotation is from -Rotation to Rotation
@@ -324,6 +325,7 @@ namespace HearthstoneCards.Caroussel
                 // We get the proportional too
                 newOffsetX = deltaX * (TranslateX + _desiredWidth) / _desiredWidth;
             }
+            // [][o][][o][]
             else if ((i == SelectedIndex - 1 && isLeftToRight) || (i == SelectedIndex + 1 && isRightToLeft))
             {
                 // only the first item on the left or right is moving on x, z, and d
@@ -335,6 +337,7 @@ namespace HearthstoneCards.Caroussel
                 // the Translation is decreasing to 0
                 newOffsetX = initialOffsetX - initialOffsetX * Math.Abs(deltaX) / _desiredWidth;
             }
+            // [o][][][][o]
             else
             {
                 // other items just moved on X
@@ -484,14 +487,11 @@ namespace HearthstoneCards.Caroussel
 
         public void OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
-
             var deltaX = e.Cumulative.Translation.X;
-
             if (deltaX > _desiredWidth)
             {
                 deltaX = _desiredWidth;
             }
-
             if (deltaX < -_desiredWidth)
             {
                 deltaX = -_desiredWidth;
