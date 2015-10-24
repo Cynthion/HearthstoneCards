@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
 using HearthstoneCards.Helper;
 using Newtonsoft.Json;
@@ -36,11 +37,21 @@ namespace HearthstoneCards.Model
         private ImageSource _image;
         private ImageSource _imageGold;
 
+        private bool _isImageLoading;
+
         public async Task LoadImageAsync()
         {
             if (Image == null)
             {
-                Image = await ImageLoader.LoadImageAsync(ImgUrl);
+                try
+                {
+                    IsImageLoading = true;
+                    Image = await ImageLoader.LoadImageAsync(ImgUrl);
+                }
+                finally
+                {
+                    IsImageLoading = false;
+                }
             }
         }
 
@@ -65,6 +76,19 @@ namespace HearthstoneCards.Model
                 if (_imageGold != value)
                 {
                     _imageGold = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public bool IsImageLoading
+        {
+            get { return _isImageLoading; }
+            set
+            {
+                if (_isImageLoading != value)
+                {
+                    _isImageLoading = value;
                     NotifyPropertyChanged();
                 }
             }

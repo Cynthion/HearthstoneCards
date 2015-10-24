@@ -89,12 +89,17 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Border
-                Grid.Column="0">
+            <Grid
+                Grid.Column="0"
+                Background="GreenYellow">
                 <Image
+                    VerticalAlignment="Center"
                     Style="{StaticResource CardImageStyle}"
                     Source="{Binding Image}"/>
-            </Border>
+                <ProgressRing
+                    IsActive="{Binding IsImageLoading}"
+                    Visibility="Visible"/>
+            </Grid>
             
             <StackPanel
                 Grid.Column="1"

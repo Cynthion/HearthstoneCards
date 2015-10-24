@@ -17,6 +17,7 @@
 
             <!-- CONVERTERS -->
             <converter:ScreenSizeConverter x:Key="ScreenSizeConverter"/>
+            <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
         </ResourceDictionary>
     </Application.Resources>
