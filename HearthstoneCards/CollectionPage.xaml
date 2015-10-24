@@ -10,66 +10,37 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.Resources>
-        <DataTemplate x:Key="TemplateFullScreen">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Image Source="{Binding BitmapImage}" Width="200" VerticalAlignment="Bottom" 
-                               Stretch="Uniform"></Image>
+        
 
-                <Rectangle Grid.Row="1" Fill="Black" Margin="0,10" ></Rectangle>
-
-            </Grid>
-        </DataTemplate>
-
-        <DataTemplate x:Key="TemplateSnapped">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Image Source="{Binding BitmapImage}" Width="60" VerticalAlignment="Bottom" 
-                               Stretch="Uniform"></Image>
-
-                <Rectangle Grid.Row="1" Fill="Black" Margin="0,10" ></Rectangle>
-
-                <Image Grid.Row="1" VerticalAlignment="Top" Width="60"  Margin="0,10" 
-                               Source="{Binding BitmapImage}" Stretch="Uniform" 
-                               Opacity="0.1" >
-                    <Image.RenderTransform>
-                        <CompositeTransform ScaleY="1" />
-                    </Image.RenderTransform>
-                    <Image.Projection>
-                        <PlaneProjection RotationX="180"></PlaneProjection>
-                    </Image.Projection>
-                </Image>
-
-            </Grid>
-        </DataTemplate>
+        
     </Page.Resources>
 
     <Grid>
 
-        <Border Margin="0" >
-        </Border>
-
-
-        <caroussel:LightStone ItemsSource="{Binding Datas}" 
-                        SelectedIndex="0"
-                        ItemTemplate="{StaticResource TemplateFullScreen}"
-                        TransitionDuration="200" 
-                        Depth="70" 
-                        MaxVisibleItems="4"
-                        x:Name="LightStoneElement"
-                        Rotation="50" 
-                        TranslateY="28"
-                        TranslateX ="23">
+        <caroussel:LightStone
+            x:Name="XLightStoneElement"
+            ItemsSource="{Binding Datas}"
+            SelectedIndex="0"
+            TransitionDuration="200" 
+            Depth="70" 
+            MaxVisibleItems="4"
+            Rotation="50" 
+            TranslateY="28"
+            TranslateX ="23">
             <caroussel:LightStone.EasingFunction>
                 <CubicEase EasingMode="EaseOut" />
             </caroussel:LightStone.EasingFunction>
-
+            <caroussel:LightStone.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Image 
+                            Source="{Binding BitmapImage}" 
+                            Width="200"
+                            VerticalAlignment="Bottom"
+                            Stretch="Uniform"/>
+                    </Grid>
+                </DataTemplate>
+            </caroussel:LightStone.ItemTemplate>
         </caroussel:LightStone>
 
 

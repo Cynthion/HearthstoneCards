@@ -32,10 +32,10 @@ namespace HearthstoneCards
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //if (e.Parameter is int)
-            //{
-            //    XLightStoneElement.SelectedIndex = (int)e.Parameter;
-            //}
+            if (e.Parameter is int)
+            {
+                XLightStoneElement.SelectedIndex = (int)e.Parameter;
+            }
 
             DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait | DisplayOrientations.Landscape;
             base.OnNavigatedTo(e);

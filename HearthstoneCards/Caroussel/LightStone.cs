@@ -582,9 +582,19 @@ namespace HearthstoneCards.Caroussel
                 newRotation = initialRotation;
             }
 
+            if (double.IsNaN(newOffsetX))
+            {
+                newOffsetX = 0d;
+            }
+            if (double.IsNaN(newDepth))
+            {
+                newDepth = 0d;
+            }
+            if (double.IsNaN(newRotation))
+            {
+                newRotation = 0d;
+            }
             return new Tuple<Double, Double, Double, Double>(newOffsetX, translateY, newDepth, newRotation);
-
-
         }
 
 
