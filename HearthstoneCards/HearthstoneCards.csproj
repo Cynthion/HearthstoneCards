@@ -87,7 +87,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="BasePage.cs" />
-    <Compile Include="Caroussel\LightStone.cs" />
+    <Compile Include="Caroussel\Caroussel.cs" />
     <Compile Include="Caroussel\CarousselViewModel.cs" />
     <Compile Include="Caroussel\StoryboardExtensions.cs" />
     <Compile Include="CollectionPage.xaml.cs">
@@ -102,7 +102,6 @@
     <Compile Include="Helper\CardConverter.cs" />
     <Compile Include="Helper\GlobalCollectionConverter.cs" />
     <Compile Include="Helper\Storage.cs" />
-    <Compile Include="Caroussel\Caroussel.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

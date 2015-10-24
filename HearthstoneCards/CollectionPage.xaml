@@ -9,15 +9,9 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Page.Resources>
-        
-
-        
-    </Page.Resources>
-
     <Grid>
 
-        <caroussel:LightStone
+        <caroussel:Caroussel
             x:Name="XLightStoneElement"
             ItemsSource="{Binding Datas}"
             SelectedIndex="0"
@@ -27,10 +21,10 @@
             Rotation="50" 
             TranslateY="28"
             TranslateX ="23">
-            <caroussel:LightStone.EasingFunction>
+            <caroussel:Caroussel.EasingFunction>
                 <CubicEase EasingMode="EaseOut" />
-            </caroussel:LightStone.EasingFunction>
-            <caroussel:LightStone.ItemTemplate>
+            </caroussel:Caroussel.EasingFunction>
+            <caroussel:Caroussel.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Image 
@@ -40,9 +34,8 @@
                             Stretch="Uniform"/>
                     </Grid>
                 </DataTemplate>
-            </caroussel:LightStone.ItemTemplate>
-        </caroussel:LightStone>
-
+            </caroussel:Caroussel.ItemTemplate>
+        </caroussel:Caroussel>
 
     </Grid>
 
