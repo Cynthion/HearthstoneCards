@@ -138,7 +138,7 @@ namespace HearthstoneCards.Caroussel
                         case NotifyCollectionChangedAction.Add:
                             foreach (var newItem in eventArgs.NewItems)
                             {
-                                caroussel.CreateItem(newItem, 0);
+                                caroussel.CreateItem(newItem, 1); // TODO change
                             }
                             break;
                     }
@@ -156,7 +156,7 @@ namespace HearthstoneCards.Caroussel
 
                 foreach (var item in ItemsSource)
                 {
-                    CreateItem(item);
+                    CreateItem(item, 1);
                 }
                 //Children.Add(_rectangle);
             }
@@ -165,7 +165,7 @@ namespace HearthstoneCards.Caroussel
         /// <summary>
         /// Create an item (load data template and bind).
         /// </summary>
-        private void CreateItem(object item, double opacity = 1)
+        private void CreateItem(object item, double opacity)
         {
             // distinguish between object being a single item or a list of items
             var itemList = item as IEnumerable;
@@ -233,6 +233,10 @@ namespace HearthstoneCards.Caroussel
 
             _isUpdatingPosition = true;
 
+            // Optimization: only animate the visible items!
+            //var from = Math.Max(SelectedIndex - (MaxVisibleItems/2), 0);
+            //var to = Math.Min(SelectedIndex + (MaxVisibleItems/2), _internalList.Count);
+            //for (var i = from; i < to; i++)
             for (var i = 0; i < _internalList.Count; i++)
             {
                 var item = _internalList[i];
@@ -265,19 +269,20 @@ namespace HearthstoneCards.Caroussel
                 var deltaFromSelectedIndex = Math.Abs(SelectedIndex - i);
                 var zindex = (_internalList.Count * 100) - deltaFromSelectedIndex;
                 SetZIndex(item, zindex);
-                var opacity = 1d - (Math.Abs((double)(i - SelectedIndex) / (MaxVisibleItems + 1)));
+                //var opacity = 1d - (Math.Abs((double)(i - SelectedIndex) / (MaxVisibleItems + 1)));
 
                 var newVisibility = deltaFromSelectedIndex > MaxVisibleItems ? Visibility.Collapsed : Visibility.Visible;
 
-                // item already present
+                // TODO correct this -> 3 cases: same as before, newly visible, newly collapsed
                 if (item.Visibility == newVisibility)
                 {
+                    // same as before
                     storyboard.AddAnimation(item, TransitionDuration, rotation, "(UIElement.Projection).(PlaneProjection.RotationY)", EasingFunction);
                     storyboard.AddAnimation(item, TransitionDuration, depth, "(UIElement.Projection).(PlaneProjection.GlobalOffsetZ)", EasingFunction);
                     storyboard.AddAnimation(item, TransitionDuration, translateX, "(UIElement.Projection).(PlaneProjection.GlobalOffsetX)", EasingFunction);
                     storyboard.AddAnimation(item, TransitionDuration, offsetX, "(UIElement.Projection).(PlaneProjection.LocalOffsetX)", EasingFunction);
                     storyboard.AddAnimation(item, TransitionDuration, translateY, "(UIElement.Projection).(PlaneProjection.GlobalOffsetY)", EasingFunction);
-                    storyboard.AddAnimation(item, TransitionDuration, opacity, "Opacity", EasingFunction);
+                    //storyboard.AddAnimation(item, TransitionDuration, opacity, "Opacity", EasingFunction);
                 }
                 else if (newVisibility == Visibility.Visible)
                 {
@@ -292,7 +297,7 @@ namespace HearthstoneCards.Caroussel
                     storyboard.AddAnimation(item, TransitionDuration, translateX, "(UIElement.Projection).(PlaneProjection.GlobalOffsetX)", EasingFunction);
                     storyboard.AddAnimation(item, TransitionDuration, offsetX, "(UIElement.Projection).(PlaneProjection.LocalOffsetX)", EasingFunction);
                     storyboard.AddAnimation(item, TransitionDuration, translateY, "(UIElement.Projection).(PlaneProjection.GlobalOffsetY)", EasingFunction);
-                    storyboard.AddAnimation(item, TransitionDuration, 0d, "Opacity", EasingFunction);
+                    //storyboard.AddAnimation(item, TransitionDuration, 0d, "Opacity", EasingFunction);
                     storyboard.Completed += (sender, o) =>
                     {
                         item.Visibility = Visibility.Collapsed;
@@ -369,6 +374,7 @@ namespace HearthstoneCards.Caroussel
             set { SetValue(RotationProperty, value); }
         }
 
+        // TODO what is this needed for?
         protected override Size ArrangeOverride(Size finalSize)
         {
             if (_isUpdatingPosition)
@@ -442,22 +448,22 @@ namespace HearthstoneCards.Caroussel
                 // calculate zindex and opacity
                 var zindex = (_internalList.Count * 100) - deltaFromSelectedIndex;
                 SetZIndex(container, zindex);
-                // var opacity = 1d - (Math.Abs((double)(i - SelectedIndex) / (MaxVisibleItems + 1)));
+                var opacity = 1d - (Math.Abs((double)(i - SelectedIndex) / (MaxVisibleItems + 1)));
 
                 // items appears
-                //if (container.Visibility == Visibility.Visible && container.Opacity == 0d)
-                //{
-                //    //localStoryboard.AddAnimation(container, TransitionDuration, rotation, "(UIElement.Projection).(PlaneProjection.RotationY)", EasingFunction);
-                //    //localStoryboard.AddAnimation(container, TransitionDuration, depth, "(UIElement.Projection).(PlaneProjection.GlobalOffsetZ)", EasingFunction);
-                //    //localStoryboard.AddAnimation(container, TransitionDuration, translateX, "(UIElement.Projection).(PlaneProjection.GlobalOffsetX)", EasingFunction);
-                //    //localStoryboard.AddAnimation(container, TransitionDuration, offsetX, "(UIElement.Projection).(PlaneProjection.LocalOffsetX)", EasingFunction);
-                //    //localStoryboard.AddAnimation(container, TransitionDuration, translateY, "(UIElement.Projection).(PlaneProjection.GlobalOffsetY)", EasingFunction);
-                //    //localStoryboard.AddAnimation(container, TransitionDuration, 0, opacity, "Opacity", EasingFunction);
-                //}
-                //else
-                //{
-                //    container.Opacity = opacity;
-                //}
+                if (container.Visibility == Visibility.Visible && container.Opacity == 0d)
+                {
+                    //localStoryboard.AddAnimation(container, TransitionDuration, rotation, "(UIElement.Projection).(PlaneProjection.RotationY)", EasingFunction);
+                    //localStoryboard.AddAnimation(container, TransitionDuration, depth, "(UIElement.Projection).(PlaneProjection.GlobalOffsetZ)", EasingFunction);
+                    //localStoryboard.AddAnimation(container, TransitionDuration, translateX, "(UIElement.Projection).(PlaneProjection.GlobalOffsetX)", EasingFunction);
+                    //localStoryboard.AddAnimation(container, TransitionDuration, offsetX, "(UIElement.Projection).(PlaneProjection.LocalOffsetX)", EasingFunction);
+                    //localStoryboard.AddAnimation(container, TransitionDuration, translateY, "(UIElement.Projection).(PlaneProjection.GlobalOffsetY)", EasingFunction);
+                    //localStoryboard.AddAnimation(container, TransitionDuration, 0, opacity, "Opacity", EasingFunction);
+                }
+                else
+                {
+                    container.Opacity = opacity;
+                }
             }
 
             //_rectangle.Fill = new SolidColorBrush(Colors.Gray);

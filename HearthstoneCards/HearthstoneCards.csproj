@@ -87,6 +87,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="BasePage.cs" />
+    <Compile Include="Caroussel\LightStone.cs" />
+    <Compile Include="Caroussel\CarousselViewModel.cs" />
     <Compile Include="Caroussel\StoryboardExtensions.cs" />
     <Compile Include="CollectionPage.xaml.cs">
       <DependentUpon>CollectionPage.xaml</DependentUpon>
@@ -158,6 +160,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Logo.scale-240.png" />
+    <Content Include="Assets\pic01.jpg" />
+    <Content Include="Assets\pic02.jpg" />
+    <Content Include="Assets\pic03.jpg" />
+    <Content Include="Assets\pic04.jpg" />
+    <Content Include="Assets\pic05.jpg" />
+    <Content Include="Assets\pic06.jpg" />
     <Content Include="Assets\SmallLogo.scale-240.png" />
     <Content Include="Assets\SplashScreen.scale-240.png" />
     <Content Include="Assets\Square71x71Logo.scale-240.png" />

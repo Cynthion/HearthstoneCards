@@ -9,23 +9,91 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <DataTemplate x:Key="TemplateFullScreen">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Image Source="{Binding BitmapImage}" Width="200" VerticalAlignment="Bottom" 
+                               Stretch="Uniform"></Image>
+
+                <Rectangle Grid.Row="1" Fill="Black" Margin="0,10" ></Rectangle>
+
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="TemplateSnapped">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Image Source="{Binding BitmapImage}" Width="60" VerticalAlignment="Bottom" 
+                               Stretch="Uniform"></Image>
+
+                <Rectangle Grid.Row="1" Fill="Black" Margin="0,10" ></Rectangle>
+
+                <Image Grid.Row="1" VerticalAlignment="Top" Width="60"  Margin="0,10" 
+                               Source="{Binding BitmapImage}" Stretch="Uniform" 
+                               Opacity="0.1" >
+                    <Image.RenderTransform>
+                        <CompositeTransform ScaleY="1" />
+                    </Image.RenderTransform>
+                    <Image.Projection>
+                        <PlaneProjection RotationX="180"></PlaneProjection>
+                    </Image.Projection>
+                </Image>
+
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
     <Grid>
-        <caroussel:Caroussel
+
+        <Border Margin="0" >
+        </Border>
+
+
+        <caroussel:LightStone ItemsSource="{Binding Datas}" 
+                        SelectedIndex="0"
+                        ItemTemplate="{StaticResource TemplateFullScreen}"
+                        TransitionDuration="200" 
+                        Depth="70" 
+                        MaxVisibleItems="4"
+                        x:Name="LightStoneElement"
+                        Rotation="50" 
+                        TranslateY="28"
+                        TranslateX ="23">
+            <caroussel:LightStone.EasingFunction>
+                <CubicEase EasingMode="EaseOut" />
+            </caroussel:LightStone.EasingFunction>
+
+        </caroussel:LightStone>
+
+
+    </Grid>
+
+    <!--<caroussel:LightStone
             x:Name="XLightStoneElement"
             ItemsSource="{Binding PresentedResults}"
             TransitionDuration="1000"
-            MaxVisibleItems="7"
+            MaxVisibleItems="2"
             SelectedIndex="0"
             Rotation="50"
             Depth="660"
             TranslateX="50"
-            TranslateY="0">
+            TranslateY="0">-->
+    
+    <!--<Grid>
         
-            <!--<caroussel:LightStone.EasingFunction>
+        
+            --><!--<caroussel:LightStone.EasingFunction>
                 <CubicEase EasingMode="EaseOut"/>
-            </caroussel:LightStone.EasingFunction>-->
+            </caroussel:LightStone.EasingFunction>--><!--
 
-            <caroussel:Caroussel.ItemTemplate>
+            <caroussel:LightStone.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Image
@@ -35,8 +103,8 @@
                             Stretch="Uniform"/>
                     </Grid>
                 </DataTemplate>
-            </caroussel:Caroussel.ItemTemplate>
-        </caroussel:Caroussel>
+            </caroussel:LightStone.ItemTemplate>
+        </caroussel:LightStone>
 
         <Border
             DataContext="{Binding ElementName=XLightStoneElement, Path=SelectedItem}"
@@ -50,7 +118,7 @@
             </StackPanel>
         </Border>
 
-        <!--<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" >
+        --><!--<StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" >
             <TextBlock Text="Rotation" Margin="10" Style="{StaticResource BodyNormalSized}"/>
             <Slider HorizontalAlignment="Left" Margin="10" Minimum="0" Maximum="90" Value="{Binding ElementName=XLightStoneElement, Path=Rotation, Mode=TwoWay}" VerticalAlignment="Center" Width="190" Height="40"/>
             <TextBlock Text="{Binding ElementName=XLightStoneElement, Path=Rotation}" Margin="10" Style="{StaticResource BodyNormalSized}"/>
@@ -66,8 +134,8 @@
             <TextBlock Text="TranslateX" Margin="10" Style="{StaticResource BodyNormalSized}"/>
             <Slider HorizontalAlignment="Left" Margin="10" Minimum="0" Maximum="500" Value="{Binding TranslateX, ElementName=XLightStoneElement, Mode=TwoWay}" VerticalAlignment="Center" Width="190" Height="40"/>
             <TextBlock Text="{Binding ElementName=XLightStoneElement, Path=TranslateX}" Margin="10" Style="{StaticResource BodyNormalSized}"/>
-        </StackPanel>-->
-    </Grid>
+        </StackPanel>--><!--
+    </Grid>-->
     
     
 </local:BasePage>

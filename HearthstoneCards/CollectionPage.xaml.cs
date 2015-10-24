@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using HearthstoneCards.ViewModel;
+using LightStoneWPApp;
 using WPDevToolkit;
 
 namespace HearthstoneCards
@@ -25,15 +26,16 @@ namespace HearthstoneCards
             this.InitializeComponent();
 
             // TODO change
-            DataContext = SingletonLocator.Get<MainViewModel>();
+            //DataContext = SingletonLocator.Get<MainViewModel>();
+            DataContext = new CarousselViewModel();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter is int)
-            {
-                XLightStoneElement.SelectedIndex = (int)e.Parameter;
-            }
+            //if (e.Parameter is int)
+            //{
+            //    XLightStoneElement.SelectedIndex = (int)e.Parameter;
+            //}
 
             DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait | DisplayOrientations.Landscape;
             base.OnNavigatedTo(e);
