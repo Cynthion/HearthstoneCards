@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
@@ -50,7 +51,7 @@ namespace HearthstoneCards.Caroussel
             DependencyProperty.Register("EasingFunction", typeof(EasingFunctionBase), typeof(Caroussel), new PropertyMetadata(new ExponentialEase { EasingMode = EasingMode.EaseOut }));
 
         public static readonly DependencyProperty SelectedIndexProperty =
-            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(Caroussel), new PropertyMetadata(0, OnLightStonePropertyChanged));
+            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(Caroussel), new PropertyMetadata(0, OnSelectedIndexPropertyChanged));
 
         public static readonly DependencyProperty MaxVisibleItemsProperty =
             DependencyProperty.Register("MaxVisibleItems", typeof(int), typeof(Caroussel), new PropertyMetadata(5, OnLightStonePropertyChanged));
@@ -110,6 +111,25 @@ namespace HearthstoneCards.Caroussel
             caroussel.Bind();
         }
 
+        private static void OnSelectedIndexPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            // load more incremental items, if necessary
+            var itemSource = (d.GetValue(ItemsSourceProperty) as ISupportIncrementalLoading);
+            if (itemSource != null)
+            {
+                var newIndex = (int)e.NewValue;
+                var maxVisible = (int)d.GetValue(MaxVisibleItemsProperty);
+                var loadMore = (newIndex + maxVisible) > ((IList)itemSource).Count;
+                if (loadMore)
+                {
+                    itemSource.LoadMoreItemsAsync(0);
+                }
+            }
+
+            // forward
+            OnLightStonePropertyChanged(d, e);
+        }
+
         private static void OnLightStonePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (e.NewValue == null)
@@ -159,6 +179,22 @@ namespace HearthstoneCards.Caroussel
         /// Create an item (load data template and bind).
         /// </summary>
         private void CreateItem(object item, double opacity = 1)
+        {
+            // distinguish between single item and list of items
+            if (item is IEnumerable)
+            {
+                foreach (var item2 in (IEnumerable)item)
+                {
+                    CreateItem2(item2);
+                }
+            }
+            else
+            {
+                CreateItem2(item, opacity);
+            }
+        }
+
+        private void CreateItem2(object item, double opacity = 1)
         {
             var element = ItemTemplate.LoadContent() as FrameworkElement;
             if (element != null)
