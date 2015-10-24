@@ -88,7 +88,6 @@
     </Compile>
     <Compile Include="BasePage.cs" />
     <Compile Include="Caroussel\Caroussel.cs" />
-    <Compile Include="Caroussel\CarousselViewModel.cs" />
     <Compile Include="Caroussel\StoryboardExtensions.cs" />
     <Compile Include="CollectionPage.xaml.cs">
       <DependentUpon>CollectionPage.xaml</DependentUpon>

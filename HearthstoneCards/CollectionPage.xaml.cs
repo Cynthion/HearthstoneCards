@@ -14,7 +14,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using HearthstoneCards.ViewModel;
-using LightStoneWPApp;
 using WPDevToolkit;
 
 namespace HearthstoneCards
@@ -35,7 +34,7 @@ namespace HearthstoneCards
                 XLightStoneElement.SelectedIndex = (int)e.Parameter;
             }
 
-            DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait | DisplayOrientations.PortraitFlipped | DisplayOrientations.Landscape | DisplayOrientations.LandscapeFlipped;
+            DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait | DisplayOrientations.Landscape | DisplayOrientations.LandscapeFlipped;
             base.OnNavigatedTo(e);
         }
 
@@ -43,6 +42,16 @@ namespace HearthstoneCards
         {
             DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
             base.OnNavigatedFrom(e);
+        }
+
+        private void UIElement_OnManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            XLightStoneElement.OnManipulationCompleted(sender, e);
+        }
+
+        private void UIElement_OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            XLightStoneElement.OnManipulationDelta(sender, e);
         }
     }
 }

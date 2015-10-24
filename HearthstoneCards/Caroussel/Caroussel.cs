@@ -477,12 +477,12 @@ namespace HearthstoneCards.Caroussel
             }
         }
 
-        private void OnPointerPressed(object sender, PointerRoutedEventArgs args)
+        public void OnPointerPressed(object sender, PointerRoutedEventArgs args)
         {
             _initialOffset = args.GetCurrentPoint(this).Position.X;
         }
 
-        private void OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        public void OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
 
             var deltaX = e.Cumulative.Translation.X;
@@ -544,7 +544,7 @@ namespace HearthstoneCards.Caroussel
             }
         }
 
-        private void OnManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        public void OnManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
         {
             // minimum amount of movement to declare as a manipulation
             var moveThreshold = (int)_desiredWidth / 4;

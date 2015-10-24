@@ -16,6 +16,8 @@
         </Grid.RowDefinitions>
         <caroussel:Caroussel
             Grid.Row="0"
+            Grid.RowSpan="2"
+            Background="{StaticResource PhoneBackgroundBrush}"
             x:Name="XLightStoneElement"
             ItemsSource="{Binding PresentedResults}"
             MaxVisibleItems="3"
@@ -23,7 +25,7 @@
             Rotation="50"
             Depth="0"
             TranslateX="60"
-            TranslateY="0">
+            TranslateY="-75">
             <caroussel:Caroussel.EasingFunction>
                 <CubicEase EasingMode="EaseOut" />
             </caroussel:Caroussel.EasingFunction>
@@ -61,6 +63,9 @@
         </caroussel:Caroussel>
 
         <Border
+            ManipulationMode="TranslateX"
+            ManipulationCompleted="UIElement_OnManipulationCompleted"
+            ManipulationDelta="UIElement_OnManipulationDelta"
             HorizontalAlignment="Center"
             Grid.Row="1"
             DataContext="{Binding ElementName=XLightStoneElement, Path=SelectedItem}">
