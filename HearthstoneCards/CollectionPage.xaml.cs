@@ -26,8 +26,8 @@ namespace HearthstoneCards
             this.InitializeComponent();
 
             // TODO change
-            //DataContext = SingletonLocator.Get<MainViewModel>();
-            DataContext = new CarousselViewModel();
+            DataContext = SingletonLocator.Get<MainViewModel>();
+            // DataContext = new CarousselViewModel();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

@@ -13,7 +13,7 @@
 
         <caroussel:Caroussel
             x:Name="XLightStoneElement"
-            ItemsSource="{Binding Datas}"
+            ItemsSource="{Binding PresentedResults}"
             SelectedIndex="0"
             TransitionDuration="200" 
             Depth="70" 
@@ -28,7 +28,7 @@
                 <DataTemplate>
                     <Grid>
                         <Image 
-                            Source="{Binding BitmapImage}" 
+                            Source="{Binding Image}" 
                             Width="200"
                             VerticalAlignment="Bottom"
                             Stretch="Uniform"/>
