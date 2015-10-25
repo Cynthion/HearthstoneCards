@@ -496,7 +496,7 @@ namespace HearthstoneCards.Caroussel
             {
                 deltaX = -_desiredWidth;
             }
-
+            
             // TODO merge logic with the one from UpdatePositions()
             // don't animate all items
             var inf = SelectedIndex - (MaxVisibleItems * 2);
@@ -555,7 +555,7 @@ namespace HearthstoneCards.Caroussel
             // if not enough movement, go in last placement
             if (!(Math.Abs(clientX - _initialOffset) > moveThreshold))
             {
-                // rec-enter to SelectedIndex;
+                // re-center to SelectedIndex;
                 UpdatePosition();
                 return;
             }
