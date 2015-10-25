@@ -23,7 +23,7 @@
             Style="{StaticResource TitleMediumSized}"/>
         <ListView
             Grid.Row="2"
-            VerticalAlignment="Center"
+            x:Name="XListView"
             SelectionMode="Multiple"
             SelectionChanged="OnSelectionChanged"
             ItemsSource="{Binding MultiSelector.Options}"
@@ -55,7 +55,7 @@
                 Grid.Row="0"
                 Grid.Column="0"
                 Margin="0, 0, 5, 5"
-                Click="ButtonBase_OnClick">
+                Click="AllButton_OnClick">
                 <Grid Height="50" Background="SlateGray">
                     <TextBlock Text="All"/>
                 </Grid>
@@ -64,7 +64,7 @@
                 Grid.Row="0"
                 Grid.Column="1"
                 Margin="5, 0, 0, 5"
-                Click="ButtonBase_OnClick">
+                Click="NoneButton_OnClick">
                 <Grid Height="50" Background="SlateGray">
                     <TextBlock Text="None"/>
                 </Grid>

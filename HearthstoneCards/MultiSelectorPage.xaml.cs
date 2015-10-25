@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using WPDevToolkit.Selection;
 
 namespace HearthstoneCards
 {
@@ -38,6 +39,27 @@ namespace HearthstoneCards
         {
             Frame.Navigate(typeof(MainPage), null);
             Frame.BackStack.RemoveAt(Frame.BackStack.Count - 1);
+        }
+
+        private void AllButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            XListView.SelectAll();
+        }
+
+        private void NoneButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            // TODO correct, so far only works with SelectionItem
+            if (XListView.Items != null)
+            {
+                foreach (var item in XListView.Items)
+                {
+                    var selectionItem = item as ISelectionItem;
+                    if (selectionItem != null)
+                    {
+                        selectionItem.IsSelected = false;
+                    }
+                }
+            }
         }
 
         public MultiSelector MultiSelector
