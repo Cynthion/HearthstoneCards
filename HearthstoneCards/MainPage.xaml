@@ -16,6 +16,7 @@
                         <RowDefinition Height="20"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <local:MultiSelector
@@ -28,6 +29,14 @@
                     </local:MultiSelector>
                     <local:MultiSelector
                         Grid.Row="2"
+                        Title="Set"
+                        Options="{Binding SetOptions}"
+                        ItemTemplate="{StaticResource SetOptionItemTemplate}"
+                        ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
+                        SelectionChanged="MultiSelector_OnSelectionChanged">
+                    </local:MultiSelector>
+                    <local:MultiSelector
+                        Grid.Row="3"
                         Title="Rarity"
                         Options="{Binding RarityOptions}"
                         ItemTemplate="{StaticResource RarityOptionItemTemplate}"

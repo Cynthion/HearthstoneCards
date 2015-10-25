@@ -7,14 +7,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
-using Windows.Storage.Streams;
 using Windows.UI.Core;
-using HearthstoneCards.Helper;
 using HearthstoneCards.Model;
 using Newtonsoft.Json;
 using WPDevToolkit;
 using WPDevToolkit.Interfaces;
-using WPDevToolkit.Selection;
 
 namespace HearthstoneCards.ViewModel
 {
@@ -25,6 +22,7 @@ namespace HearthstoneCards.ViewModel
         public IncrementalObservableCollection<MainViewModel, Card> PresentedResults { get; private set; }
 
         public ObservableCollection<ImageSelectionItem<string>> ClassOptions { get; private set; }
+        public ObservableCollection<ImageSelectionItem<string>> SetOptions { get; private set; }
         public ObservableCollection<ImageSelectionItem<string>> RarityOptions { get; private set; }
 
         private int _filterResultCount;
@@ -43,6 +41,16 @@ namespace HearthstoneCards.ViewModel
                 new ImageSelectionItem<string>("Shaman") { ImagePath = "../Assets/Icons/Classes/shaman.png"},
                 new ImageSelectionItem<string>("Warlock") { ImagePath = "../Assets/Icons/Classes/warlock.png"},
                 new ImageSelectionItem<string>("Warrior") { ImagePath = "../Assets/Icons/Classes/warrior.png"},
+            });
+            // TODO get sets from DB
+            SetOptions = new ObservableCollection<ImageSelectionItem<string>>(new List<ImageSelectionItem<string>>
+            {
+                new ImageSelectionItem<string>("Basic"),
+                new ImageSelectionItem<string>("Classic") { ImagePath = "../Assets/Icons/Sets/classic.png"},
+                new ImageSelectionItem<string>("Naxxramas") { ImagePath = "../Assets/Icons/Sets/naxx.png"},
+                new ImageSelectionItem<string>("Goblins vs Gnomes") { ImagePath = "../Assets/Icons/Sets/gvg.png"},
+                new ImageSelectionItem<string>("Blackrock Mountain") { ImagePath = "../Assets/Icons/Sets/blackrock.png"},
+                new ImageSelectionItem<string>("The Grand Tournament") { ImagePath = "../Assets/Icons/Sets/tgt.png"},
             });
             RarityOptions = new ObservableCollection<ImageSelectionItem<string>>(new List<ImageSelectionItem<string>>
             {
@@ -116,11 +124,14 @@ namespace HearthstoneCards.ViewModel
 
         public async Task OnQueryChangedAsync()
         {
-            // TODO remove fake query
-            // TODO add ooption for collectible
-            var result = 
-                from card in _allCards.Where(c => c.IsCollectible)
+            // TODO make parallel
+            // TODO add option for collectible
+            var result =
+                from card in _allCards
+                where card.IsCollectible
                 where ClassOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Class))
+                where SetOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.CardSet))
+                where RarityOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Rarity))
                 orderby card.Cost ascending
                 select card;
 

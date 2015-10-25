@@ -162,6 +162,11 @@
     <Content Include="Assets\Icons\Rarity\epic.png" />
     <Content Include="Assets\Icons\Rarity\legendary.png" />
     <Content Include="Assets\Icons\Rarity\rare.png" />
+    <Content Include="Assets\Icons\Sets\blackrock.png" />
+    <Content Include="Assets\Icons\Sets\gvg.png" />
+    <Content Include="Assets\Icons\Sets\naxx.png" />
+    <Content Include="Assets\Icons\Sets\classic.png" />
+    <Content Include="Assets\Icons\Sets\tgt.png" />
     <Content Include="Assets\Logo.scale-240.png" />
     <Content Include="Assets\SmallLogo.scale-240.png" />
     <Content Include="Assets\SplashScreen.scale-240.png" />
