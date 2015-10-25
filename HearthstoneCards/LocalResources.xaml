@@ -39,7 +39,7 @@
                 Margin="0,0,10,0"
                 Width="50"
                 Height="50"
-                Source="{Binding Value}"
+                Source="{Binding ImagePath}"
                 Stretch="UniformToFill"/>
             <TextBlock 
                 Text="{Binding Key}"

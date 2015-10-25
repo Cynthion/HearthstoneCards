@@ -24,24 +24,24 @@ namespace HearthstoneCards.ViewModel
         private readonly List<Card> _filteredResults;
         public IncrementalObservableCollection<MainViewModel, Card> PresentedResults { get; private set; }
 
-        public ObservableCollection<SelectionItem<string>> ClassOptions { get; private set; }
+        public ObservableCollection<ImageSelectionItem<string>> ClassOptions { get; private set; }
 
         private int _filterResultCount;
         private bool _isIncrementalLoading;
 
         public MainViewModel()
         {
-            ClassOptions = new ObservableCollection<SelectionItem<string>>(new List<SelectionItem<string>>
+            ClassOptions = new ObservableCollection<ImageSelectionItem<string>>(new List<ImageSelectionItem<string>>
             {
-                new SelectionItem<string>("Druid", "../Assets/Icons/Classes/druid.png"),
-                new SelectionItem<string>("Hunter", "../Assets/Icons/Classes/hunter.png"),
-                new SelectionItem<string>("Mage", "../Assets/Icons/Classes/mage.png"),
-                new SelectionItem<string>("Paladin", "../Assets/Icons/Classes/paladin.png"),
-                new SelectionItem<string>("Priest", "../Assets/Icons/Classes/priest.png"),
-                new SelectionItem<string>("Rogue", "../Assets/Icons/Classes/rogue.png"),
-                new SelectionItem<string>("Shaman", "../Assets/Icons/Classes/shaman.png"),
-                new SelectionItem<string>("Warlock", "../Assets/Icons/Classes/warlock.png"),
-                new SelectionItem<string>("Warrior", "../Assets/Icons/Classes/warrior.png")
+                new ImageSelectionItem<string>("Druid") { ImagePath = "../Assets/Icons/Classes/druid.png"},
+                new ImageSelectionItem<string>("Hunter") { ImagePath = "../Assets/Icons/Classes/hunter.png"},
+                new ImageSelectionItem<string>("Mage") { ImagePath = "../Assets/Icons/Classes/mage.png"},
+                new ImageSelectionItem<string>("Paladin") { ImagePath = "../Assets/Icons/Classes/paladin.png"},
+                new ImageSelectionItem<string>("Priest") { ImagePath = "../Assets/Icons/Classes/priest.png"},
+                new ImageSelectionItem<string>("Rogue") { ImagePath = "../Assets/Icons/Classes/rogue.png"},
+                new ImageSelectionItem<string>("Shaman") { ImagePath = "../Assets/Icons/Classes/shaman.png"},
+                new ImageSelectionItem<string>("Warlock") { ImagePath = "../Assets/Icons/Classes/warlock.png"},
+                new ImageSelectionItem<string>("Warrior") { ImagePath = "../Assets/Icons/Classes/warrior.png"},
             });
             _allCards = new List<Card>();
             _filteredResults = new List<Card>();
