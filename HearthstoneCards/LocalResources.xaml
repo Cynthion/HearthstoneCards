@@ -32,16 +32,32 @@
     
     <DataTemplate x:Key="OptionItemTemplate">
         <StackPanel
-            Margin="20, 0"
             Orientation="Horizontal"
             VerticalAlignment="Center">
             <Image
-                Margin="0,0,10,0"
+                Margin="5,0,0,0"
                 Width="50"
                 Height="50"
                 Source="{Binding ImagePath}"
                 Stretch="Uniform"/>
+            <TextBlock
+                Margin="10,0,0,0"
+                Text="{Binding Key}"
+                VerticalAlignment="Center"/>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="RarityOptionItemTemplate">
+        <StackPanel
+            Orientation="Horizontal"
+            VerticalAlignment="Center">
+            <Image
+                Margin="5,0,0,0"
+                Width="24"
+                Height="32"
+                Source="{Binding ImagePath}"/>
             <TextBlock 
+                Margin="10,0,0,0"
                 Text="{Binding Key}"
                 VerticalAlignment="Center"/>
         </StackPanel>

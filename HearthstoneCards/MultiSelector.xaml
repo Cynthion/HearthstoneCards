@@ -14,7 +14,7 @@
             <Setter Property="Background">
                 <Setter.Value>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="White" Offset="0.0" />
+                        <GradientStop Color="{StaticResource PhoneForegroundColor}" Offset="0.0" />
                         <GradientStop Color="{StaticResource PhoneBackgroundColor}" Offset="1.0" />
                     </LinearGradientBrush>
                 </Setter.Value>
@@ -34,6 +34,7 @@
             Style="{StaticResource GridStyle}">
             <TextBlock
                 Margin="10"
+                Foreground="{StaticResource PhoneBackgroundBrush}"
                 Text="{Binding Title}"
                 Style="{StaticResource TitleMediumSizedBold}"/>
         </Grid>

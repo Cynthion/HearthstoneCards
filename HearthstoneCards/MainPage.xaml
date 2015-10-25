@@ -30,7 +30,7 @@
                         Grid.Row="2"
                         Title="Rarity"
                         Options="{Binding RarityOptions}"
-                        ItemTemplate="{StaticResource OptionItemTemplate}"
+                        ItemTemplate="{StaticResource RarityOptionItemTemplate}"
                         ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
                         SelectionChanged="MultiSelector_OnSelectionChanged">
                     </local:MultiSelector>
