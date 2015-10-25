@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using WPDevToolkit.Selection;
 
 namespace HearthstoneCards
 {
@@ -23,7 +25,7 @@ namespace HearthstoneCards
             DependencyProperty.Register("Status", typeof(string), typeof(MultiSelector), new PropertyMetadata(default(string)));
 
         public static readonly DependencyProperty OptionsProperty =
-            DependencyProperty.Register("Options", typeof(IList), typeof(MultiSelector), new PropertyMetadata(new List<string>()));
+            DependencyProperty.Register("Options", typeof(IList), typeof(MultiSelector), new PropertyMetadata(new List<string>(), OnOptionsPropertyChanged));
 
         public static readonly DependencyProperty ItemTemplateProperty =
             DependencyProperty.Register("ItemTemplate", typeof(DataTemplate), typeof(MultiSelector), new PropertyMetadata(default(DataTemplate)));
@@ -31,16 +33,30 @@ namespace HearthstoneCards
         public static readonly DependencyProperty ItemContainerStyleProperty =
             DependencyProperty.Register("ItemContainerStyle", typeof(Style), typeof(MultiSelector), new PropertyMetadata(default(Style)));
 
+        private static void OnOptionsPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
+        {
+            DetermineStatus(d);
+        }
+
         internal void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var listView = sender as ListView;
-            if (listView == null)
+            DetermineStatus(this);
+
+            // fire public control event
+            if (SelectionChanged != null)
+            {
+                SelectionChanged(this, e);
+            }
+        }
+
+        private static void DetermineStatus(DependencyObject d)
+        {
+            var options = d.GetValue(OptionsProperty) as IList;
+            if (options == null)
             {
                 return;
             }
-
-            // TODO sort?
-            var selectedOptions = listView.SelectedItems;
+            var selectedOptions = options.OfType<ISelectionItem>().Where(i => i.IsSelected).ToList();
 
             // change status
             var status = string.Empty;
@@ -48,7 +64,7 @@ namespace HearthstoneCards
             {
                 status = "None";
             }
-            else if (selectedOptions.Count == ((IList)GetValue(OptionsProperty)).Count)
+            else if (selectedOptions.Count == options.Count)
             {
                 status = "All";
             }
@@ -73,13 +89,7 @@ namespace HearthstoneCards
                     status += string.Format(" and {0} more.", selectedOptions.Count - threshold);
                 }
             }
-            SetValue(StatusProperty, status);
-
-            // fire public control event
-            if (SelectionChanged != null)
-            {
-                SelectionChanged(this, e);
-            }
+            d.SetValue(StatusProperty, status);
         }
 
         public string Title

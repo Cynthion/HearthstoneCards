@@ -15,13 +15,22 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="20"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <local:MultiSelector
                         Grid.Row="1"
                         Title="Class"
                         Options="{Binding ClassOptions}"
-                        ItemTemplate="{StaticResource ClassOptionItemTemplate}"
+                        ItemTemplate="{StaticResource OptionItemTemplate}"
+                        ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
+                        SelectionChanged="MultiSelector_OnSelectionChanged">
+                    </local:MultiSelector>
+                    <local:MultiSelector
+                        Grid.Row="2"
+                        Title="Rarity"
+                        Options="{Binding RarityOptions}"
+                        ItemTemplate="{StaticResource OptionItemTemplate}"
                         ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
                         SelectionChanged="MultiSelector_OnSelectionChanged">
                     </local:MultiSelector>

@@ -158,6 +158,10 @@
     <Content Include="Assets\Icons\Classes\warrior.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Icons\Rarity\common.png" />
+    <Content Include="Assets\Icons\Rarity\epic.png" />
+    <Content Include="Assets\Icons\Rarity\legendary.png" />
+    <Content Include="Assets\Icons\Rarity\rare.png" />
     <Content Include="Assets\Logo.scale-240.png" />
     <Content Include="Assets\SmallLogo.scale-240.png" />
     <Content Include="Assets\SplashScreen.scale-240.png" />

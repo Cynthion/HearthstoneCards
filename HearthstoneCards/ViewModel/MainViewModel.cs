@@ -25,6 +25,7 @@ namespace HearthstoneCards.ViewModel
         public IncrementalObservableCollection<MainViewModel, Card> PresentedResults { get; private set; }
 
         public ObservableCollection<ImageSelectionItem<string>> ClassOptions { get; private set; }
+        public ObservableCollection<ImageSelectionItem<string>> RarityOptions { get; private set; }
 
         private int _filterResultCount;
         private bool _isIncrementalLoading;
@@ -42,6 +43,14 @@ namespace HearthstoneCards.ViewModel
                 new ImageSelectionItem<string>("Shaman") { ImagePath = "../Assets/Icons/Classes/shaman.png"},
                 new ImageSelectionItem<string>("Warlock") { ImagePath = "../Assets/Icons/Classes/warlock.png"},
                 new ImageSelectionItem<string>("Warrior") { ImagePath = "../Assets/Icons/Classes/warrior.png"},
+            });
+            RarityOptions = new ObservableCollection<ImageSelectionItem<string>>(new List<ImageSelectionItem<string>>
+            {
+                new ImageSelectionItem<string>("Free"),
+                new ImageSelectionItem<string>("Common") { ImagePath = "../Assets/Icons/Rarity/common.png"},
+                new ImageSelectionItem<string>("Rare") { ImagePath = "../Assets/Icons/Rarity/rare.png"},
+                new ImageSelectionItem<string>("Epic") { ImagePath = "../Assets/Icons/Rarity/epic.png"},
+                new ImageSelectionItem<string>("Legendary") { ImagePath = "../Assets/Icons/Rarity/legendary.png"},
             });
             _allCards = new List<Card>();
             _filteredResults = new List<Card>();

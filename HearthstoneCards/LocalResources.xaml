@@ -30,7 +30,7 @@
         <Setter Property="Width" Value="307"/>-->
     </Style>
     
-    <DataTemplate x:Key="ClassOptionItemTemplate">
+    <DataTemplate x:Key="OptionItemTemplate">
         <StackPanel
             Margin="20, 0"
             Orientation="Horizontal"
@@ -40,7 +40,7 @@
                 Width="50"
                 Height="50"
                 Source="{Binding ImagePath}"
-                Stretch="UniformToFill"/>
+                Stretch="Uniform"/>
             <TextBlock 
                 Text="{Binding Key}"
                 VerticalAlignment="Center"/>
