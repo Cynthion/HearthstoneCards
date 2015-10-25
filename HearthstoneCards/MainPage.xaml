@@ -13,18 +13,10 @@
             <DataTemplate>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="20"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <!--<ListView
-                        Grid.Row="2"
-                        ItemsSource="{Binding ClassOptions}"
-                        SelectionMode="Multiple"
-                        ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
-                        ItemTemplate="{StaticResource ClassOptionItemTemplate}"
-                        SelectionChanged="MultiSelector_OnSelectionChanged">
-                    </ListView>-->
                     <local:MultiSelector
                         Grid.Row="1"
                         Title="Class"

@@ -43,7 +43,6 @@
                 Stretch="UniformToFill"/>
             <TextBlock 
                 Text="{Binding Key}"
-                Foreground="White"
                 VerticalAlignment="Center"/>
         </StackPanel>
     </DataTemplate>
