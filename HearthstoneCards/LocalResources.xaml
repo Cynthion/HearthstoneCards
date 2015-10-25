@@ -23,35 +23,6 @@
         </Setter>
     </Style>
 
-    <Style x:Key="NarrowHubSectionStyle" TargetType="HubSection">
-        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="HubSection">
-                    <Grid Background="{TemplateBinding Background}" Margin="{StaticResource HubSectionMarginThickness}"
-							Width="300" HorizontalAlignment="Left">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.RenderTransform>
-                            <CompositeTransform x:Name="WrappingTransform"/>
-                        </Grid.RenderTransform>
-                        <Rectangle x:Name="HubHeaderPlaceholder" Grid.Row="0"/>
-                        <ContentControl x:Name="Header" CharacterSpacing="{StaticResource HubSectionHeaderCharacterSpacing}" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontWeight="SemiBold" FontSize="{StaticResource HubSectionHeaderFontSize}" FontFamily="{StaticResource PhoneFontFamilyNormal}" HorizontalAlignment="Left" Margin="{StaticResource HubSectionHeaderMarginThickness}" Grid.Row="1">
-                            <ContentControl.RenderTransform>
-                                <CompositeTransform x:Name="StickyHeaderTransform"/>
-                            </ContentControl.RenderTransform>
-                        </ContentControl>
-                        <ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="2" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
     <Style x:Key="CardImageStyle" TargetType="Image">
         <Setter Property="Stretch" Value="Uniform"/>
         <!--<Setter Property="Height" Value="200"/>-->
@@ -61,19 +32,19 @@
     
     <DataTemplate x:Key="ClassOptionItemTemplate">
         <StackPanel
-                Margin="20, 0"
-                Orientation="Horizontal"
-                VerticalAlignment="Center">
+            Margin="20, 0"
+            Orientation="Horizontal"
+            VerticalAlignment="Center">
             <Image
-                    Margin="0,0,10,0"
-                    Width="50"
-                    Height="50"
-                    Source="{Binding Value}"
-                    Stretch="UniformToFill"/>
+                Margin="0,0,10,0"
+                Width="50"
+                Height="50"
+                Source="{Binding Value}"
+                Stretch="UniformToFill"/>
             <TextBlock 
-                    Text="{Binding Key}"
-                    Foreground="White"
-                    VerticalAlignment="Center"/>
+                Text="{Binding Key}"
+                Foreground="White"
+                VerticalAlignment="Center"/>
         </StackPanel>
     </DataTemplate>
 

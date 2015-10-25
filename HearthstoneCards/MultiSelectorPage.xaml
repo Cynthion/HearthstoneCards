@@ -8,12 +8,13 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid
+        Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ListBox
+        <ListView
             Grid.Row="0"
             VerticalAlignment="Center"
             SelectionMode="Multiple"
@@ -22,15 +23,16 @@
             ItemTemplate="{Binding MultiSelector.ItemTemplate}"
             ItemContainerStyle="{Binding MultiSelector.ItemContainerStyle}"
             Style="{StaticResource FullWidthListBoxStyle}">
-        </ListBox>
+        </ListView>
         <Button
             Grid.Row="1"
-            Margin="10"
+            Margin="0,10,0,0"
             Style="{StaticResource BorderlessButton}"
             Click="ButtonBase_OnClick"
             HorizontalAlignment="Stretch">
-            <Grid Background="Blue"
-                  Height="50">
+            <Grid
+                Background="Blue"
+                Height="50">
             <TextBlock
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"

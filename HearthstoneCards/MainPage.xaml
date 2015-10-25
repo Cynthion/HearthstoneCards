@@ -5,43 +5,34 @@
     xmlns:local="using:HearthstoneCards"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:slideView="using:HearthstoneCards.SlideView"
-    xmlns:helper="using:HearthstoneCards.Helper"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Hub>
-        <HubSection Style="{StaticResource NarrowHubSectionStyle}">
+        <HubSection>
             <DataTemplate>
-                <Grid Background="Black">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock 
-                        Grid.Row="1" Text="Classes"/>
-                    <ListView
+                    <!--<ListView
                         Grid.Row="2"
                         ItemsSource="{Binding ClassOptions}"
                         SelectionMode="Multiple"
                         ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
                         ItemTemplate="{StaticResource ClassOptionItemTemplate}"
                         SelectionChanged="MultiSelector_OnSelectionChanged">
-                    </ListView>
-
-                    <!--<local:MultiSelector
-                            Grid.Row="1"
-                            Title="Class"
-                            Options="{Binding ClassOptions}"
-                            ItemTemplate="{StaticResource ClassOptionItemTemplate}"
-                            SelectionChanged="MultiSelector_OnSelectionChanged">
-                            <local:MultiSelector.ItemContainerStyle>
-                                <Style TargetType="ListBoxItem" BasedOn="{StaticResource CheckboxListBoxItemStyle}">
-                                    <Setter Property="IsSelected" Value="True"/>
-                                </Style>
-                            </local:MultiSelector.ItemContainerStyle>
-                        </local:MultiSelector>-->
+                    </ListView>-->
+                    <local:MultiSelector
+                        Grid.Row="1"
+                        Title="Class"
+                        Options="{Binding ClassOptions}"
+                        ItemTemplate="{StaticResource ClassOptionItemTemplate}"
+                        ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
+                        SelectionChanged="MultiSelector_OnSelectionChanged">
+                    </local:MultiSelector>
                 </Grid>
             </DataTemplate>
         </HubSection>

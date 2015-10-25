@@ -168,8 +168,8 @@
         <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
     </Style>
     
-    <!-- ListBox (full width) -->
-    <Style x:Key="FullWidthListBoxStyle" TargetType="ListBox" BasedOn="{StaticResource PhoneListBox}">
+    <!-- ListView (full width) -->
+    <Style x:Key="FullWidthListBoxStyle" TargetType="ListView">
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
     </Style>

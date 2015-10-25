@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media.Animation;
-using HearthstoneCards.Common;
-using WPDevToolkit.Selection;
 
 namespace HearthstoneCards
 {
-    // TODO make generic, use interfaces
-
     public sealed partial class MultiSelector : UserControl
     {
         public event SelectionChangedEventHandler SelectionChanged;
@@ -41,10 +34,14 @@ namespace HearthstoneCards
 
         internal void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var listBox = (ListBox)sender;
+            var listView = sender as ListView;
+            if (listView == null)
+            {
+                return;
+            }
 
             // TODO sort?
-            var selectedOptions = listBox.SelectedItems;
+            var selectedOptions = listView.SelectedItems;
 
             // change status
             var status = string.Empty;
@@ -116,7 +113,7 @@ namespace HearthstoneCards
             set { SetValue(ItemContainerStyleProperty, value); }
         }
 
-        private void Grid_OnTapped(object sender, TappedRoutedEventArgs e)
+        private void MultiSelector_OnTapped(object sender, TappedRoutedEventArgs e)
         {
             //FlyoutBase.ShowAttachedFlyout(sender as Grid);
             ((Frame)Window.Current.Content).Navigate(typeof(MultiSelectorPage), this);

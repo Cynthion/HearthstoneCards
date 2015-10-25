@@ -14,7 +14,7 @@
             <Setter Property="Background">
                 <Setter.Value>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="Blue" Offset="0.0" />
+                        <GradientStop Color="White" Offset="0.0" />
                         <GradientStop Color="{StaticResource PhoneBackgroundColor}" Offset="1.0" />
                     </LinearGradientBrush>
                 </Setter.Value>
@@ -22,7 +22,8 @@
         </Style>
     </UserControl.Resources>
     
-    <Grid x:Name="XLayoutRoot">
+    <Grid x:Name="XLayoutRoot"
+          Tapped="MultiSelector_OnTapped">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -30,9 +31,7 @@
         </Grid.RowDefinitions>
         <Grid 
             Grid.Row="0"
-            Style="{StaticResource GridStyle}"
-            Tapped="Grid_OnTapped">
-            
+            Style="{StaticResource GridStyle}">
             <TextBlock
                 Margin="10"
                 Text="{Binding Title}"
