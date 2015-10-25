@@ -30,6 +30,7 @@ namespace HearthstoneCards.ViewModel
 
         public MainViewModel()
         {
+            // TODO get options from DB
             ClassOptions = new ObservableCollection<ImageSelectionItem<string>>(new List<ImageSelectionItem<string>>
             {
                 new ImageSelectionItem<string>("Druid") { ImagePath = "../Assets/Icons/Classes/druid.png"},
@@ -42,7 +43,6 @@ namespace HearthstoneCards.ViewModel
                 new ImageSelectionItem<string>("Warlock") { ImagePath = "../Assets/Icons/Classes/warlock.png"},
                 new ImageSelectionItem<string>("Warrior") { ImagePath = "../Assets/Icons/Classes/warrior.png"},
             });
-            // TODO get sets from DB
             SetOptions = new ObservableCollection<ImageSelectionItem<string>>(new List<ImageSelectionItem<string>>
             {
                 new ImageSelectionItem<string>("Basic"),
