@@ -108,6 +108,7 @@
     <Compile Include="Model\GlobalCollection.cs" />
     <Compile Include="Model\ImageSelectionItem.cs" />
     <Compile Include="Model\Set.cs" />
+    <Compile Include="MultiComboBox.cs" />
     <Compile Include="MultiSelector.xaml.cs">
       <DependentUpon>MultiSelector.xaml</DependentUpon>
     </Compile>

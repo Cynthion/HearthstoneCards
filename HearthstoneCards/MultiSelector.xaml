@@ -1,4 +1,4 @@
-﻿<UserControl
+﻿<ComboBox
     x:Class="HearthstoneCards.MultiSelector"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,41 +7,10 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-    <!--DataContext="{Binding RelativeSource={RelativeSource Self}}">-->
-
-    <UserControl.Resources>
-        <Style x:Key="GridStyle" TargetType="Grid">
-            <Setter Property="Background">
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="{StaticResource PhoneForegroundColor}" Offset="0.0" />
-                        <GradientStop Color="{StaticResource PhoneBackgroundColor}" Offset="1.0" />
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </UserControl.Resources>
+   
+    <ComboBox
+        
+        PlaceholderText="{Binding Status}"
+        Tapped="MultiSelector_OnTapped"/>
     
-    <Grid x:Name="XLayoutRoot"
-          Tapped="MultiSelector_OnTapped">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid 
-            Grid.Row="0"
-            Style="{StaticResource GridStyle}">
-            <TextBlock
-                Margin="10"
-                Foreground="{StaticResource PhoneBackgroundBrush}"
-                Text="{Binding Title}"
-                Style="{StaticResource TitleMediumSizedBold}"/>
-        </Grid>
-        <TextBlock 
-            Grid.Row="1"
-            Margin="10"
-            Text="{Binding Status}"
-            Style="{StaticResource BodyNormalSized}"/>
-    </Grid>
-</UserControl>
+</ComboBox>

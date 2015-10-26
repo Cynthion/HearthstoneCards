@@ -8,18 +8,16 @@ using WPDevToolkit.Selection;
 
 namespace HearthstoneCards
 {
-    public sealed partial class MultiSelector : UserControl
+    public sealed partial class MultiSelector : ComboBox
     {
-        public event SelectionChangedEventHandler SelectionChanged;
+        // overwrite event
+        public new event SelectionChangedEventHandler SelectionChanged;
 
         public MultiSelector()
         {
             InitializeComponent();
-            XLayoutRoot.DataContext = this;
+            DataContext = this;
         }
-
-        public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register("Title", typeof(string), typeof(MultiSelector), new PropertyMetadata(default(string)));
 
         public static readonly DependencyProperty StatusProperty =
             DependencyProperty.Register("Status", typeof(string), typeof(MultiSelector), new PropertyMetadata(default(string)));
@@ -90,12 +88,6 @@ namespace HearthstoneCards
                 }
             }
             d.SetValue(StatusProperty, status);
-        }
-
-        public string Title
-        {
-            get { return (string)GetValue(TitleProperty); }
-            set { SetValue(TitleProperty, value); }
         }
 
         public string Status

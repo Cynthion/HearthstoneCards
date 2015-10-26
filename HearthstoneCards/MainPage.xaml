@@ -15,19 +15,17 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="20"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <local:MultiSelector
+                    <local:MultiComboBox
                         Grid.Row="1"
-                        Title="Class"
+                        Header="Class"
                         Options="{Binding ClassOptions}"
                         ItemTemplate="{StaticResource OptionItemTemplate}"
                         ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
                         SelectionChanged="MultiSelector_OnSelectionChanged">
-                    </local:MultiSelector>
-                    <local:MultiSelector
+                    </local:MultiComboBox>
+                    <!--<local:MultiSelector
                         Grid.Row="2"
                         Title="Set"
                         Options="{Binding SetOptions}"
@@ -42,7 +40,7 @@
                         ItemTemplate="{StaticResource RarityOptionItemTemplate}"
                         ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
                         SelectionChanged="MultiSelector_OnSelectionChanged">
-                    </local:MultiSelector>
+                    </local:MultiSelector>-->
                 </Grid>
             </DataTemplate>
         </HubSection>
