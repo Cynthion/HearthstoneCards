@@ -15,6 +15,8 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="20"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <local:MultiComboBox
@@ -23,24 +25,21 @@
                         Options="{Binding ClassOptions}"
                         ItemTemplate="{StaticResource OptionItemTemplate}"
                         ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
-                        SelectionChanged="MultiSelector_OnSelectionChanged">
-                    </local:MultiComboBox>
-                    <!--<local:MultiSelector
+                        SelectionChanged="MultiSelector_OnSelectionChanged"/>
+                    <local:MultiComboBox
                         Grid.Row="2"
-                        Title="Set"
+                        Header="Set"
                         Options="{Binding SetOptions}"
                         ItemTemplate="{StaticResource SetOptionItemTemplate}"
                         ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
-                        SelectionChanged="MultiSelector_OnSelectionChanged">
-                    </local:MultiSelector>
-                    <local:MultiSelector
+                        SelectionChanged="MultiSelector_OnSelectionChanged"/>
+                    <local:MultiComboBox
                         Grid.Row="3"
-                        Title="Rarity"
+                        Header="Rarity"
                         Options="{Binding RarityOptions}"
                         ItemTemplate="{StaticResource RarityOptionItemTemplate}"
                         ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
-                        SelectionChanged="MultiSelector_OnSelectionChanged">
-                    </local:MultiSelector>-->
+                        SelectionChanged="MultiSelector_OnSelectionChanged"/>
                 </Grid>
             </DataTemplate>
         </HubSection>
