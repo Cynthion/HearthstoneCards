@@ -45,11 +45,28 @@
         </HubSection>
         <HubSection>
             <DataTemplate>
+                
+                
+                
+                <!--<ListView
+                    ItemsSource="{Binding PresentedResults}"
+                    ItemTemplate="{StaticResource CardDetailsItemTemplate}"
+                    
+                    IsItemClickEnabled="True"
+                    ItemClick="CardList_OnItemClick"/>-->
+
+                <!-- WrapGrid -->
                 <ListView
                     ItemsSource="{Binding PresentedResults}"
-                    ItemTemplate="{StaticResource CardItemTemplate}"
                     IsItemClickEnabled="True"
-                    ItemClick="CardList_OnItemClick"/>
+                    ItemClick="CardList_OnItemClick">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid
+                                Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
             </DataTemplate>
         </HubSection>
     </Hub>

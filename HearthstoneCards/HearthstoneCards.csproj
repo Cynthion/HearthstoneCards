@@ -119,6 +119,9 @@
     </Compile>
     <Compile Include="SlideView\SlideView.cs" />
     <Compile Include="SlideView\SlideViewPanel.cs" />
+    <Compile Include="SorterControl.xaml.cs">
+      <DependentUpon>SorterControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +203,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SorterControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
