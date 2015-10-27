@@ -7,11 +7,11 @@ using WPDevToolkit.Selection;
 
 namespace HearthstoneCards
 {
-    public sealed partial class MultiSelectorPage : BasePage, INotifyPropertyChanged
+    public sealed partial class MultiComboBoxPage : BasePage, INotifyPropertyChanged
     {
-        private MultiSelector _multiSelector;
+        private MultiComboBox _multiComboBox;
 
-        public MultiSelectorPage()
+        public MultiComboBoxPage()
         {
             this.InitializeComponent();
             this.DataContext = this;
@@ -22,17 +22,17 @@ namespace HearthstoneCards
             base.OnNavigatedTo(e);
 
             // provide the control itself as datacontext
-            var ms = e.Parameter as MultiSelector;
+            var ms = e.Parameter as MultiComboBox;
             if (ms != null)
             {
-                MultiSelector = ms;
+                MultiComboBox = ms;
             }
         }
 
         private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // forward to control
-            _multiSelector.OnSelectionChanged(sender, e);
+            _multiComboBox.OnSelectionChanged(sender, e);
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
@@ -62,14 +62,14 @@ namespace HearthstoneCards
             }
         }
 
-        public MultiSelector MultiSelector
+        public MultiComboBox MultiComboBox
         {
-            get { return _multiSelector; }
+            get { return _multiComboBox; }
             private set
             {
-                if (_multiSelector != value)
+                if (_multiComboBox != value)
                 {
-                    _multiSelector = value;
+                    _multiComboBox = value;
                     NotifyPropertyChanged();
                 }
             }

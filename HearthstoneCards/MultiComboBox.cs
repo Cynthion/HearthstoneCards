@@ -3,33 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using WPDevToolkit.Selection;
 
 namespace HearthstoneCards
 {
-    public sealed partial class MultiSelector : ComboBox
+    public class MultiComboBox : ComboBox
     {
         // overwrite event
         public new event SelectionChangedEventHandler SelectionChanged;
 
-        public MultiSelector()
+        public MultiComboBox()
         {
-            InitializeComponent();
-            DataContext = this;
+            BindingOperations.SetBinding(this, PlaceholderTextProperty, new Binding { Source = this, Path = new PropertyPath("Status")});
+        }
+
+        protected override void OnTapped(TappedRoutedEventArgs e)
+        {
+            base.OnTapped(e);
+            ((Frame)Window.Current.Content).Navigate(typeof(MultiComboBoxPage), this);
         }
 
         public static readonly DependencyProperty StatusProperty =
-            DependencyProperty.Register("Status", typeof(string), typeof(MultiSelector), new PropertyMetadata(default(string)));
+            DependencyProperty.Register("Status", typeof(string), typeof(MultiComboBox), new PropertyMetadata(default(string)));
 
         public static readonly DependencyProperty OptionsProperty =
-            DependencyProperty.Register("Options", typeof(IList), typeof(MultiSelector), new PropertyMetadata(new List<string>(), OnOptionsPropertyChanged));
+            DependencyProperty.Register("Options", typeof(IList), typeof(MultiComboBox), new PropertyMetadata(new List<string>(), OnOptionsPropertyChanged));
 
-        public static readonly DependencyProperty ItemTemplateProperty =
-            DependencyProperty.Register("ItemTemplate", typeof(DataTemplate), typeof(MultiSelector), new PropertyMetadata(default(DataTemplate)));
+        public new static readonly DependencyProperty ItemTemplateProperty =
+            DependencyProperty.Register("ItemTemplate", typeof(DataTemplate), typeof(MultiComboBox), new PropertyMetadata(default(DataTemplate)));
 
-        public static readonly DependencyProperty ItemContainerStyleProperty =
-            DependencyProperty.Register("ItemContainerStyle", typeof(Style), typeof(MultiSelector), new PropertyMetadata(default(Style)));
+        public new static readonly DependencyProperty ItemContainerStyleProperty =
+            DependencyProperty.Register("ItemContainerStyle", typeof(Style), typeof(MultiComboBox), new PropertyMetadata(default(Style)));
 
         private static void OnOptionsPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
         {
@@ -102,22 +108,16 @@ namespace HearthstoneCards
             set { SetValue(OptionsProperty, value); }
         }
 
-        public DataTemplate ItemTemplate
+        public new DataTemplate ItemTemplate
         {
             get { return (DataTemplate)GetValue(ItemTemplateProperty); }
             set { SetValue(ItemTemplateProperty, value); }
         }
 
-        public Style ItemContainerStyle
+        public new Style ItemContainerStyle
         {
             get { return (Style)GetValue(ItemContainerStyleProperty); }
             set { SetValue(ItemContainerStyleProperty, value); }
-        }
-
-        private void MultiSelector_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            //FlyoutBase.ShowAttachedFlyout(sender as Grid);
-            ((Frame)Window.Current.Content).Navigate(typeof(MultiSelectorPage), this);
         }
     }
 }

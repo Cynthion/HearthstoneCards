@@ -1,5 +1,5 @@
 ﻿<local:BasePage
-    x:Class="HearthstoneCards.MultiSelectorPage"
+    x:Class="HearthstoneCards.MultiComboBoxPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:HearthstoneCards"
@@ -26,9 +26,9 @@
             x:Name="XListView"
             SelectionMode="Multiple"
             SelectionChanged="OnSelectionChanged"
-            ItemsSource="{Binding MultiSelector.Options}"
-            ItemTemplate="{Binding MultiSelector.ItemTemplate}"
-            ItemContainerStyle="{Binding MultiSelector.ItemContainerStyle}"
+            ItemsSource="{Binding MultiComboBox.Options}"
+            ItemTemplate="{Binding MultiComboBox.ItemTemplate}"
+            ItemContainerStyle="{Binding MultiComboBox.ItemContainerStyle}"
             Style="{StaticResource FullWidthListBoxStyle}">
         </ListView>
         <Grid
