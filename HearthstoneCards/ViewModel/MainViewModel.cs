@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -8,15 +9,18 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.UI.Core;
+using HearthstoneCards.Helper;
 using HearthstoneCards.Model;
 using Newtonsoft.Json;
 using WPDevToolkit;
 using WPDevToolkit.Interfaces;
+using WPDevToolkit.Selection;
 
 namespace HearthstoneCards.ViewModel
 {
     public class MainViewModel : AsyncLoader, ILocatable, IIncrementalSource<Card>
     {
+        private readonly AppSettings _settings = new AppSettings();
         private readonly List<Card> _allCards; 
         private readonly List<Card> _filteredResults;
         public IncrementalObservableCollection<MainViewModel, Card> PresentedResults { get; private set; }
@@ -64,6 +68,27 @@ namespace HearthstoneCards.ViewModel
             _filteredResults = new List<Card>();
             PresentedResults = new IncrementalObservableCollection<MainViewModel, Card>(this, 5);
             PresentedResults.CollectionChanged += PresentedResultsOnCollectionChanged;
+
+            LoadSelection(ClassOptions, _settings.ClassSelection);
+            LoadSelection(SetOptions, _settings.SetSelection);
+            LoadSelection(RarityOptions, _settings.RaritySelection);
+        }
+
+        private static void LoadSelection<T>(IList<T> options, IList<bool> selections) where T : ISelectionItem
+        {
+            for (var i = 0; i < options.Count && i < selections.Count; i++)
+            {
+                options[i].IsSelected = selections[i];
+            }
+        }
+
+        private static void StoreSelection<T>(IList<T> options) where T : ISelectionItem
+        {
+            var selections = new bool[options.Count];
+            for (var i = 0; i < options.Count; i++)
+            {
+                selections[i] = options[i].IsSelected;
+            }
         }
 
         public async void PresentedResultsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
@@ -88,8 +113,6 @@ namespace HearthstoneCards.ViewModel
             if (_allCards.Count == 0)
             {
                 // TODO check if needs to be re-newed (serialized date)
-                // var api = SingletonLocator.Get<ApiCaller>();
-
                 // load from local storage
                 try
                 {

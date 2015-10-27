@@ -1,6 +1,7 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using HearthstoneCards.Helper;
 using HearthstoneCards.Model;
 using HearthstoneCards.ViewModel;
 using WPDevToolkit;
@@ -15,6 +16,9 @@ namespace HearthstoneCards
         {
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Required;
+
+            // initialize app
+            Initializer.Initialize();
 
             // set data context
             _mainVm = SingletonLocator.Get<MainViewModel>();

@@ -97,8 +97,10 @@
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Helper\ApiCaller.cs" />
+    <Compile Include="Helper\AppSettings.cs" />
     <Compile Include="Helper\CardConverter.cs" />
     <Compile Include="Helper\GlobalCollectionConverter.cs" />
+    <Compile Include="Helper\Initializer.cs" />
     <Compile Include="Helper\Storage.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
