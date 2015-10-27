@@ -25,8 +25,18 @@ namespace HearthstoneCards.Helper
 
             foreach (var property in jo.Properties())
             {
-                var set = new Set(property.Name);
-                set.Cards = JsonConvert.DeserializeObject<Card[]>(property.Value.ToString());
+                if (property.Name.Equals("Debug") || property.Name.Equals("Credits"))
+                {
+                    continue;
+                }
+                var set = new Set(property.Name)
+                {
+                    Cards = JsonConvert.DeserializeObject<Card[]>(property.Value.ToString())
+                };
+                foreach (var card in set.Cards)
+                {
+                    card.Set = set.Name;
+                }
                 globalCollection.Sets.Add(set);
             }
 

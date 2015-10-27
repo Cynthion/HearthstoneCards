@@ -18,28 +18,24 @@ namespace HearthstoneCards.Helper
             var jo = JObject.Load(reader);
 
             var card = new Card();
-            card.CardId = ExtractValue<string>(jo, "cardId");
             card.Name = ExtractValue<string>(jo, "name");
-            card.CardSet = ExtractValue<string>(jo, "cardSet");
+            card.Cost = ExtractValue<int>(jo, "cost");
             card.Type = ExtractValue<string>(jo, "type");
+            card.Rarity = ExtractValue<string>(jo, "rarity");
             card.Faction = ExtractValue<string>(jo, "faction");
             card.Race = ExtractValue<string>(jo, "race");
-            card.Rarity = ExtractValue<string>(jo, "rarity");
+            card.Class = ExtractValue<string>(jo, "playerClass");
             card.Text = ExtractValue<string>(jo, "text");
+            card.InPlayText = ExtractValue<string>(jo, "inPlayText");
+            // card.Mechanics = ExtractValue<List<string>>(jo, "mechanics"); // TODO fix
             card.Flavor = ExtractValue<string>(jo, "flavor");
             card.Artist = ExtractValue<string>(jo, "artist");
-
-            card.Cost = ExtractValue<int>(jo, "cost");
             card.Attack = ExtractValue<int>(jo, "attack");
             card.Health = ExtractValue<int>(jo, "health");
-
+            card.Durability = ExtractValue<int>(jo, "durability");
+            card.Id = ExtractValue<string>(jo, "id");
             card.IsCollectible = ExtractValue<bool>(jo, "collectible");
             card.IsElite = ExtractValue<bool>(jo, "elite");
-
-            card.ImgUrl = ExtractValue<string>(jo, "img");
-            card.ImgGoldUrl = ExtractValue<string>(jo, "imgGold");
-            card.Locale = ExtractValue<string>(jo, "locale");
-            card.Class = ExtractValue<string>(jo, "playerClass");
             card.HowToGet = ExtractValue<string>(jo, "howToGet");
             card.HowToGetGold = ExtractValue<string>(jo, "howToGetGold");
 

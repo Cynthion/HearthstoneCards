@@ -95,7 +95,7 @@ namespace HearthstoneCards.ViewModel
                 {
                     // TODO load from storage, not from file
                     string fileContent;
-                    var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(@"ms-appx:///Assets/TestDb.txt"));
+                    var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(@"ms-appx:///Assets/AllSets.json"));
                     using (var reader = new StreamReader(await file.OpenStreamForReadAsync()))
                     {
                         fileContent = await reader.ReadToEndAsync();
@@ -125,12 +125,12 @@ namespace HearthstoneCards.ViewModel
         public async Task OnQueryChangedAsync()
         {
             // TODO make parallel
-            // TODO add option for collectible
+            // TODO add option for IsCollectible
             var result =
                 from card in _allCards
                 where card.IsCollectible
                 where ClassOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Class))
-                where SetOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.CardSet))
+                where SetOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Set))
                 where RarityOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Rarity))
                 orderby card.Cost ascending
                 select card;

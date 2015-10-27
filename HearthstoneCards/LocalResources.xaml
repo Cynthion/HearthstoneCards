@@ -125,13 +125,11 @@
                     IsActive="{Binding IsImageLoading}"
                     Visibility="{Binding RelativeSource={RelativeSource Self}, Path=IsActive, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 <Image
+                    Width="150"
                     VerticalAlignment="Center"
                     Style="{StaticResource CardImageStyle}"
                     Source="{Binding Image}"/>
             </Grid>
-            <TextBlock
-                Grid.Row="1"
-                Text="{Binding Name}"/>
         </Grid>
     </DataTemplate>
 

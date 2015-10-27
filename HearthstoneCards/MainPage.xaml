@@ -59,6 +59,7 @@
                 <ListView
                     ItemsSource="{Binding PresentedResults}"
                     IsItemClickEnabled="True"
+                    ItemTemplate="{StaticResource CardOnlyItemTemplate}"
                     ItemClick="CardList_OnItemClick">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
