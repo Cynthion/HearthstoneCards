@@ -5,26 +5,26 @@ namespace HearthstoneCards.Helper
     public class AppSettings : BaseSettings
     {
         // settings
-        private const string ClassSelectionKey = "classSelection";
-        private const string SetSelectionKey = "setSelection";
-        private const string RaritySelectionKey = "raritySelection";
+        public const string ClassSelectionKey = "classSelection";
+        public const string SetSelectionKey = "setSelection";
+        public const string RaritySelectionKey = "raritySelection";
 
         public bool[] ClassSelection
         {
-            get { return Get<bool[]>(ClassSelectionKey); }
-            set { Set(ClassSelectionKey, value); }
+            get { return Load<bool[]>(ClassSelectionKey); }
+            set { Store(ClassSelectionKey, value); }
         }
 
         public bool[] SetSelection
         {
-            get { return Get<bool[]>(SetSelectionKey); }
-            set { Set(SetSelectionKey, value); }
+            get { return Load<bool[]>(SetSelectionKey); }
+            set { Store(SetSelectionKey, value); }
         }
 
         public bool[] RaritySelection
         {
-            get { return Get<bool[]>(RaritySelectionKey); }
-            set { Set(RaritySelectionKey, value); }
+            get { return Load<bool[]>(RaritySelectionKey); }
+            set { Store(RaritySelectionKey, value); }
         }
     }
 }

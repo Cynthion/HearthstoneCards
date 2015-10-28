@@ -69,26 +69,28 @@ namespace HearthstoneCards.ViewModel
             PresentedResults = new IncrementalObservableCollection<MainViewModel, Card>(this, 5);
             PresentedResults.CollectionChanged += PresentedResultsOnCollectionChanged;
 
-            LoadSelection(ClassOptions, _settings.ClassSelection);
-            LoadSelection(SetOptions, _settings.SetSelection);
-            LoadSelection(RarityOptions, _settings.RaritySelection);
+            LoadSelection(ClassOptions, AppSettings.ClassSelectionKey);
+            LoadSelection(SetOptions, AppSettings.SetSelectionKey);
+            LoadSelection(RarityOptions, AppSettings.RaritySelectionKey);
         }
 
-        private static void LoadSelection<T>(IList<T> options, IList<bool> selections) where T : ISelectionItem
+        private static void LoadSelection<T>(IList<T> options, string settingKey) where T : ISelectionItem
         {
-            for (var i = 0; i < options.Count && i < selections.Count; i++)
+            var selections = BaseSettings.Load<bool[]>(settingKey);
+            for (var i = 0; i < options.Count && i < selections.Length; i++)
             {
                 options[i].IsSelected = selections[i];
             }
         }
 
-        private static void StoreSelection<T>(IList<T> options) where T : ISelectionItem
+        private static void StoreSelection<T>(IList<T> options, string settingKey) where T : ISelectionItem
         {
             var selections = new bool[options.Count];
             for (var i = 0; i < options.Count; i++)
             {
                 selections[i] = options[i].IsSelected;
             }
+            BaseSettings.Store(settingKey, selections);
         }
 
         public async void PresentedResultsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
@@ -166,6 +168,11 @@ namespace HearthstoneCards.ViewModel
 
             // present results
             PresentedResults.LoadMoreItemsAsync();
+
+            // store filter settings
+            StoreSelection(ClassOptions, AppSettings.ClassSelectionKey);
+            StoreSelection(SetOptions, AppSettings.SetSelectionKey);
+            StoreSelection(RarityOptions, AppSettings.RaritySelectionKey);
         }
 
         public async Task<IEnumerable<Card>> GetPagedItems(int pageIndex, int pageSize)
