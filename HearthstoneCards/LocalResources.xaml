@@ -22,13 +22,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Style x:Key="CardImageStyle" TargetType="Image">
-        <Setter Property="Stretch" Value="Uniform"/>
-        <!--<Setter Property="Height" Value="200"/>-->
-        <!--<Setter Property="Height" Value="465"/>
-        <Setter Property="Width" Value="307"/>-->
-    </Style>
     
     <DataTemplate x:Key="OptionItemTemplate">
         <StackPanel
@@ -77,7 +70,7 @@
         </StackPanel>
     </DataTemplate>
 
-    <DataTemplate x:Key="CardDetailsItemTemplate">
+    <!--<DataTemplate x:Key="CardDetailsItemTemplate">
         <Grid
             Margin="0, 0, 0, 5">
             <Grid.Resources>
@@ -110,7 +103,7 @@
                 <TextBlock Text="{Binding CardSet}"/>
             </StackPanel>
         </Grid>
-    </DataTemplate>
+    </DataTemplate>-->
 
     <DataTemplate x:Key="CardOnlyItemTemplate">
         <Grid
@@ -121,14 +114,12 @@
             </Grid.RowDefinitions>
             <Grid
                 Grid.Row="0">
-                <ProgressRing
-                    IsActive="{Binding IsImageLoading}"
-                    Visibility="{Binding RelativeSource={RelativeSource Self}, Path=IsActive, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <Image
+                <local:LoadingImage
                     Width="150"
+                    Height="227"
                     VerticalAlignment="Center"
-                    Style="{StaticResource CardImageStyle}"
-                    Source="{Binding Image}"/>
+                    Source2="{Binding Image}"
+                    Stretch2="Uniform"/>
             </Grid>
         </Grid>
     </DataTemplate>

@@ -38,14 +38,12 @@
                         </Grid.RowDefinitions>
                         <Grid
                             Grid.Row="0">
-                            <ProgressRing
-                                IsActive="{Binding IsImageLoading}"
-                                Visibility="{Binding RelativeSource={RelativeSource Self}, Path=IsActive, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                            <Image
-                                Source="{Binding Image}" 
+                            <local:LoadingImage
+                                Source2="{Binding Image}"
+                                Stretch2="Uniform"
+                                Height="303"
                                 Width="200"
-                                VerticalAlignment="Bottom"
-                                Stretch="Uniform"/>
+                                VerticalAlignment="Bottom"/>
                         </Grid>
                         <!--<Image 
                             Grid.Row="1"
@@ -80,7 +78,7 @@
                 <TextBlock Text="{Binding Rarity}"/>
                 <TextBlock Text="{Binding Class}"/>
                 <TextBlock Text="{Binding Type}"/>
-                <TextBlock Text="{Binding CardSet}"/>
+                <TextBlock Text="{Binding Set}"/>
             </StackPanel>
         </Border>
         
