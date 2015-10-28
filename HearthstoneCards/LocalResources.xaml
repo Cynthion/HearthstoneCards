@@ -114,12 +114,11 @@
             </Grid.RowDefinitions>
             <Grid
                 Grid.Row="0">
-                <local:LoadingImage
-                    Width="150"
+                <Image
                     Height="227"
                     VerticalAlignment="Center"
-                    Source2="{Binding Image}"
-                    Stretch2="Uniform"/>
+                    Source="{Binding Image}"
+                    Stretch="Uniform"/>
             </Grid>
         </Grid>
     </DataTemplate>

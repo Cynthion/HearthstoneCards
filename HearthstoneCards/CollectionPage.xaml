@@ -38,10 +38,9 @@
                         </Grid.RowDefinitions>
                         <Grid
                             Grid.Row="0">
-                            <local:LoadingImage
-                                Source2="{Binding Image}"
-                                Stretch2="Uniform"
-                                Height="303"
+                            <Image
+                                Source="{Binding Image}"
+                                Stretch="Uniform"
                                 Width="200"
                                 VerticalAlignment="Bottom"/>
                         </Grid>
