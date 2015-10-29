@@ -55,6 +55,7 @@ namespace HearthstoneCards
 
         private static void DetermineStatus(DependencyObject d)
         {
+            // get selected options
             var options = d.GetValue(OptionsProperty) as IList;
             if (options == null)
             {
@@ -63,7 +64,7 @@ namespace HearthstoneCards
             var selectedOptions = options.OfType<ISelectionItem>().Where(i => i.IsSelected).ToList();
 
             // change status
-            var status = string.Empty;
+            string status;
             if (selectedOptions.Count == 0)
             {
                 status = "None";
@@ -74,24 +75,38 @@ namespace HearthstoneCards
             }
             else
             {
-                if (selectedOptions.Count < 4)
+                const int maxStatusLength = 30;
+                var threshold = 4;
+                do
                 {
-                    for (var i = 0; i < selectedOptions.Count - 1; i++)
+                    status = string.Empty;
+                    threshold--;
+
+                    if (threshold > 0)
                     {
-                        status += selectedOptions[i] + ", ";
+                        if (selectedOptions.Count < threshold + 1)
+                        {
+                            for (var i = 0; i < selectedOptions.Count - 1; i++)
+                            {
+                                status += selectedOptions[i] + ", ";
+                            }
+                            status += selectedOptions[selectedOptions.Count - 1];
+                        }
+                        else
+                        {
+                            for (var i = 0; i < threshold - 1; i++)
+                            {
+                                status += selectedOptions[i] + ", ";
+                            }
+                            status += selectedOptions[threshold - 1];
+                            status += string.Format(" and {0} more", selectedOptions.Count - threshold);
+                        }
                     }
-                    status += selectedOptions[selectedOptions.Count - 1];
-                }
-                else
-                {
-                    const int threshold = 3;
-                    for (var i = 0; i < threshold - 1; i++)
+                    else
                     {
-                        status += selectedOptions[i] + ", ";
+                        status = string.Format("{0} selected", selectedOptions.Count);
                     }
-                    status += selectedOptions[threshold - 1];
-                    status += string.Format(" and {0} more.", selectedOptions.Count - threshold);
-                }
+                } while (status.Length > maxStatusLength || threshold == 0);
             }
             d.SetValue(StatusProperty, status);
         }

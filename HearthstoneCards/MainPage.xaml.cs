@@ -15,7 +15,7 @@ namespace HearthstoneCards
         public MainPage()
         {
             this.InitializeComponent();
-            this.NavigationCacheMode = NavigationCacheMode.Required;
+            this.NavigationCacheMode = NavigationCacheMode.Enabled;
 
             // initialize app
             Initializer.Initialize();
