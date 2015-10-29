@@ -5,10 +5,19 @@
     xmlns:local="using:HearthstoneCards"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:HearthstoneCards.ViewModel"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.DataContext>
+        <vm:MainViewModel/>
+    </Page.DataContext>
+    
+    <local:BasePage.Resources>
+        <CollectionViewSource x:Name="Cvs" x:Key="cvs" Source="{Binding PresentedResults}" IsSourceGrouped="False"/>
+    </local:BasePage.Resources>
 
     <Hub>
+        <!-- FILTER -->
         <HubSection>
             <DataTemplate>
                 <Grid>
@@ -43,31 +52,75 @@
                 </Grid>
             </DataTemplate>
         </HubSection>
+        <!-- RESULTS -->
         <HubSection>
             <DataTemplate>
-                
-                
-                
-                <!--<ListView
-                    ItemsSource="{Binding PresentedResults}"
-                    ItemTemplate="{StaticResource CardDetailsItemTemplate}"
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
                     
-                    IsItemClickEnabled="True"
-                    ItemClick="CardList_OnItemClick"/>-->
+                    <!-- Controls -->
+                    <Button
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Style="{StaticResource BorderlessButton}"
+                        HorizontalAlignment="Stretch">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Column="0"
+                                Text="CurrentSelection"
+                                Foreground="Gray"/>
+                            <Path
+                                Grid.Column="1"
+                                Margin="5"
+                                HorizontalAlignment="Left"
+		                        Stretch="Fill"
+		                        Width="20"
+		                        Height="12"
+		                        Fill="Gray"
+		                        Data="F1 M 37.8516,39.5833L 52.1016,24.9375L 52.1016,35.2292L 37.8516,50.2708L 23.6016,35.2292L 23.6016,24.9375L 37.8516,39.5833 Z"/>
+                        </Grid>
+                    </Button>
+                    <Button
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Content="Template"/>
 
-                <!-- WrapGrid -->
-                <ListView
-                    ItemsSource="{Binding PresentedResults}"
-                    IsItemClickEnabled="True"
-                    ItemTemplate="{StaticResource CardOnlyItemTemplate}"
-                    ItemClick="CardList_OnItemClick">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <ItemsWrapGrid
-                                Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                </ListView>
+                    <!-- Result View -->
+                    <ListView
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        ItemsSource="{Binding Source={StaticResource cvs}}"
+                        IsItemClickEnabled="True"
+                        ItemTemplate="{StaticResource CardOnlyItemTemplate}"
+                        ItemClick="CardList_OnItemClick">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsWrapGrid
+                                    Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+                    
+                    <!-- Sorting Overlay -->
+                    <Grid
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2">
+                        
+                    </Grid>
+                </Grid>
             </DataTemplate>
         </HubSection>
     </Hub>

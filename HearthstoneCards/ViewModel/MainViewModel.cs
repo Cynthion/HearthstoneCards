@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -20,7 +19,6 @@ namespace HearthstoneCards.ViewModel
 {
     public class MainViewModel : AsyncLoader, ILocatable, IIncrementalSource<Card>
     {
-        private readonly AppSettings _settings = new AppSettings();
         private readonly List<Card> _allCards; 
         private readonly List<Card> _filteredResults;
         public IncrementalObservableCollection<MainViewModel, Card> PresentedResults { get; private set; }
