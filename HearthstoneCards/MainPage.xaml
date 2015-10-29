@@ -118,7 +118,9 @@
                         Grid.Row="1"
                         Grid.Column="0"
                         Grid.ColumnSpan="2">
-                        
+                        <!-- Sort Options -->
+                        <ListView
+                            ItemsSource="{Binding SortingOptions}"/>
                     </Grid>
                 </Grid>
             </DataTemplate>

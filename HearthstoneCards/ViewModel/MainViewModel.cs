@@ -27,6 +27,8 @@ namespace HearthstoneCards.ViewModel
         public ObservableCollection<ImageSelectionItem<string>> SetOptions { get; private set; }
         public ObservableCollection<ImageSelectionItem<string>> RarityOptions { get; private set; }
 
+        //public IList<> SortingOptions { get; private set; }
+
         private int _filterResultCount;
         private bool _isIncrementalLoading;
 
