@@ -93,6 +93,7 @@
     </Compile>
     <Compile Include="CollectionViewEx\CollectionViewEx.cs" />
     <Compile Include="CollectionViewEx\ICollectionViewEx.cs" />
+    <Compile Include="CollectionViewEx\SortCommand.cs" />
     <Compile Include="CollectionViewEx\SortDescription.cs" />
     <Compile Include="Common\ContinuationManager.cs" />
     <Compile Include="Common\NavigationHelper.cs" />

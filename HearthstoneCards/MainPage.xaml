@@ -8,15 +8,18 @@
     xmlns:vm="using:HearthstoneCards.ViewModel"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Page.DataContext>
+    <!--<Page.DataContext>
         <vm:MainViewModel/>
-    </Page.DataContext>
+    </Page.DataContext>-->
     
     <local:BasePage.Resources>
+        <vm:MainViewModel x:Key="MainViewModel"/>
         <CollectionViewSource x:Name="Cvs" x:Key="cvs" Source="{Binding PresentedResults}" IsSourceGrouped="False"/>
     </local:BasePage.Resources>
 
-    <Hub>
+    <Hub
+        DataContext="{StaticResource MainViewModel}"
+        Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <!-- FILTER -->
         <HubSection>
             <DataTemplate>

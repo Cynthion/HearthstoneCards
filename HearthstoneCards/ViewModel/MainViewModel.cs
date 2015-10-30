@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.UI.Core;
+using Windows.UI.Xaml.Data;
+using HearthstoneCards.CollectionViewEx;
 using HearthstoneCards.Helper;
 using HearthstoneCards.Model;
 using Newtonsoft.Json;
@@ -19,7 +21,12 @@ namespace HearthstoneCards.ViewModel
 {
     public class MainViewModel : AsyncLoader, ILocatable, IIncrementalSource<Card>
     {
-        private readonly List<Card> _allCards; 
+        private ICollectionView AllCards
+        {
+            get { return _allCards; }
+        }
+
+        private readonly CollectionViewEx.CollectionViewEx _allCards;
         private readonly List<Card> _filteredResults;
         public IncrementalObservableCollection<MainViewModel, Card> PresentedResults { get; private set; }
 
@@ -27,7 +34,7 @@ namespace HearthstoneCards.ViewModel
         public ObservableCollection<ImageSelectionItem<string>> SetOptions { get; private set; }
         public ObservableCollection<ImageSelectionItem<string>> RarityOptions { get; private set; }
 
-        //public IList<> SortingOptions { get; private set; }
+        public IList<string> SortingOptions { get; private set; }
 
         private int _filterResultCount;
         private bool _isIncrementalLoading;
@@ -64,7 +71,25 @@ namespace HearthstoneCards.ViewModel
                 new ImageSelectionItem<string>("Epic") { ImagePath = "../Assets/Icons/Rarity/epic.png"},
                 new ImageSelectionItem<string>("Legendary") { ImagePath = "../Assets/Icons/Rarity/legendary.png"},
             });
-            _allCards = new List<Card>();
+            SortingOptions = new List<string>
+            {
+                // TODO check sorting of different types
+                "Name",
+                "Cost",
+                "Rarity",
+                "Attack",
+                "Health",
+                "Durability",
+                "Set",
+                "Class"
+            };
+
+            _allCards = new CollectionViewEx.CollectionViewEx();
+            
+            // default sort
+            var sd = new SortDescription("Cost", SortDirection.Ascending);
+            _allCards.SortDescriptions.Add(sd);
+
             _filteredResults = new List<Card>();
             PresentedResults = new IncrementalObservableCollection<MainViewModel, Card>(this, 5);
             PresentedResults.CollectionChanged += PresentedResultsOnCollectionChanged;
@@ -129,10 +154,12 @@ namespace HearthstoneCards.ViewModel
                     if (json != null)
                     {
                         var globalCollection = JsonConvert.DeserializeObject<GlobalCollection>(json);
+                        var allCards = new List<Card>();
                         foreach (var set in globalCollection.Sets)
                         {
-                            _allCards.AddRange(set.Cards);
+                            allCards.AddRange(set.Cards);
                         }
+                        _allCards.Source = allCards;
                     }
 
                     // TODO remove
@@ -152,7 +179,7 @@ namespace HearthstoneCards.ViewModel
             // TODO make parallel
             // TODO add option for IsCollectible
             var result =
-                from card in _allCards
+                from card in _allCards.Source as IList<Card>
                 where card.IsCollectible
                 where ClassOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Class))
                 where SetOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Set))
