@@ -47,5 +47,10 @@ namespace HearthstoneCards
                 Frame.Navigate(typeof (CollectionPage), listView.Items.IndexOf(card));
             }
         }
+
+        private void SorterButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            _mainVm.ToggleSorterControlVisibility();
+        }
     }
 }

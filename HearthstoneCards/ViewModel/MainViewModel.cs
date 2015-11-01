@@ -39,6 +39,8 @@ namespace HearthstoneCards.ViewModel
         private int _filterResultCount;
         private bool _isIncrementalLoading;
 
+        private bool _isSortingControlVisible;
+
         public MainViewModel()
         {
             // TODO get options from DB
@@ -202,6 +204,11 @@ namespace HearthstoneCards.ViewModel
             StoreSelection(RarityOptions, AppSettings.RaritySelectionKey);
         }
 
+        public void ToggleSorterControlVisibility()
+        {
+            IsSortingControlVisible = !IsSortingControlVisible;
+        }
+
         public async Task<IEnumerable<Card>> GetPagedItems(int pageIndex, int pageSize)
         {
             CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => IsIncrementalLoading = true);
@@ -242,6 +249,19 @@ namespace HearthstoneCards.ViewModel
                 if (_isIncrementalLoading != value)
                 {
                     _isIncrementalLoading = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public bool IsSortingControlVisible
+        {
+            get { return _isSortingControlVisible; }
+            private set
+            {
+                if (_isSortingControlVisible != value)
+                {
+                    _isSortingControlVisible = value;
                     NotifyPropertyChanged();
                 }
             }

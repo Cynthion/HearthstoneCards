@@ -13,12 +13,10 @@
     </Page.DataContext>-->
     
     <local:BasePage.Resources>
-        <vm:MainViewModel x:Key="MainViewModel"/>
         <CollectionViewSource x:Name="Cvs" x:Key="cvs" Source="{Binding PresentedResults}" IsSourceGrouped="False"/>
     </local:BasePage.Resources>
 
     <Hub
-        DataContext="{StaticResource MainViewModel}"
         Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <!-- FILTER -->
         <HubSection>
@@ -73,7 +71,8 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         Style="{StaticResource BorderlessButton}"
-                        HorizontalAlignment="Stretch">
+                        HorizontalAlignment="Stretch"
+                        Click="SorterButton_OnClick">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
@@ -120,10 +119,54 @@
                     <Grid
                         Grid.Row="1"
                         Grid.Column="0"
-                        Grid.ColumnSpan="2">
+                        Grid.ColumnSpan="2"
+                        Margin="10"
+                        Visibility="{Binding IsSortingControlVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <!-- Sort Options -->
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
                         <ListView
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
                             ItemsSource="{Binding SortingOptions}"/>
+                        <ToggleButton
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Style="{StaticResource BorderlessToggleButtonStyle}"
+                            Content="Ascending"
+                            IsChecked="True"/>
+                        <ToggleButton
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Style="{StaticResource BorderlessToggleButtonStyle}"
+                            Content="Descending"
+                            IsChecked="False"/>
+                        <Button
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Style="{StaticResource BorderlessButton}"
+                            HorizontalAlignment="Stretch">
+                            <Border
+                                Height="50" 
+                                Background="{StaticResource PhoneAccentBrush}"
+                                BorderBrush="{StaticResource PhoneForegroundBrush}"
+                                BorderThickness="2">
+                                <TextBlock
+                                    Text="Done"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Foreground="{StaticResource PhoneForegroundBrush}"/>
+                            </Border>
+                        </Button>
                     </Grid>
                 </Grid>
             </DataTemplate>
