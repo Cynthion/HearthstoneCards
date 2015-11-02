@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using Windows.Phone.UI.Input;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using HearthstoneCards.Helper;
@@ -25,6 +26,17 @@ namespace HearthstoneCards
             DataContext = _mainVm;
 
             Loaded += MainPage_OnLoaded;
+
+            // listen for back-button
+            HardwareButtons.BackPressed += (sender, args) =>
+            {
+                if (_mainVm.IsSortingControlVisible)
+                {
+                    _mainVm.ApplySort();
+                    _mainVm.ToggleSorterControlVisibility();
+                    args.Handled = true;
+                }
+            };
         }
 
         public async void MainPage_OnLoaded(object sender, RoutedEventArgs e)
@@ -51,11 +63,17 @@ namespace HearthstoneCards
         private void SorterButton_OnClick(object sender, RoutedEventArgs e)
         {
             _mainVm.ToggleSorterControlVisibility();
+            _mainVm.ApplySort();
         }
 
         private void ApplySortButton_OnClick(object sender, RoutedEventArgs e)
         {
             _mainVm.ApplySort();
+        }
+
+        private void SortConfigurationElement_OnClicked(object sender, RoutedEventArgs e)
+        {
+            _mainVm.IsSortConfigurationChanged = true;
         }
     }
 }

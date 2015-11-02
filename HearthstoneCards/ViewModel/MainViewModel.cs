@@ -41,6 +41,7 @@ namespace HearthstoneCards.ViewModel
 
         private bool _isSortingControlVisible;
         private bool _isSortedAscending;
+        private bool _isSortConfigurationChanged;
 
         private bool _isResultEmpty = true;
 
@@ -210,11 +211,18 @@ namespace HearthstoneCards.ViewModel
 
         public void ApplySort()
         {
-            var sortOption = SortOptions.First(o => o.IsSelected);
-            var sortDescription = new SortDescription(sortOption.Key, IsSortedAscending ? SortDirection.Ascending : SortDirection.Descending);
+            // only sort if necessary
+            if (IsSortConfigurationChanged)
+            {
+                IsSortConfigurationChanged = false;
+                IsSortingControlVisible = false;
+
+                var sortOption = SortOptions.First(o => o.IsSelected);
+                var sortDescription = new SortDescription(sortOption.Key, IsSortedAscending ? SortDirection.Ascending : SortDirection.Descending);
             
-            var sortCommand = new SortCommand(_allCards);
-            sortCommand.Execute(sortDescription);
+                var sortCommand = new SortCommand(_allCards);
+                sortCommand.Execute(sortDescription);
+            }
         }
 
         public async Task<IEnumerable<Card>> GetPagedItems(int pageIndex, int pageSize)
@@ -278,11 +286,25 @@ namespace HearthstoneCards.ViewModel
         public bool IsSortedAscending
         {
             get { return _isSortedAscending; }
-            private set
+            // mode: two-way
+            set
             {
                 if (_isSortedAscending != value)
                 {
                     _isSortedAscending = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public bool IsSortConfigurationChanged
+        {
+            get { return _isSortConfigurationChanged; }
+            set
+            {
+                if (_isSortConfigurationChanged != value)
+                {
+                    _isSortConfigurationChanged = value;
                     NotifyPropertyChanged();
                 }
             }
