@@ -21,7 +21,7 @@ namespace HearthstoneCards.ViewModel
 {
     public class MainViewModel : AsyncLoader, ILocatable, IIncrementalSource<Card>
     {
-        private ICollectionView AllCards
+        public ICollectionView AllCards
         {
             get { return _allCards; }
         }
@@ -87,6 +87,7 @@ namespace HearthstoneCards.ViewModel
             IsSortedAscending = BaseSettings.Load<bool>(AppSettings.IsSortedAscendingKey);
             _allCards = new CollectionViewEx.CollectionViewEx();
             
+            // TODO load default sort from settings
             // default sort
             var sd = new SortDescription("Cost", SortDirection.Ascending);
             _allCards.SortDescriptions.Add(sd);
@@ -177,31 +178,31 @@ namespace HearthstoneCards.ViewModel
 
         public async Task OnQueryChangedAsync()
         {
-            // TODO make parallel
-            // TODO add option for IsCollectible
-            var result =
-                from card in _allCards.Source as IList<Card>
-                where card.IsCollectible
-                where ClassOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Class))
-                where SetOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Set))
-                where RarityOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Rarity))
-                orderby card.Cost ascending
-                select card;
+            //// TODO make parallel
+            //// TODO add option for IsCollectible
+            //var result =
+            //    from card in _allCards.Source as IList<Card>
+            //    where card.IsCollectible
+            //    where ClassOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Class))
+            //    where SetOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Set))
+            //    where RarityOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Rarity))
+            //    orderby card.Cost ascending
+            //    select card;
 
-            _filteredResults.Clear();
-            PresentedResults.Clear();
+            //_filteredResults.Clear();
+            //PresentedResults.Clear();
 
-            _filteredResults.AddRange(result);
-            FilterResultCount = _filteredResults.Count;
-            IsResultEmpty = FilterResultCount == 0;
+            //_filteredResults.AddRange(result);
+            //FilterResultCount = _filteredResults.Count;
+            //IsResultEmpty = FilterResultCount == 0;
 
-            // present results
-            PresentedResults.LoadMoreItemsAsync();
+            //// present results
+            //PresentedResults.LoadMoreItemsAsync();
 
-            // store filter settings
-            StoreSelection(ClassOptions, AppSettings.ClassSelectionKey);
-            StoreSelection(SetOptions, AppSettings.SetSelectionKey);
-            StoreSelection(RarityOptions, AppSettings.RaritySelectionKey);
+            //// store filter settings
+            //StoreSelection(ClassOptions, AppSettings.ClassSelectionKey);
+            //StoreSelection(SetOptions, AppSettings.SetSelectionKey);
+            //StoreSelection(RarityOptions, AppSettings.RaritySelectionKey);
         }
 
         public void ToggleSorterControlVisibility()

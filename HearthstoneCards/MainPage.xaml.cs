@@ -32,8 +32,8 @@ namespace HearthstoneCards
             {
                 if (_mainVm.IsSortingControlVisible)
                 {
-                    _mainVm.ApplySort();
                     _mainVm.ToggleSorterControlVisibility();
+                    _mainVm.ApplySort();
                     args.Handled = true;
                 }
             };
@@ -68,6 +68,7 @@ namespace HearthstoneCards
 
         private void ApplySortButton_OnClick(object sender, RoutedEventArgs e)
         {
+            _mainVm.ToggleSorterControlVisibility();
             _mainVm.ApplySort();
         }
 
