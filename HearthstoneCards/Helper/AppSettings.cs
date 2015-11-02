@@ -5,9 +5,23 @@ namespace HearthstoneCards.Helper
     public class AppSettings : BaseSettings
     {
         // settings
+        public const string IsSortedAscendingKey = "sortDirection";
+        public const string SortOptionsSelectionKey = "sortOptionSelection";
         public const string ClassSelectionKey = "classSelection";
         public const string SetSelectionKey = "setSelection";
         public const string RaritySelectionKey = "raritySelection";
+
+        public bool[] SortOptionSelection
+        {
+            get { return Load<bool[]>(SortOptionsSelectionKey); }
+            set { Store(SortOptionsSelectionKey, value); }
+        }
+
+        public bool IsSortedAscending
+        {
+            get { return Load<bool>(IsSortedAscendingKey); }
+            set { Store(ClassSelectionKey, value); }
+        }
 
         public bool[] ClassSelection
         {

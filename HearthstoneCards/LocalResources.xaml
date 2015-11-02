@@ -4,7 +4,7 @@
     xmlns:local="using:HearthstoneCards"
     xmlns:wpDevToolkit="using:WPDevToolkit">
 
-    <!-- MainPage -->
+    <!-- STYLES -->
     <Style x:Key="SelectionListViewItemStyle"  TargetType="ListViewItem">
         <Setter Property="wpDevToolkit:BindingHelper.IsSelectedContainerBinding" Value="IsSelected"/>
         <Setter Property="Template">
@@ -23,6 +23,8 @@
         </Setter>
     </Style>
     
+    <!-- ITEM TEMPLATES -->
+    <!-- MultiComboBox filter options -->
     <DataTemplate x:Key="OptionItemTemplate">
         <StackPanel
             Orientation="Horizontal"
@@ -68,6 +70,15 @@
                 Text="{Binding Key}"
                 VerticalAlignment="Center"/>
         </StackPanel>
+    </DataTemplate>
+
+    <!-- RadioButton style for sorting options -->
+    <DataTemplate x:Key="SortOptionItemTemplate">
+        <RadioButton
+            GroupName="sortOptionsGroup"
+            Style="{StaticResource ShowbroRadioButtonStyle}"
+            Content="{Binding Key}"
+            IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
     </DataTemplate>
 
     <!--<DataTemplate x:Key="CardDetailsItemTemplate">

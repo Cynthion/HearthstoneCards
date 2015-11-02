@@ -136,25 +136,27 @@
                             Grid.Row="0"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
-                            ItemsSource="{Binding SortingOptions}"/>
+                            ItemsSource="{Binding SortingOptions}"
+                            ItemTemplate="{StaticResource SortOptionItemTemplate}"/>
                         <ToggleButton
                             Grid.Row="1"
                             Grid.Column="0"
                             Style="{StaticResource BorderlessToggleButtonStyle}"
                             Content="Ascending"
-                            IsChecked="True"/>
+                            IsChecked="{Binding IsSortedAscending, Mode=TwoWay}"/>
                         <ToggleButton
                             Grid.Row="1"
                             Grid.Column="1"
                             Style="{StaticResource BorderlessToggleButtonStyle}"
                             Content="Descending"
-                            IsChecked="False"/>
+                            IsChecked="{Binding IsSortedAscending,Mode=TwoWay, Converter={StaticResource InverseBooleanConverter}}"/>
                         <Button
                             Grid.Row="2"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
                             Style="{StaticResource BorderlessButton}"
-                            HorizontalAlignment="Stretch">
+                            HorizontalAlignment="Stretch"
+                            Click="ApplySortButton_OnClick">
                             <Border
                                 Height="50" 
                                 Background="{StaticResource PhoneAccentBrush}"

@@ -34,12 +34,13 @@ namespace HearthstoneCards.ViewModel
         public ObservableCollection<ImageSelectionItem<string>> SetOptions { get; private set; }
         public ObservableCollection<ImageSelectionItem<string>> RarityOptions { get; private set; }
 
-        public IList<string> SortingOptions { get; private set; }
+        public IList<ISelectionItem> SortOptions { get; private set; }
 
         private int _filterResultCount;
         private bool _isIncrementalLoading;
 
         private bool _isSortingControlVisible;
+        private bool _isSortedAscending;
 
         public MainViewModel()
         {
@@ -73,19 +74,14 @@ namespace HearthstoneCards.ViewModel
                 new ImageSelectionItem<string>("Epic") { ImagePath = "../Assets/Icons/Rarity/epic.png"},
                 new ImageSelectionItem<string>("Legendary") { ImagePath = "../Assets/Icons/Rarity/legendary.png"},
             });
-            SortingOptions = new List<string>
+            SortOptions = new List<ISelectionItem>
             {
-                // TODO check sorting of different types
-                "Name",
-                "Cost",
-                "Rarity",
-                "Attack",
-                "Health",
-                "Durability",
-                "Set",
-                "Class"
+                new SelectionItem<string>("Cost", "Cost"),
+                new SelectionItem<string>("Attack", "Attack"),
+                new SelectionItem<string>("Health", "Health")
             };
-
+            LoadSelection(SortOptions, AppSettings.SortOptionsSelectionKey);
+            IsSortedAscending = BaseSettings.Load<bool>(AppSettings.IsSortedAscendingKey);
             _allCards = new CollectionViewEx.CollectionViewEx();
             
             // default sort
@@ -262,6 +258,19 @@ namespace HearthstoneCards.ViewModel
                 if (_isSortingControlVisible != value)
                 {
                     _isSortingControlVisible = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public bool IsSortedAscending
+        {
+            get { return _isSortedAscending; }
+            private set
+            {
+                if (_isSortedAscending != value)
+                {
+                    _isSortedAscending = value;
                     NotifyPropertyChanged();
                 }
             }

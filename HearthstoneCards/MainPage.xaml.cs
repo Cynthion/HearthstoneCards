@@ -52,5 +52,10 @@ namespace HearthstoneCards
         {
             _mainVm.ToggleSorterControlVisibility();
         }
+
+        private void ApplySortButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
