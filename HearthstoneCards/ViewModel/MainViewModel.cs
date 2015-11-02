@@ -42,6 +42,8 @@ namespace HearthstoneCards.ViewModel
         private bool _isSortingControlVisible;
         private bool _isSortedAscending;
 
+        private bool _isResultEmpty = true;
+
         public MainViewModel()
         {
             // TODO get options from DB
@@ -190,6 +192,7 @@ namespace HearthstoneCards.ViewModel
 
             _filteredResults.AddRange(result);
             FilterResultCount = _filteredResults.Count;
+            IsResultEmpty = FilterResultCount == 0;
 
             // present results
             PresentedResults.LoadMoreItemsAsync();
@@ -280,6 +283,19 @@ namespace HearthstoneCards.ViewModel
                 if (_isSortedAscending != value)
                 {
                     _isSortedAscending = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public bool IsResultEmpty
+        {
+            get { return _isResultEmpty; }
+            private set
+            {
+                if (_isResultEmpty != value)
+                {
+                    _isResultEmpty = value;
                     NotifyPropertyChanged();
                 }
             }

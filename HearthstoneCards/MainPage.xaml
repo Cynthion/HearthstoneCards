@@ -125,6 +125,15 @@
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                     </ListView>
+                    <!-- Empty Result Message -->
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="0,10,0,0"
+                        Text="No cards found.\nAdapt your filter options."
+                        HorizontalAlignment="Left"
+                        Visibility="{Binding IsResultEmpty}"/>
                     
                     <!-- Sorting Overlay -->
                     <Grid
