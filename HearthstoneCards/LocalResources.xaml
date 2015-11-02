@@ -118,13 +118,20 @@
 
     <DataTemplate x:Key="CardOnlyItemTemplate">
         <Grid
-            Background="Red"
             Margin="0, 0, 0, 5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
             <Image
+                Grid.Row="0"
                 Height="227"
                 VerticalAlignment="Center"
                 Source="{Binding Image}"
                 Stretch="Uniform"/>
+            <TextBlock
+                Grid.Row="1"
+                Text="{Binding Name}"/>
         </Grid>
     </DataTemplate>
 
