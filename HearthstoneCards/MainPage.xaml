@@ -56,7 +56,9 @@
         <!-- RESULTS -->
         <HubSection>
             <DataTemplate>
-                <Grid>
+                <Grid
+                    Background="{StaticResource PhoneBackgroundBrush}"
+                    Opacity="0.8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
@@ -133,7 +135,7 @@
                         Margin="0,10,0,0"
                         Text="No cards found.\nAdapt your filter options."
                         HorizontalAlignment="Left"
-                        Visibility="{Binding IsResultEmpty}"/>
+                        Visibility="{Binding IsResultEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     
                     <!-- Sorting Overlay -->
                     <Grid
@@ -141,6 +143,7 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         Margin="10"
+                        Background="Red"
                         Visibility="{Binding IsSortingControlVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <!-- Sort Options -->
                         <Grid.RowDefinitions>
@@ -156,17 +159,20 @@
                             Grid.Row="0"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
+                            Margin="0,0,0,10"
                             ItemsSource="{Binding SortingOptions}"
                             ItemTemplate="{StaticResource SortOptionItemTemplate}"/>
                         <ToggleButton
                             Grid.Row="1"
                             Grid.Column="0"
+                            Margin="0,0,5,10"
                             Style="{StaticResource BorderlessToggleButtonStyle}"
                             Content="Ascending"
                             IsChecked="{Binding IsSortedAscending, Mode=TwoWay}"/>
                         <ToggleButton
                             Grid.Row="1"
                             Grid.Column="1"
+                            Margin="5,0,0,10"
                             Style="{StaticResource BorderlessToggleButtonStyle}"
                             Content="Descending"
                             IsChecked="{Binding IsSortedAscending,Mode=TwoWay, Converter={StaticResource InverseBooleanConverter}}"/>

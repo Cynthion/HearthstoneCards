@@ -11,16 +11,16 @@ namespace HearthstoneCards.Helper
         public const string SetSelectionKey = "setSelection";
         public const string RaritySelectionKey = "raritySelection";
 
+        public bool IsSortedAscending
+        {
+            get { return Load<bool>(IsSortedAscendingKey); }
+            set { Store(IsSortedAscendingKey, value); }
+        }
+        
         public bool[] SortOptionSelection
         {
             get { return Load<bool[]>(SortOptionsSelectionKey); }
             set { Store(SortOptionsSelectionKey, value); }
-        }
-
-        public bool IsSortedAscending
-        {
-            get { return Load<bool>(IsSortedAscendingKey); }
-            set { Store(ClassSelectionKey, value); }
         }
 
         public bool[] ClassSelection
