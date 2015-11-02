@@ -55,7 +55,7 @@ namespace HearthstoneCards
 
         private void ApplySortButton_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new System.NotImplementedException();
+            _mainVm.ApplySort();
         }
     }
 }

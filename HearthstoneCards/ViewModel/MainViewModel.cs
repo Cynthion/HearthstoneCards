@@ -205,6 +205,15 @@ namespace HearthstoneCards.ViewModel
             IsSortingControlVisible = !IsSortingControlVisible;
         }
 
+        public void ApplySort()
+        {
+            var sortOption = SortOptions.First(o => o.IsSelected);
+            var sortDescription = new SortDescription(sortOption.Key, IsSortedAscending ? SortDirection.Ascending : SortDirection.Descending);
+            
+            var sortCommand = new SortCommand(_allCards);
+            sortCommand.Execute(sortDescription);
+        }
+
         public async Task<IEnumerable<Card>> GetPagedItems(int pageIndex, int pageSize)
         {
             CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => IsIncrementalLoading = true);
