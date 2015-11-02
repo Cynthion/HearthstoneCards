@@ -78,12 +78,23 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
                             <TextBlock
                                 Grid.Column="0"
+                                Grid.Row="0"
                                 Text="CurrentSelection"
+                                Foreground="Gray"/>
+                            <TextBlock
+                                Grid.Column="0"
+                                Grid.Row="1"
+                                Text="Ascending"
                                 Foreground="Gray"/>
                             <Path
                                 Grid.Column="1"
+                                Grid.Row="0"
                                 Margin="5"
                                 HorizontalAlignment="Left"
 		                        Stretch="Fill"
