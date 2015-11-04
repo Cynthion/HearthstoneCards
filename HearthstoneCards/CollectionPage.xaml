@@ -19,7 +19,7 @@
             Grid.RowSpan="2"
             Background="{StaticResource PhoneBackgroundBrush}"
             x:Name="XLightStoneElement"
-            ItemsSource="{Binding PresentedResults}"
+            ItemsSource="{Binding PresentedCards}"
             MaxVisibleItems="3"
             TransitionDuration="200" 
             Rotation="50"

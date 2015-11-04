@@ -28,12 +28,12 @@ namespace HearthstoneCards
             Loaded += MainPage_OnLoaded;
 
             // listen for back-button
-            HardwareButtons.BackPressed += (sender, args) =>
+            HardwareButtons.BackPressed += async (sender, args) =>
             {
                 if (_mainVm.IsSortingControlVisible)
                 {
                     _mainVm.ToggleSorterControlVisibility();
-                    _mainVm.ApplySort();
+                    await _mainVm.ApplySortAsync();
                     args.Handled = true;
                 }
             };
@@ -60,22 +60,21 @@ namespace HearthstoneCards
             }
         }
 
-        private void SorterButton_OnClick(object sender, RoutedEventArgs e)
+        private async void SorterButton_OnClick(object sender, RoutedEventArgs e)
         {
             _mainVm.ToggleSorterControlVisibility();
-            _mainVm.ApplySort();
+            await _mainVm.ApplySortAsync();
         }
 
-        private void ApplySortButton_OnClick(object sender, RoutedEventArgs e)
+        private async void ApplySortButton_OnClick(object sender, RoutedEventArgs e)
         {
             _mainVm.ToggleSorterControlVisibility();
-            _mainVm.ApplySort();
+            await _mainVm.ApplySortAsync();
         }
 
         private void SortConfigurationElement_OnClicked(object sender, RoutedEventArgs e)
         {
             _mainVm.IsSortConfigurationChanged = true;
-            // TODO apply sort, if performance ok
         }
     }
 }
