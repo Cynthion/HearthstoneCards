@@ -18,6 +18,7 @@
             <converter:ScreenSizeConverter x:Key="ScreenSizeConverter"/>
             <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <converter:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+            <converter:SortDirectionToStringConverter x:Key="SortDirectionToStringConverter"/>
 
         </ResourceDictionary>
     </Application.Resources>

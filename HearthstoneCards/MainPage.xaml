@@ -90,7 +90,7 @@
                             <TextBlock
                                 Grid.Column="0"
                                 Grid.Row="1"
-                                Text="Ascending"
+                                Text="{Binding IsSortedAscending, Converter={StaticResource SortDirectionToStringConverter}}"
                                 Foreground="Gray"/>
                             <Path
                                 Grid.Column="1"
