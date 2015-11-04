@@ -8,6 +8,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml.Data;
 using WPDevToolkit;
+using WPDevToolkit.Sorting;
 
 namespace HearthstoneCards.CollectionViewEx
 {

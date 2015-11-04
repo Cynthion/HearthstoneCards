@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 using WPDevToolkit;
 using WPDevToolkit.Interfaces;
 using WPDevToolkit.Selection;
+using WPDevToolkit.Sorting;
 
 namespace HearthstoneCards.ViewModel
 {
@@ -116,19 +117,29 @@ namespace HearthstoneCards.ViewModel
 
         public async void PresentedResultsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
-            if (args.Action == NotifyCollectionChangedAction.Add)
+            // TODO correct for move/replace (use provided indices)
+            switch (args.Action)
             {
-                // load card images
-                var tasks = new List<Task>(args.NewItems.Count);
-                foreach (Card[] cards in args.NewItems)
-                {
-                    foreach (var card in cards)
-                    {
-                        tasks.Add(card.LoadImageAsync());
-                    }
-                }
-                await Task.WhenAll(tasks);
+                case NotifyCollectionChangedAction.Add:
+                    await LoadCardImages((Card[]) args.NewItems);
+                    break;
+                case NotifyCollectionChangedAction.Move:
+                    await LoadCardImages((Card[]) args.NewItems);
+                    break;
+                case NotifyCollectionChangedAction.Replace:
+                    await LoadCardImages((Card[]) args.NewItems);
+                    break;
             }
+        }
+
+        private static async Task LoadCardImages(Card[] cards)
+        {
+            var tasks = new List<Task>(cards.Count());
+            foreach (var card in cards)
+            {
+                tasks.Add(card.LoadImageAsync());
+            }
+            await Task.WhenAll(tasks);
         }
 
         protected override async Task<LoadResult> DoLoadAsync()
@@ -168,12 +179,8 @@ namespace HearthstoneCards.ViewModel
             return LoadResult.Success;
         }
 
-        // TODO use as CollectionViewEx filter-predicate
         public async Task OnQueryChangedAsync()
         {
-            // update presented results from filtered collection view
-            PresentedCards.Clear();
-
             // TODO make parallel
             // TODO add option for IsCollectible
             var result =
@@ -185,11 +192,9 @@ namespace HearthstoneCards.ViewModel
                 orderby card.Cost ascending
                 select card;
 
-            PresentedResults.Clear();
-
-            //_filteredResults.AddRange(result);
-            //FilterResultCount = _filteredResults.Count;
-            //IsResultEmpty = FilterResultCount == 0;
+            _filteredCards.Clear();
+            _filteredCards.AddRange(result);
+            IsResultEmpty = _filteredCards.Count == 0;
 
             //// present results
             //PresentedResults.LoadMoreItemsAsync();
@@ -207,6 +212,7 @@ namespace HearthstoneCards.ViewModel
 
         public void ApplySort()
         {
+            // TODO reset position of PresentedCards
             // only sort if necessary
             if (IsSortConfigurationChanged)
             {
