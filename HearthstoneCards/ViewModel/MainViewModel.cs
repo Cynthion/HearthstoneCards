@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
@@ -8,47 +7,37 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.UI.Core;
-using HearthstoneCards.CollectionViewEx;
 using HearthstoneCards.Helper;
 using HearthstoneCards.Model;
 using Newtonsoft.Json;
 using WPDevToolkit;
 using WPDevToolkit.Interfaces;
 using WPDevToolkit.Selection;
-using WPDevToolkit.Sorting;
 
 namespace HearthstoneCards.ViewModel
 {
     public class MainViewModel : AsyncLoader, ILocatable, IIncrementalSource<Card>
     {
-        private readonly List<Card> _allCards;                                  // whole DB
-        private readonly List<Card> _filteredCards;                             // filtered DB
-        private readonly IncrementalObservableCollection<MainViewModel, Card> _presentedCards;
-        //private readonly CollectionViewEx.CollectionViewEx _presentedCards;     // presented cards -> sorted, incrementally loaded
-        //public ICollectionView PresentedCards
-        //{
-        //    get { return _presentedCards; }
-        //}
+        public IList<ImageSelectionItem<string>> ClassOptions { get; private set; }
+        public IList<ImageSelectionItem<string>> SetOptions { get; private set; }
+        public IList<ImageSelectionItem<string>> RarityOptions { get; private set; }
+        public IList<ISelectionItem<Func<Card, object>>> SortOptions { get; private set; }
+        public IncrementalObservableCollection<MainViewModel, Card> PresentedCards { get { return _presentedCards; } }
 
-        //private readonly List<Card> _filteredResults;
-        //public IncrementalObservableCollection<MainViewModel, Card> PresentedResults { get; private set; }
+        private readonly List<Card> _allCards;                                                  // whole DB
+        private readonly List<Card> _filteredCards;                                             // filtered DB
+        private readonly IncrementalObservableCollection<MainViewModel, Card> _presentedCards;  // presented cards -> sorted, incrementally loaded
 
-        public ObservableCollection<ImageSelectionItem<string>> ClassOptions { get; private set; }
-        public ObservableCollection<ImageSelectionItem<string>> SetOptions { get; private set; }
-        public ObservableCollection<ImageSelectionItem<string>> RarityOptions { get; private set; }
-
-        public IList<ISelectionItem> SortOptions { get; private set; }
-
+        private bool _isSortedAscending;
+        private bool _isSortingControlVisible;
+        private bool _isSortConfigurationChanged;
         private bool _isIncrementalLoading;
         private bool _isResultEmpty = true;
-        private bool _isSortingControlVisible;
-        private bool _isSortedAscending;
-        private bool _isSortConfigurationChanged;
 
         public MainViewModel()
         {
             // TODO get options from DB
-            ClassOptions = new ObservableCollection<ImageSelectionItem<string>>(new List<ImageSelectionItem<string>>
+            ClassOptions = new List<ImageSelectionItem<string>>
             {
                 new ImageSelectionItem<string>("Druid") { ImagePath = "../Assets/Icons/Classes/druid.png"},
                 new ImageSelectionItem<string>("Hunter") { ImagePath = "../Assets/Icons/Classes/hunter.png"},
@@ -59,8 +48,8 @@ namespace HearthstoneCards.ViewModel
                 new ImageSelectionItem<string>("Shaman") { ImagePath = "../Assets/Icons/Classes/shaman.png"},
                 new ImageSelectionItem<string>("Warlock") { ImagePath = "../Assets/Icons/Classes/warlock.png"},
                 new ImageSelectionItem<string>("Warrior") { ImagePath = "../Assets/Icons/Classes/warrior.png"},
-            });
-            SetOptions = new ObservableCollection<ImageSelectionItem<string>>(new List<ImageSelectionItem<string>>
+            };
+            SetOptions = new List<ImageSelectionItem<string>>
             {
                 new ImageSelectionItem<string>("Basic"),
                 new ImageSelectionItem<string>("Classic") { ImagePath = "../Assets/Icons/Sets/classic.png"},
@@ -68,20 +57,19 @@ namespace HearthstoneCards.ViewModel
                 new ImageSelectionItem<string>("Goblins vs Gnomes") { ImagePath = "../Assets/Icons/Sets/gvg.png"},
                 new ImageSelectionItem<string>("Blackrock Mountain") { ImagePath = "../Assets/Icons/Sets/blackrock.png"},
                 new ImageSelectionItem<string>("The Grand Tournament") { ImagePath = "../Assets/Icons/Sets/tgt.png"},
-            });
-            RarityOptions = new ObservableCollection<ImageSelectionItem<string>>(new List<ImageSelectionItem<string>>
+            };
+            RarityOptions = new List<ImageSelectionItem<string>>
             {
                 new ImageSelectionItem<string>("Free"),
                 new ImageSelectionItem<string>("Common") { ImagePath = "../Assets/Icons/Rarity/common.png"},
                 new ImageSelectionItem<string>("Rare") { ImagePath = "../Assets/Icons/Rarity/rare.png"},
                 new ImageSelectionItem<string>("Epic") { ImagePath = "../Assets/Icons/Rarity/epic.png"},
                 new ImageSelectionItem<string>("Legendary") { ImagePath = "../Assets/Icons/Rarity/legendary.png"},
-            });
-            SortOptions = new List<ISelectionItem>
+            };
+            SortOptions = new List<ISelectionItem<Func<Card, object>>>
             {
-                new SelectionItem<string>("Cost", "Cost"),
-                new SelectionItem<string>("Attack", "Attack"),
-                new SelectionItem<string>("Health", "Health")
+                new SelectionItem<Func<Card, object>>("Cost", c => c.Cost),
+                new SelectionItem<Func<Card, string>>("Name", c => c.Name)
             };
 
             _allCards = new List<Card>();
@@ -90,10 +78,10 @@ namespace HearthstoneCards.ViewModel
             _presentedCards.CollectionChanged += PresentedResultsOnCollectionChanged;
             
             IsSortedAscending = BaseSettings.Load<bool>(AppSettings.IsSortedAscendingKey);
-            LoadSelection(SortOptions, AppSettings.SortOptionsSelectionKey);
             LoadSelection(ClassOptions, AppSettings.ClassSelectionKey);
             LoadSelection(SetOptions, AppSettings.SetSelectionKey);
             LoadSelection(RarityOptions, AppSettings.RaritySelectionKey);
+            LoadSelection(SortOptions, AppSettings.SortOptionsSelectionKey);
         }
 
         private static void LoadSelection<T>(IList<T> options, string settingKey) where T : ISelectionItem
@@ -183,26 +171,31 @@ namespace HearthstoneCards.ViewModel
         {
             // TODO make parallel
             // TODO add option for IsCollectible
+            // filter by currently selected filter options
             var result =
                 from card in _allCards
                 where card.IsCollectible
                 where ClassOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Class))
                 where SetOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Set))
                 where RarityOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Rarity))
-                orderby card.Cost ascending
                 select card;
 
+            // sort by currently selected sort options
+            var sortOption = SortOptions.First(o => o.IsSelected);
+            var sorted = IsSortedAscending ? result.OrderBy(sortOption.Value) : result.OrderByDescending(sortOption.Value);
+
+            // present results
             _filteredCards.Clear();
-            _filteredCards.AddRange(result);
+            _filteredCards.AddRange(sorted);
             IsResultEmpty = _filteredCards.Count == 0;
 
-            //// present results
-            //PresentedResults.LoadMoreItemsAsync();
+            _presentedCards.Clear();
+            _presentedCards.LoadMoreItemsAsync();
 
-            //// store filter settings
-            //StoreSelection(ClassOptions, AppSettings.ClassSelectionKey);
-            //StoreSelection(SetOptions, AppSettings.SetSelectionKey);
-            //StoreSelection(RarityOptions, AppSettings.RaritySelectionKey);
+            // store filter settings
+            StoreSelection(ClassOptions, AppSettings.ClassSelectionKey);
+            StoreSelection(SetOptions, AppSettings.SetSelectionKey);
+            StoreSelection(RarityOptions, AppSettings.RaritySelectionKey);
         }
 
         public void ToggleSorterControlVisibility()
@@ -212,7 +205,6 @@ namespace HearthstoneCards.ViewModel
 
         public void ApplySort()
         {
-            // TODO reset position of PresentedCards
             // only sort if necessary
             if (IsSortConfigurationChanged)
             {
@@ -220,10 +212,9 @@ namespace HearthstoneCards.ViewModel
                 IsSortingControlVisible = false;
 
                 var sortOption = SortOptions.First(o => o.IsSelected);
-                var sortDescription = new SortDescription(sortOption.Key, IsSortedAscending ? SortDirection.Ascending : SortDirection.Descending);
-            
-                var sortCommand = new SortCommand(_allCards);
-                sortCommand.Execute(sortDescription);
+
+                // TODO "jump to current item"
+                PresentedCards.Sort(sortOption.Value);
             }
         }
 
@@ -234,9 +225,9 @@ namespace HearthstoneCards.ViewModel
             {
                 var index = pageIndex * pageSize;
                 var pagedItems = new List<Card>(pageSize);
-                for (var i = index; i < index + pageSize && i < _filteredResults.Count; i++)
+                for (var i = index; i < index + pageSize && i < _filteredCards.Count; i++)
                 {
-                    pagedItems.Add(_filteredResults[i]);
+                    pagedItems.Add(_filteredCards[i]);
                 }
                 return pagedItems;
             }

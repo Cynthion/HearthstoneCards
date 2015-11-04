@@ -91,9 +91,6 @@
     <Compile Include="CollectionPage.xaml.cs">
       <DependentUpon>CollectionPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CollectionViewEx\CollectionViewEx.cs" />
-    <Compile Include="CollectionViewEx\ICollectionViewEx.cs" />
-    <Compile Include="CollectionViewEx\SortCommand.cs" />
     <Compile Include="Common\ContinuationManager.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\ObservableDictionary.cs" />

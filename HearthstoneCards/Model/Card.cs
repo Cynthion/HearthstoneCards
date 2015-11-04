@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
 using HearthstoneCards.Helper;
@@ -8,7 +9,7 @@ using WPDevToolkit;
 namespace HearthstoneCards.Model
 {
     [JsonConverter(typeof(CardConverter))]
-    public class Card : BaseNotifyPropertyChanged
+    public class Card : BaseNotifyPropertyChanged, IEquatable<Card>
     {
         // from JSON (http://hearthstonejson.com/)
         public string Name { get; set; }
@@ -34,7 +35,7 @@ namespace HearthstoneCards.Model
         public string Set { get; set; }
         
         private ImageSource _image;
-        private ImageSource _imageGold;
+        //private ImageSource _imageGold;
 
         private bool _isImageLoading;
 
@@ -68,18 +69,18 @@ namespace HearthstoneCards.Model
             }
         }
 
-        public ImageSource ImageGold
-        {
-            get { return _imageGold; }
-            private set
-            {
-                if (_imageGold != value)
-                {
-                    _imageGold = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
+        //public ImageSource ImageGold
+        //{
+        //    get { return _imageGold; }
+        //    private set
+        //    {
+        //        if (_imageGold != value)
+        //        {
+        //            _imageGold = value;
+        //            NotifyPropertyChanged();
+        //        }
+        //    }
+        //}
 
         public bool IsImageLoading
         {
@@ -92,6 +93,11 @@ namespace HearthstoneCards.Model
                     NotifyPropertyChanged();
                 }
             }
+        }
+
+        public bool Equals(Card other)
+        {
+            return Id.Equals(other.Id);
         }
     }
 }
