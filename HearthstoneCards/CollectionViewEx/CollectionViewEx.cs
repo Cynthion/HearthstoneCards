@@ -3,11 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml.Data;
@@ -556,6 +552,9 @@ namespace HearthstoneCards.CollectionViewEx
         public bool HasMoreItems { get { return false; } }
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
         {
+            // TODO implement LoadMoreItemsAsync
+            // return items from _view
+            // reset page counter upon settings change
             throw new NotSupportedException();
         }
 

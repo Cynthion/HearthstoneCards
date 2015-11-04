@@ -102,6 +102,7 @@
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Helper\ApiCaller.cs" />
     <Compile Include="Helper\AppSettings.cs" />
+    <Compile Include="Helper\CardSorter.cs" />
     <Compile Include="Helper\CardConverter.cs" />
     <Compile Include="Helper\GlobalCollectionConverter.cs" />
     <Compile Include="Helper\Initializer.cs" />

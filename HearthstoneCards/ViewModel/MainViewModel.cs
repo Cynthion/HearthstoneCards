@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.UI.Core;
-using Windows.UI.Xaml.Data;
 using HearthstoneCards.CollectionViewEx;
 using HearthstoneCards.Helper;
 using HearthstoneCards.Model;
@@ -21,14 +20,17 @@ namespace HearthstoneCards.ViewModel
 {
     public class MainViewModel : AsyncLoader, ILocatable, IIncrementalSource<Card>
     {
-        public ICollectionView AllCards
-        {
-            get { return _allCards; }
-        }
+        private readonly List<Card> _allCards;                                  // whole DB
+        private readonly List<Card> _filteredCards;                             // filtered DB
+        private readonly IncrementalObservableCollection<MainViewModel, Card> _presentedCards;
+        //private readonly CollectionViewEx.CollectionViewEx _presentedCards;     // presented cards -> sorted, incrementally loaded
+        //public ICollectionView PresentedCards
+        //{
+        //    get { return _presentedCards; }
+        //}
 
-        private readonly CollectionViewEx.CollectionViewEx _allCards;
-        private readonly List<Card> _filteredResults;
-        public IncrementalObservableCollection<MainViewModel, Card> PresentedResults { get; private set; }
+        //private readonly List<Card> _filteredResults;
+        //public IncrementalObservableCollection<MainViewModel, Card> PresentedResults { get; private set; }
 
         public ObservableCollection<ImageSelectionItem<string>> ClassOptions { get; private set; }
         public ObservableCollection<ImageSelectionItem<string>> SetOptions { get; private set; }
@@ -36,14 +38,11 @@ namespace HearthstoneCards.ViewModel
 
         public IList<ISelectionItem> SortOptions { get; private set; }
 
-        private int _filterResultCount;
         private bool _isIncrementalLoading;
-
+        private bool _isResultEmpty = true;
         private bool _isSortingControlVisible;
         private bool _isSortedAscending;
         private bool _isSortConfigurationChanged;
-
-        private bool _isResultEmpty = true;
 
         public MainViewModel()
         {
@@ -83,19 +82,14 @@ namespace HearthstoneCards.ViewModel
                 new SelectionItem<string>("Attack", "Attack"),
                 new SelectionItem<string>("Health", "Health")
             };
-            LoadSelection(SortOptions, AppSettings.SortOptionsSelectionKey);
-            IsSortedAscending = BaseSettings.Load<bool>(AppSettings.IsSortedAscendingKey);
-            _allCards = new CollectionViewEx.CollectionViewEx();
+
+            _allCards = new List<Card>();
+            _filteredCards = new List<Card>();
+            _presentedCards = new IncrementalObservableCollection<MainViewModel, Card>(this, 5);
+            _presentedCards.CollectionChanged += PresentedResultsOnCollectionChanged;
             
-            // TODO load default sort from settings
-            // default sort
-            var sd = new SortDescription("Cost", SortDirection.Ascending);
-            _allCards.SortDescriptions.Add(sd);
-
-            _filteredResults = new List<Card>();
-            PresentedResults = new IncrementalObservableCollection<MainViewModel, Card>(this, 5);
-            PresentedResults.CollectionChanged += PresentedResultsOnCollectionChanged;
-
+            IsSortedAscending = BaseSettings.Load<bool>(AppSettings.IsSortedAscendingKey);
+            LoadSelection(SortOptions, AppSettings.SortOptionsSelectionKey);
             LoadSelection(ClassOptions, AppSettings.ClassSelectionKey);
             LoadSelection(SetOptions, AppSettings.SetSelectionKey);
             LoadSelection(RarityOptions, AppSettings.RaritySelectionKey);
@@ -156,12 +150,10 @@ namespace HearthstoneCards.ViewModel
                     if (json != null)
                     {
                         var globalCollection = JsonConvert.DeserializeObject<GlobalCollection>(json);
-                        var allCards = new List<Card>();
                         foreach (var set in globalCollection.Sets)
                         {
-                            allCards.AddRange(set.Cards);
+                            _allCards.AddRange(set.Cards);
                         }
-                        _allCards.Source = allCards;
                     }
 
                     // TODO remove
@@ -176,21 +168,24 @@ namespace HearthstoneCards.ViewModel
             return LoadResult.Success;
         }
 
+        // TODO use as CollectionViewEx filter-predicate
         public async Task OnQueryChangedAsync()
         {
-            //// TODO make parallel
-            //// TODO add option for IsCollectible
-            //var result =
-            //    from card in _allCards.Source as IList<Card>
-            //    where card.IsCollectible
-            //    where ClassOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Class))
-            //    where SetOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Set))
-            //    where RarityOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Rarity))
-            //    orderby card.Cost ascending
-            //    select card;
+            // update presented results from filtered collection view
+            PresentedCards.Clear();
 
-            //_filteredResults.Clear();
-            //PresentedResults.Clear();
+            // TODO make parallel
+            // TODO add option for IsCollectible
+            var result =
+                from card in _allCards
+                where card.IsCollectible
+                where ClassOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Class))
+                where SetOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Set))
+                where RarityOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Rarity))
+                orderby card.Cost ascending
+                select card;
+
+            PresentedResults.Clear();
 
             //_filteredResults.AddRange(result);
             //FilterResultCount = _filteredResults.Count;
@@ -242,19 +237,6 @@ namespace HearthstoneCards.ViewModel
             finally
             {
                 CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => IsIncrementalLoading = false);
-            }
-        }
-
-        public int FilterResultCount
-        {
-            get { return _filterResultCount; }
-            private set
-            {
-                if (_filterResultCount != value)
-                {
-                    _filterResultCount = value;
-                    NotifyPropertyChanged();
-                }
             }
         }
 
