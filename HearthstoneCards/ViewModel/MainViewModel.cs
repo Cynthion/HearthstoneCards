@@ -26,7 +26,7 @@ namespace HearthstoneCards.ViewModel
 
         private readonly List<Card> _allCards;                                                  // whole DB
         private readonly List<Card> _filteredCards;                                             // filtered DB
-        private readonly IncrementalObservableCollection<MainViewModel, Card> _presentedCards;  // presented cards -> sorted, incrementally loaded
+        private readonly IncrementalObservableCollection<MainViewModel, Card> _presentedCards;  // presented filtered -> sorted, incrementally loaded
 
         private bool _isSortedAscending;
         private bool _isSortingControlVisible;
@@ -109,23 +109,27 @@ namespace HearthstoneCards.ViewModel
             switch (args.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    await LoadCardImages((Card[]) args.NewItems);
+                    // ObservableRangeCollection -> adds multiple items
+                    await LoadCardImages(args.NewItems.Cast<Card[]>());
                     break;
                 case NotifyCollectionChangedAction.Move:
-                    await LoadCardImages((Card[]) args.NewItems);
+                    //await LoadCardImages((Card[]) args.NewItems);
                     break;
                 case NotifyCollectionChangedAction.Replace:
-                    await LoadCardImages((Card[]) args.NewItems);
+                    //await LoadCardImages((Card[]) args.NewItems);
                     break;
             }
         }
 
-        private static async Task LoadCardImages(Card[] cards)
+        private static async Task LoadCardImages(IEnumerable<Card[]> cardArrays)
         {
-            var tasks = new List<Task>(cards.Count());
-            foreach (var card in cards)
+            var tasks = new List<Task>();
+            foreach (var array in cardArrays)
             {
-                tasks.Add(card.LoadImageAsync());
+                foreach (var card in array)
+                {
+                    tasks.Add(card.LoadImageAsync());
+                }
             }
             await Task.WhenAll(tasks);
         }
@@ -172,7 +176,7 @@ namespace HearthstoneCards.ViewModel
             // TODO make parallel
             // TODO add option for IsCollectible
             // filter by currently selected filter options
-            var result =
+            var filtered =
                 from card in _allCards
                 where card.IsCollectible
                 where ClassOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Class))
@@ -180,22 +184,28 @@ namespace HearthstoneCards.ViewModel
                 where RarityOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Rarity))
                 select card;
 
-            // sort by currently selected sort options
-            var sortOption = SortOptions.First(o => o.IsSelected);
-            var sorted = IsSortedAscending ? result.OrderBy(sortOption.Value) : result.OrderByDescending(sortOption.Value);
-
-            // present results
-            _filteredCards.Clear();
-            _filteredCards.AddRange(sorted);
-            IsResultEmpty = _filteredCards.Count == 0;
-
-            _presentedCards.Clear();
-            _presentedCards.LoadMoreItemsAsync();
-
+            SortAndPresent(filtered);
+            
             // store filter settings
             StoreSelection(ClassOptions, AppSettings.ClassSelectionKey);
             StoreSelection(SetOptions, AppSettings.SetSelectionKey);
             StoreSelection(RarityOptions, AppSettings.RaritySelectionKey);
+        }
+
+        private void SortAndPresent(IEnumerable<Card> filtered)
+        {
+            // sort by currently selected sort options
+            var sortOption = SortOptions.First(o => o.IsSelected);
+            var sorted = _isSortedAscending ? filtered.OrderBy(sortOption.Value) : filtered.OrderByDescending(sortOption.Value);
+            
+            // update filtered DB
+            _filteredCards.Clear();
+            _filteredCards.AddRange(sorted);
+            IsResultEmpty = _filteredCards.Count == 0;
+
+            // present results, start incremental loading
+            _presentedCards.Clear();
+            _presentedCards.LoadMoreItemsAsync();
         }
 
         public void ToggleSorterControlVisibility()
@@ -211,10 +221,9 @@ namespace HearthstoneCards.ViewModel
                 IsSortConfigurationChanged = false;
                 IsSortingControlVisible = false;
 
-                var sortOption = SortOptions.First(o => o.IsSelected);
-
+                // apply sort on existing filtered DB
+                SortAndPresent(_filteredCards);
                 // TODO "jump to current item"
-                PresentedCards.Sort(sortOption.Value);
             }
         }
 

@@ -5,7 +5,6 @@
     xmlns:local="using:HearthstoneCards"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:vm="using:HearthstoneCards.ViewModel"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <!--<Page.DataContext>
@@ -114,7 +113,7 @@
                         Grid.Row="1"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
-                        ItemsSource="{Binding AllCards}"
+                        ItemsSource="{Binding PresentedCards}"
                         IsItemClickEnabled="True"
                         ItemTemplate="{StaticResource CardOnlyItemTemplate}"
                         ItemClick="CardList_OnItemClick">
@@ -158,9 +157,22 @@
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
                             Margin="0,0,0,10"
+                            Style="{StaticResource FullWidthListViewStyle}"
                             ItemsSource="{Binding SortOptions}"
-                            ItemTemplate="{StaticResource SortOptionItemTemplate}"
-                            ItemClick="SortConfigurationElement_OnClicked"/>
+                            IsItemClickEnabled="True"
+                            ItemClick="SortConfigurationElement_OnClicked">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <RadioButton
+                                        HorizontalAlignment="Stretch"
+                                        GroupName="sortOptionsGroup"
+                                        Style="{StaticResource ShowbroRadioButtonStyle}"
+                                        Content="{Binding Key}"
+                                        IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                        Click="SortConfigurationElement_OnClicked"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
                         <ToggleButton
                             Grid.Row="1"
                             Grid.Column="0"

@@ -72,14 +72,7 @@
         </StackPanel>
     </DataTemplate>
 
-    <!-- RadioButton style for sorting options -->
-    <DataTemplate x:Key="SortOptionItemTemplate">
-        <RadioButton
-            GroupName="sortOptionsGroup"
-            Style="{StaticResource ShowbroRadioButtonStyle}"
-            Content="{Binding Key}"
-            IsChecked="{Binding IsSelected, Mode=TwoWay}"/>
-    </DataTemplate>
+    
 
     <!--<DataTemplate x:Key="CardDetailsItemTemplate">
         <Grid

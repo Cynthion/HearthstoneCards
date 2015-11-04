@@ -29,7 +29,7 @@
             ItemsSource="{Binding MultiComboBox.Options}"
             ItemTemplate="{Binding MultiComboBox.ItemTemplate}"
             ItemContainerStyle="{Binding MultiComboBox.ItemContainerStyle}"
-            Style="{StaticResource FullWidthListBoxStyle}">
+            Style="{StaticResource FullWidthListViewStyle}">
         </ListView>
         <Grid
             Grid.Row="3"

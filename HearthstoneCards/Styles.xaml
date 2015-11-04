@@ -169,9 +169,15 @@
     </Style>
     
     <!-- ListView (full width) -->
-    <Style x:Key="FullWidthListBoxStyle" TargetType="ListView">
+    <Style x:Key="FullWidthListViewItemStyle" TargetType="ListViewItem">
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+    </Style>
+
+    <Style x:Key="FullWidthListViewStyle" TargetType="ListView">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource FullWidthListViewItemStyle}"/>
     </Style>
 
     <!-- CheckboxListBoxItem -->

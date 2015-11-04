@@ -75,6 +75,7 @@ namespace HearthstoneCards
         private void SortConfigurationElement_OnClicked(object sender, RoutedEventArgs e)
         {
             _mainVm.IsSortConfigurationChanged = true;
+            // TODO apply sort, if performance ok
         }
     }
 }
