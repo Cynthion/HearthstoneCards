@@ -84,7 +84,7 @@
                             <TextBlock
                                 Grid.Column="0"
                                 Grid.Row="0"
-                                Text="CurrentSelection"
+                                Text="{Binding CurrentSortOption}"
                                 Foreground="Gray"/>
                             <TextBlock
                                 Grid.Column="0"

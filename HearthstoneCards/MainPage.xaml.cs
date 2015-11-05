@@ -9,7 +9,8 @@ using WPDevToolkit;
 
 namespace HearthstoneCards
 {
-    public sealed partial class MainPage : BasePage
+    public sealed partial class 
+        MainPage : BasePage
     {
         private readonly MainViewModel _mainVm;
 

@@ -24,6 +24,8 @@ namespace HearthstoneCards.ViewModel
         public IList<ISelectionItem<Func<Card, object>>> SortOptions { get; private set; }
         public IncrementalObservableCollection<MainViewModel, Card> PresentedCards { get { return _presentedCards; } }
 
+        private ISelectionItem _currentSortOption;
+
         private readonly List<Card> _allCards;                                                  // whole DB
         private readonly List<Card> _filteredCards;                                             // filtered DB
         private readonly IncrementalObservableCollection<MainViewModel, Card> _presentedCards;  // presented filtered -> sorted, incrementally loaded
@@ -33,6 +35,8 @@ namespace HearthstoneCards.ViewModel
         private bool _isSortConfigurationChanged;
         private bool _isIncrementalLoading;
         private bool _isResultEmpty = true;
+
+
 
         public MainViewModel()
         {
@@ -75,7 +79,7 @@ namespace HearthstoneCards.ViewModel
                 new SelectionItem<Func<Card, object>>("Health", c => c.Health),
                 new SelectionItem<Func<Card, object>>("Name", c => c.Name),
                 new SelectionItem<Func<Card, object>>("Race", c => c.Race),
-                new SelectionItem<Func<Card, object>>("Rarity", c => c.Rarity),
+                new SelectionItem<Func<Card, object>>("Rarity", c => c.Rarity), // TODO find appropriate sorting mechanism
                 new SelectionItem<Func<Card, object>>("Set", c => c.Set),
                 new SelectionItem<Func<Card, object>>("Text", c => c.Text),
                 new SelectionItem<Func<Card, object>>("Type", c => c.Type)
@@ -91,6 +95,7 @@ namespace HearthstoneCards.ViewModel
             LoadSelection(SetOptions, AppSettings.SetSelectionKey);
             LoadSelection(RarityOptions, AppSettings.RaritySelectionKey);
             LoadSelection(SortOptions, AppSettings.SortOptionsSelectionKey);
+            CurrentSortOption = SortOptions.First(o => o.IsSelected);
         }
 
         private static void LoadSelection<T>(IList<T> options, string settingKey) where T : ISelectionItem
@@ -206,7 +211,8 @@ namespace HearthstoneCards.ViewModel
             // sort by currently selected sort options
             var sortOption = SortOptions.First(o => o.IsSelected);
             var sorted = _isSortedAscending ? filtered.OrderBy(sortOption.Value).ToList() : filtered.OrderByDescending(sortOption.Value).ToList();
-            
+            CurrentSortOption = sortOption;
+
             // update filtered DB
             _filteredCards.Clear();
             _filteredCards.AddRange(sorted);
@@ -316,6 +322,19 @@ namespace HearthstoneCards.ViewModel
                 if (_isResultEmpty != value)
                 {
                     _isResultEmpty = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public ISelectionItem CurrentSortOption
+        {
+            get { return _currentSortOption; }
+            private set
+            {
+                if (_currentSortOption != value)
+                {
+                    _currentSortOption = value;
                     NotifyPropertyChanged();
                 }
             }
