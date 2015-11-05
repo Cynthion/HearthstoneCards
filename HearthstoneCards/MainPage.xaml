@@ -21,34 +21,66 @@
         <HubSection>
             <DataTemplate>
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="20"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
+                    <!-- Class Filter -->
                     <local:MultiComboBox
                         Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
                         Header="Class"
                         Options="{Binding ClassOptions}"
                         ItemTemplate="{StaticResource OptionItemTemplate}"
                         ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
                         SelectionChanged="MultiSelector_OnSelectionChanged"/>
+                    <!-- Set Filter -->
                     <local:MultiComboBox
                         Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
                         Header="Set"
                         Options="{Binding SetOptions}"
                         ItemTemplate="{StaticResource SetOptionItemTemplate}"
                         ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
                         SelectionChanged="MultiSelector_OnSelectionChanged"/>
+                    <!-- Rarity Filter -->
                     <local:MultiComboBox
                         Grid.Row="3"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
                         Header="Rarity"
                         Options="{Binding RarityOptions}"
                         ItemTemplate="{StaticResource RarityOptionItemTemplate}"
                         ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
                         SelectionChanged="MultiSelector_OnSelectionChanged"/>
+                    <!-- Attack Filter -->
+                    <ComboBox
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Header="Attack"
+                        Tag="from"
+                        ItemsSource="{Binding AttackOptions}"
+                        ItemContainerStyle="{StaticResource SelectionComboBoxItemStyle}"
+                        SelectionChanged="AttackComboBox_OnSelectionChanged"/>
+                    <ComboBox
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        VerticalAlignment="Bottom"
+                        Tag="to"
+                        ItemsSource="{Binding AttackOptions}"
+                        ItemContainerStyle="{StaticResource SelectionComboBoxItemStyle}"
+                        SelectionChanged="AttackComboBox_OnSelectionChanged"/>
+                    
                 </Grid>
             </DataTemplate>
         </HubSection>
@@ -84,7 +116,7 @@
                             <TextBlock
                                 Grid.Column="0"
                                 Grid.Row="0"
-                                Text="{Binding CurrentSortOption}"
+                                Text="{Binding SelectedSortOption}"
                                 Foreground="Gray"/>
                             <TextBlock
                                 Grid.Column="0"

@@ -1,6 +1,8 @@
-﻿using Windows.Phone.UI.Input;
+﻿using System.Collections.Generic;
+using Windows.Phone.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using HearthstoneCards.Helper;
 using HearthstoneCards.Model;
@@ -76,6 +78,11 @@ namespace HearthstoneCards
         private void SortConfigurationElement_OnClicked(object sender, RoutedEventArgs e)
         {
             _mainVm.IsSortConfigurationChanged = true;
+        }
+
+        private void AttackComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
