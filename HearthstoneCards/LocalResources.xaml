@@ -23,11 +23,6 @@
         </Setter>
     </Style>
 
-    <Style x:Key="SelectionComboBoxItemStyle"  TargetType="ComboBoxItem">
-        <Setter Property="wpDevToolkit:BindingHelper.IsSelectedContainerBinding" Value="IsSelected"/>
-        
-    </Style>
-
     <!-- ITEM TEMPLATES -->
     <!-- MultiComboBox filter options -->
     <DataTemplate x:Key="OptionItemTemplate">

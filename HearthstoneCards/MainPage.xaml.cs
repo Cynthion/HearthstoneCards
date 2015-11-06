@@ -80,9 +80,21 @@ namespace HearthstoneCards
             _mainVm.IsSortConfigurationChanged = true;
         }
 
-        private void AttackComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void AttackComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            throw new System.NotImplementedException();
+            var cb = sender as ComboBox;
+            if (cb != null)
+            {
+                if (cb.Tag.Equals("from"))
+                {
+                    _mainVm.SelectedAttackFromOption = (int) e.AddedItems[0];
+                }
+                else if (cb.Tag.Equals("to"))
+                {
+                    _mainVm.SelectedAttackToOption = (int) e.AddedItems[0];
+                }
+                await _mainVm.OnQueryChangedAsync();
+            }
         }
     }
 }

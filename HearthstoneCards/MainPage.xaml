@@ -69,18 +69,17 @@
                         Grid.Column="0"
                         Header="Attack"
                         Tag="from"
+                        PlaceholderText="{Binding SelectedAttackFromOption}"
                         ItemsSource="{Binding AttackOptions}"
-                        ItemContainerStyle="{StaticResource SelectionComboBoxItemStyle}"
                         SelectionChanged="AttackComboBox_OnSelectionChanged"/>
                     <ComboBox
                         Grid.Row="4"
                         Grid.Column="1"
                         VerticalAlignment="Bottom"
                         Tag="to"
+                        PlaceholderText="{Binding SelectedAttackToOption}"
                         ItemsSource="{Binding AttackOptions}"
-                        ItemContainerStyle="{StaticResource SelectionComboBoxItemStyle}"
                         SelectionChanged="AttackComboBox_OnSelectionChanged"/>
-                    
                 </Grid>
             </DataTemplate>
         </HubSection>

@@ -21,13 +21,13 @@ namespace HearthstoneCards.ViewModel
         public IList<ImageSelectionItem<string>> ClassOptions { get; private set; }
         public IList<ImageSelectionItem<string>> SetOptions { get; private set; }
         public IList<ImageSelectionItem<string>> RarityOptions { get; private set; }
-        public IList<SelectionItem<int>> AttackOptions { get; private set; }
+        public IList<int> AttackOptions { get; private set; }
         public IList<ISelectionItem<Func<Card, object>>> SortOptions { get; private set; }
         public IncrementalObservableCollection<MainViewModel, Card> PresentedCards { get { return _presentedCards; } }
 
         private ISelectionItem _selectedSortOption;
-        public ISelectionItem<int> SelectedAttackFromOption;
-        public ISelectionItem<int> SelectedAttackToOption;
+        public int SelectedAttackFromOption;
+        public int SelectedAttackToOption;
 
         private readonly List<Card> _allCards;                                                  // whole DB
         private readonly List<Card> _filteredCards;                                             // filtered DB
@@ -85,10 +85,10 @@ namespace HearthstoneCards.ViewModel
                 new SelectionItem<Func<Card, object>>("Text", c => c.Text),
                 new SelectionItem<Func<Card, object>>("Type", c => c.Type)
             };
-            AttackOptions = new List<SelectionItem<int>>();
+            AttackOptions = new List<int>();
             for (var i = 1; i <= 10; i++)
             {
-                AttackOptions.Add(new SelectionItem<int>(i.ToString(), i));   
+                AttackOptions.Add(i);   
             }
 
             _allCards = new List<Card>();
@@ -96,7 +96,10 @@ namespace HearthstoneCards.ViewModel
             _presentedCards = new IncrementalObservableCollection<MainViewModel, Card>(this, 5);
             _presentedCards.CollectionChanged += PresentedResultsOnCollectionChanged;
             
-            IsSortedAscending = BaseSettings.Load<bool>(AppSettings.IsSortedAscendingKey);
+            var settings = new AppSettings();
+            IsSortedAscending = settings.IsSortedAscending;
+            SelectedAttackFromOption = settings.AttackFromSelection;
+            SelectedAttackToOption = settings.AttackToSelection;
             LoadSelection(ClassOptions, AppSettings.ClassSelectionKey);
             LoadSelection(SetOptions, AppSettings.SetSelectionKey);
             LoadSelection(RarityOptions, AppSettings.RaritySelectionKey);
@@ -195,6 +198,7 @@ namespace HearthstoneCards.ViewModel
         {
             // TODO make parallel
             // TODO add option for IsCollectible
+            // TODO optimize by reducing entries as fast as possible
             // filter by currently selected filter options
             var filtered =
                 from card in _allCards
@@ -202,6 +206,7 @@ namespace HearthstoneCards.ViewModel
                 where ClassOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Class))
                 where SetOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Set))
                 where RarityOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Rarity))
+                //where card.Attack >= SelectedAttackFromOption && card.Attack <= SelectedAttackToOption
                 select card;
 
             await SortAndPresentAsync(filtered.ToList());

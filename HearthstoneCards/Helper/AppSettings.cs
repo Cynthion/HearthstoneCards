@@ -10,6 +10,8 @@ namespace HearthstoneCards.Helper
         public const string ClassSelectionKey = "classSelection";
         public const string SetSelectionKey = "setSelection";
         public const string RaritySelectionKey = "raritySelection";
+        public const string AttackFromSelectionKey = "attackFromSelection";
+        public const string AttackToSelectionKey = "attackToSelection";
 
         public bool IsSortedAscending
         {
@@ -39,6 +41,18 @@ namespace HearthstoneCards.Helper
         {
             get { return Load<bool[]>(RaritySelectionKey); }
             set { Store(RaritySelectionKey, value); }
+        }
+
+        public int AttackFromSelection
+        {
+            get { return Load<int>(AttackFromSelectionKey); }
+            set { Store(AttackFromSelectionKey, value); }
+        }
+
+        public int AttackToSelection
+        {
+            get { return Load<int>(AttackToSelectionKey); }
+            set { Store(AttackToSelectionKey, value); }
         }
     }
 }
