@@ -36,7 +36,7 @@ namespace HearthstoneCards.Model
         
         private ImageSource _image;
         //private ImageSource _imageGold;
-
+        
         private bool _isImageLoading;
 
         public async Task LoadImageAsync()

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.UI.Core;
+using Windows.UI.Xaml.Controls;
 using HearthstoneCards.Helper;
 using HearthstoneCards.Model;
 using Newtonsoft.Json;
@@ -18,6 +19,22 @@ namespace HearthstoneCards.ViewModel
 {
     public class MainViewModel : AsyncLoader, ILocatable, IIncrementalSource<Card>
     {
+        public IList<ItemsPanelTemplate> ItemsPanelTemplates { get; private set; }
+
+        private ItemsPanelTemplate _selectedItemsPanelTemplate;
+        public ItemsPanelTemplate SelectedItemsPanelTemplate
+        {
+            get { return _selectedItemsPanelTemplate; }
+            private set
+            {
+                if (_selectedItemsPanelTemplate != value)
+                {
+                    _selectedItemsPanelTemplate = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
         public IList<ImageSelectionItem<string>> ClassOptions { get; private set; }
         public IList<ImageSelectionItem<string>> SetOptions { get; private set; }
         public IList<ImageSelectionItem<string>> RarityOptions { get; private set; }
@@ -44,6 +61,7 @@ namespace HearthstoneCards.ViewModel
             // TODO get options from DB
             ClassOptions = new List<ImageSelectionItem<string>>
             {
+                new ImageSelectionItem<string>("Neutral"),
                 new ImageSelectionItem<string>("Druid") { ImagePath = "../Assets/Icons/Classes/druid.png"},
                 new ImageSelectionItem<string>("Hunter") { ImagePath = "../Assets/Icons/Classes/hunter.png"},
                 new ImageSelectionItem<string>("Mage") { ImagePath = "../Assets/Icons/Classes/mage.png"},

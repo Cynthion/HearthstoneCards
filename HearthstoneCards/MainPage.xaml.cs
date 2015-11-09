@@ -28,6 +28,9 @@ namespace HearthstoneCards
             _mainVm = SingletonLocator.Get<MainViewModel>();
             DataContext = _mainVm;
 
+            // provide items panel templates
+            //_mainVm.ItemsPanelTemplates
+
             Loaded += MainPage_OnLoaded;
 
             // listen for back-button

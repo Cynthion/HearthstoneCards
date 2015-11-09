@@ -23,6 +23,15 @@
         </Setter>
     </Style>
 
+    <!-- ITEMS PANEL TEMPLATES -->
+    <ItemsPanelTemplate x:Key="WrapPanelItemsPanelTemplate">
+        <ItemsWrapGrid Orientation="Horizontal"/>
+    </ItemsPanelTemplate>
+    
+    <ItemsPanelTemplate x:Key="StackPanelItemsPanelTemplate">
+        <ItemsStackPanel Orientation="Vertical"/>
+    </ItemsPanelTemplate>
+    
     <!-- ITEM TEMPLATES -->
     <!-- MultiComboBox filter options -->
     <DataTemplate x:Key="OptionItemTemplate">

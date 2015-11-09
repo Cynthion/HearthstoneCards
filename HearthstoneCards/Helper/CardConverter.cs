@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using HearthstoneCards.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -27,7 +28,7 @@ namespace HearthstoneCards.Helper
             card.Class = ExtractValue<string>(jo, "playerClass");
             card.Text = ExtractValue<string>(jo, "text");
             card.InPlayText = ExtractValue<string>(jo, "inPlayText");
-            // card.Mechanics = ExtractValue<List<string>>(jo, "mechanics"); // TODO fix
+            card.Mechanics = JsonConvert.DeserializeObject<List<string>>((string)jo["mechanics"]); // TODO correct?
             card.Flavor = ExtractValue<string>(jo, "flavor");
             card.Artist = ExtractValue<string>(jo, "artist");
             card.Attack = ExtractValue<int>(jo, "attack");

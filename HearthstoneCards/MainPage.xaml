@@ -147,13 +147,14 @@
                         ItemsSource="{Binding PresentedCards}"
                         IsItemClickEnabled="True"
                         ItemTemplate="{StaticResource CardOnlyItemTemplate}"
-                        ItemClick="CardList_OnItemClick">
-                        <ListView.ItemsPanel>
+                        ItemClick="CardList_OnItemClick"
+                        ItemsPanel="{Binding SelectedItemsPanelTemplate}">
+                        <!--<ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <ItemsWrapGrid
                                     Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
-                        </ListView.ItemsPanel>
+                        </ListView.ItemsPanel>-->
                     </ListView>
                     <!-- Empty Result Message -->
                     <TextBlock

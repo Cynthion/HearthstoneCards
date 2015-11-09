@@ -109,6 +109,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Card.cs" />
+    <Compile Include="Model\Deck.cs" />
     <Compile Include="Model\GlobalCollection.cs" />
     <Compile Include="Model\ImageSelectionItem.cs" />
     <Compile Include="Model\Set.cs" />
