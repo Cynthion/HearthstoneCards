@@ -43,8 +43,8 @@ namespace HearthstoneCards.ViewModel
         public IncrementalObservableCollection<MainViewModel, Card> PresentedCards { get { return _presentedCards; } }
 
         private ISelectionItem _selectedSortOption;
-        public int SelectedAttackFromOption;
-        public int SelectedAttackToOption;
+        public int SelectedAttackFromOption { get; set; }
+        public int SelectedAttackToOption { get; set; }
 
         private readonly List<Card> _allCards;                                                  // whole DB
         private readonly List<Card> _filteredCards;                                             // filtered DB

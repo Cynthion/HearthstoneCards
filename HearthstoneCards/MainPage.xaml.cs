@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Windows.Phone.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -83,18 +84,18 @@ namespace HearthstoneCards
             _mainVm.IsSortConfigurationChanged = true;
         }
 
-        private async void AttackComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void AttackTextBox_OnSelectionChanged(object sender, RoutedEventArgs e)
         {
-            var cb = sender as ComboBox;
-            if (cb != null)
+            var tb = sender as TextBox;
+            if (tb != null)
             {
-                if (cb.Tag.Equals("from"))
+                if (tb.Tag.Equals("from"))
                 {
-                    _mainVm.SelectedAttackFromOption = (int) e.AddedItems[0];
+                    _mainVm.SelectedAttackFromOption = Convert.ToInt32(tb.Text);
                 }
-                else if (cb.Tag.Equals("to"))
+                else if (tb.Tag.Equals("to"))
                 {
-                    _mainVm.SelectedAttackToOption = (int) e.AddedItems[0];
+                    _mainVm.SelectedAttackToOption = Convert.ToInt32(tb.Text);
                 }
                 await _mainVm.OnQueryChangedAsync();
             }

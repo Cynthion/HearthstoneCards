@@ -25,10 +25,10 @@ namespace HearthstoneCards.Helper
             card.Rarity = ExtractValue<string>(jo, "rarity");
             card.Faction = ExtractValue<string>(jo, "faction");
             card.Race = ExtractValue<string>(jo, "race");
-            card.Class = ExtractValue<string>(jo, "playerClass");
+            card.Class = jo["playerClass"] != null ? (string)jo["playerClass"] : "Neutral";
             card.Text = ExtractValue<string>(jo, "text");
             card.InPlayText = ExtractValue<string>(jo, "inPlayText");
-            card.Mechanics = JsonConvert.DeserializeObject<List<string>>(jo["mechanics"].ToString());
+            card.Mechanics = jo["mechanics"] != null ? JsonConvert.DeserializeObject<List<string>>(jo["mechanics"].ToString()) : new List<string>();
             card.Flavor = ExtractValue<string>(jo, "flavor");
             card.Artist = ExtractValue<string>(jo, "artist");
             card.Attack = ExtractValue<int>(jo, "attack");

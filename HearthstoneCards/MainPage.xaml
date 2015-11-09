@@ -64,7 +64,25 @@
                         ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
                         SelectionChanged="MultiSelector_OnSelectionChanged"/>
                     <!-- Attack Filter -->
-                    <ComboBox
+                    <TextBox
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Margin="0,0,5,0"
+                        Header="Attack"
+                        InputScope="Number"
+                        Tag="from"
+                        PlaceholderText="{Binding SelectedAttackFromOption}"
+                        SelectionChanged="AttackTextBox_OnSelectionChanged"/>
+                    <TextBox
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Margin="5,0,0,0"
+                        InputScope="Number"
+                        Header=" "
+                        Tag="to"
+                        PlaceholderText="{Binding SelectedAttackToOption}"
+                        SelectionChanged="AttackTextBox_OnSelectionChanged"/>
+                    <!--<ComboBox
                         Grid.Row="4"
                         Grid.Column="0"
                         Header="Attack"
@@ -79,7 +97,7 @@
                         Tag="to"
                         PlaceholderText="{Binding SelectedAttackToOption}"
                         ItemsSource="{Binding AttackOptions}"
-                        SelectionChanged="AttackComboBox_OnSelectionChanged"/>
+                        SelectionChanged="AttackComboBox_OnSelectionChanged"/>-->
                 </Grid>
             </DataTemplate>
         </HubSection>
