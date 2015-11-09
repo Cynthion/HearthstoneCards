@@ -28,7 +28,7 @@ namespace HearthstoneCards.Helper
             card.Class = ExtractValue<string>(jo, "playerClass");
             card.Text = ExtractValue<string>(jo, "text");
             card.InPlayText = ExtractValue<string>(jo, "inPlayText");
-            card.Mechanics = JsonConvert.DeserializeObject<List<string>>((string)jo["mechanics"]); // TODO correct?
+            card.Mechanics = JsonConvert.DeserializeObject<List<string>>(jo["mechanics"].ToString());
             card.Flavor = ExtractValue<string>(jo, "flavor");
             card.Artist = ExtractValue<string>(jo, "artist");
             card.Attack = ExtractValue<int>(jo, "attack");
