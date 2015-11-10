@@ -5,7 +5,7 @@ namespace HearthstoneCards.Helper
     public class AppSettings : BaseSettings
     {
         // settings
-        public const string ItemsPanelTemplateIndexKey = "itemsPanelTemplateIndex";
+        public const string ItemsControlViewInfoIndexKey = "itemsControlViewInfoIndex";
         public const string IsSortedAscendingKey = "sortDirection";
         public const string SortOptionsSelectionKey = "sortOptionSelection";
         public const string ClassSelectionKey = "classSelection";
@@ -14,10 +14,10 @@ namespace HearthstoneCards.Helper
         public const string AttackFromSelectionKey = "attackFromSelection";
         public const string AttackToSelectionKey = "attackToSelection";
 
-        public int ItemsPanelTemplateIndex
+        public int ItemsControlViewInfoIndex
         {
-            get { return Load<int>(ItemsPanelTemplateIndexKey); }
-            set { Store(ItemsPanelTemplateIndexKey, value); }
+            get { return Load<int>(ItemsControlViewInfoIndexKey); }
+            set { Store(ItemsControlViewInfoIndexKey, value); }
         }
 
         public bool IsSortedAscending

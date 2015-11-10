@@ -14,7 +14,7 @@ namespace HearthstoneCards
     public sealed partial class MainPage : BasePage
     {
         private readonly MainViewModel _mainVm;
-        private readonly ItemsPanelTemplate[] _itemsPanelTemplates;
+        private readonly ItemsControlViewInfo[] _itemsControlViewInfos;
 
         public MainPage()
         {
@@ -28,14 +28,22 @@ namespace HearthstoneCards
             _mainVm = SingletonLocator.Get<MainViewModel>();
             DataContext = _mainVm;
 
-            // provide items panel templates
-            _itemsPanelTemplates = new ItemsPanelTemplate[2];
-            _itemsPanelTemplates[0] = Application.Current.Resources["StackPanelItemsPanelTemplate"] as ItemsPanelTemplate;
-            _itemsPanelTemplates[1] = Application.Current.Resources["WrapPanelItemsPanelTemplate"] as ItemsPanelTemplate;
-            
+            // provide templates
+            _itemsControlViewInfos = new ItemsControlViewInfo[2];
+            _itemsControlViewInfos[0] = new ItemsControlViewInfo
+            {
+                ItemsPanelTemplate = Application.Current.Resources["StackPanelItemsPanelTemplate"] as ItemsPanelTemplate,
+                ItemTemplate = Application.Current.Resources["CardDetailsItemTemplate"] as DataTemplate
+            };
+            _itemsControlViewInfos[1] = new ItemsControlViewInfo
+            {
+                ItemsPanelTemplate = Application.Current.Resources["WrapPanelItemsPanelTemplate"] as ItemsPanelTemplate,
+                ItemTemplate = Application.Current.Resources["CardOnlyItemTemplate"] as DataTemplate
+            };
+
             // set initial items panel template (from settings)
-            var iptIndex = new AppSettings().ItemsPanelTemplateIndex;
-            _mainVm.SelectedItemsPanelTemplate = _itemsPanelTemplates[iptIndex];
+            var iptIndex = new AppSettings().ItemsControlViewInfoIndex;
+            _mainVm.ItemsControlViewInfo = _itemsControlViewInfos[iptIndex];
 
             Loaded += MainPage_OnLoaded;
 
@@ -114,13 +122,13 @@ namespace HearthstoneCards
                 switch (mfi.Text)
                 {
                     case "list":
-                        _mainVm.SelectedItemsPanelTemplate = _itemsPanelTemplates[0];
+                        _mainVm.ItemsControlViewInfo = _itemsControlViewInfos[0];
                         break;
                     case "wrap":
-                        _mainVm.SelectedItemsPanelTemplate = _itemsPanelTemplates[1];
+                        _mainVm.ItemsControlViewInfo = _itemsControlViewInfos[1];
                         break;
                     default:
-                        _mainVm.SelectedItemsPanelTemplate = _itemsPanelTemplates[0];
+                        _mainVm.ItemsControlViewInfo = _itemsControlViewInfos[0];
                         break;
                 }
             }
