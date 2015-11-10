@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using Windows.Phone.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Navigation;
 using HearthstoneCards.Helper;
 using HearthstoneCards.Model;
@@ -12,10 +11,10 @@ using WPDevToolkit;
 
 namespace HearthstoneCards
 {
-    public sealed partial class 
-        MainPage : BasePage
+    public sealed partial class MainPage : BasePage
     {
         private readonly MainViewModel _mainVm;
+        private readonly ItemsPanelTemplate[] _itemsPanelTemplates;
 
         public MainPage()
         {
@@ -23,14 +22,20 @@ namespace HearthstoneCards
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
 
             // initialize app
-            Initializer.Initialize();
-
+            Initializer.Initialize(); // TODO move to App.cs?
+            
             // set data context
             _mainVm = SingletonLocator.Get<MainViewModel>();
             DataContext = _mainVm;
 
             // provide items panel templates
-            //_mainVm.ItemsPanelTemplates
+            _itemsPanelTemplates = new ItemsPanelTemplate[2];
+            _itemsPanelTemplates[0] = Application.Current.Resources["StackPanelItemsPanelTemplate"] as ItemsPanelTemplate;
+            _itemsPanelTemplates[1] = Application.Current.Resources["WrapPanelItemsPanelTemplate"] as ItemsPanelTemplate;
+            
+            // set initial items panel template (from settings)
+            var iptIndex = new AppSettings().ItemsPanelTemplateIndex;
+            _mainVm.SelectedItemsPanelTemplate = _itemsPanelTemplates[iptIndex];
 
             Loaded += MainPage_OnLoaded;
 
@@ -99,6 +104,31 @@ namespace HearthstoneCards
                 }
                 await _mainVm.OnQueryChangedAsync();
             }
+        }
+
+        private void ItemsPanelTemplateMenuFlyoutItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            var mfi = sender as MenuFlyoutItem;
+            if (mfi != null)
+            {
+                switch (mfi.Text)
+                {
+                    case "list":
+                        _mainVm.SelectedItemsPanelTemplate = _itemsPanelTemplates[0];
+                        break;
+                    case "wrap":
+                        _mainVm.SelectedItemsPanelTemplate = _itemsPanelTemplates[1];
+                        break;
+                    default:
+                        _mainVm.SelectedItemsPanelTemplate = _itemsPanelTemplates[0];
+                        break;
+                }
+            }
+        }
+
+        private void ItemsPanelTemplateButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
         }
     }
 }

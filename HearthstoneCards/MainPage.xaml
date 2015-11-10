@@ -133,7 +133,7 @@
                             <TextBlock
                                 Grid.Column="0"
                                 Grid.Row="0"
-                                Text="{Binding SelectedSortOption}"
+                                Text="{Binding SelectedSortOption.Key}"
                                 Foreground="Gray"/>
                             <TextBlock
                                 Grid.Column="0"
@@ -155,9 +155,20 @@
                     <Button
                         Grid.Row="0"
                         Grid.Column="1"
-                        Content="Template"/>
+                        Click="ItemsPanelTemplateButton_OnClick">
+                        <FlyoutBase.AttachedFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem
+                                    Text="list"
+                                    Click="ItemsPanelTemplateMenuFlyoutItem_OnClick"/>
+                                <MenuFlyoutItem
+                                    Text="wrap"
+                                    Click="ItemsPanelTemplateMenuFlyoutItem_OnClick"/>
+                            </MenuFlyout>
+                        </FlyoutBase.AttachedFlyout>
+                    </Button>
 
-                    <!-- Result View -->                   
+                    <!-- Result View -->       
                     <ListView
                         Grid.Row="1"
                         Grid.Column="0"

@@ -24,12 +24,12 @@
     </Style>
 
     <!-- ITEMS PANEL TEMPLATES -->
-    <ItemsPanelTemplate x:Key="WrapPanelItemsPanelTemplate">
-        <ItemsWrapGrid Orientation="Horizontal"/>
-    </ItemsPanelTemplate>
-    
     <ItemsPanelTemplate x:Key="StackPanelItemsPanelTemplate">
         <ItemsStackPanel Orientation="Vertical"/>
+    </ItemsPanelTemplate>
+    
+    <ItemsPanelTemplate x:Key="WrapPanelItemsPanelTemplate">
+        <ItemsWrapGrid Orientation="Horizontal"/>
     </ItemsPanelTemplate>
     
     <!-- ITEM TEMPLATES -->

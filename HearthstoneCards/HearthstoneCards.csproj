@@ -101,6 +101,7 @@
     <Compile Include="Helper\CardConverter.cs" />
     <Compile Include="Helper\GlobalCollectionConverter.cs" />
     <Compile Include="Helper\Initializer.cs" />
+    <Compile Include="Helper\ItemsPanelTemplateCommand.cs" />
     <Compile Include="Helper\Storage.cs" />
     <Compile Include="LoadingImage.xaml.cs">
       <DependentUpon>LoadingImage.xaml</DependentUpon>

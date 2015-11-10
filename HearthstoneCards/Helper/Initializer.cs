@@ -13,6 +13,7 @@ namespace HearthstoneCards.Helper
             if (settings.IsFirstRun || IsNewerAppVersion(settings))
             {
                 settings.AppVersion = PhoneInteraction.GetAppVersion();
+                settings.ItemsPanelTemplateIndex = 0;
                 settings.IsSortedAscending = true;
                 settings.SortOptionSelection = new[] { true, false, false };
                 settings.ClassSelection = new [] { true, true, true, true, true, true, true, true, true };

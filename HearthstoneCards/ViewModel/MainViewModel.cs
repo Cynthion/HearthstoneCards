@@ -19,13 +19,12 @@ namespace HearthstoneCards.ViewModel
 {
     public class MainViewModel : AsyncLoader, ILocatable, IIncrementalSource<Card>
     {
-        public IList<ItemsPanelTemplate> ItemsPanelTemplates { get; private set; }
-
         private ItemsPanelTemplate _selectedItemsPanelTemplate;
+
         public ItemsPanelTemplate SelectedItemsPanelTemplate
         {
             get { return _selectedItemsPanelTemplate; }
-            private set
+            set
             {
                 if (_selectedItemsPanelTemplate != value)
                 {
