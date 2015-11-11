@@ -1,0 +1,29 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HearthstoneCards"
+    xmlns:toolkit="using:WPDevToolkit">
+
+    <!-- ITEMS PANEL TEMPLATES -->
+    <ItemsPanelTemplate x:Key="StackPanelItemsPanelTemplate">
+        <ItemsStackPanel Orientation="Vertical"/>
+    </ItemsPanelTemplate>
+
+    <ItemsPanelTemplate x:Key="WrapPanelItemsPanelTemplate">
+        <ItemsWrapGrid Orientation="Horizontal"/>
+    </ItemsPanelTemplate>
+    
+    <!-- ItemsControlViewInfos -->
+    <toolkit:ItemsControlViewInfo
+        x:Key="DetailsListViewInfo"
+        ItemTemplate="{StaticResource CardDetailsItemTemplate}"
+        ItemsPanelTemplate="{StaticResource StackPanelItemsPanelTemplate}">
+    </toolkit:ItemsControlViewInfo>
+
+    <toolkit:ItemsControlViewInfo
+        x:Key="WrapGridViewInfo"
+        ItemTemplate="{StaticResource CardOnlyItemTemplate}"
+        ItemsPanelTemplate="{StaticResource WrapPanelItemsPanelTemplate}">
+    </toolkit:ItemsControlViewInfo>
+
+</ResourceDictionary>

@@ -14,7 +14,6 @@ namespace HearthstoneCards
     public sealed partial class MainPage : BasePage
     {
         private readonly MainViewModel _mainVm;
-        private readonly ItemsControlViewInfo[] _itemsControlViewInfos;
 
         public MainPage()
         {
@@ -28,22 +27,17 @@ namespace HearthstoneCards
             _mainVm = SingletonLocator.Get<MainViewModel>();
             DataContext = _mainVm;
 
-            // provide templates
-            _itemsControlViewInfos = new ItemsControlViewInfo[2];
-            _itemsControlViewInfos[0] = new ItemsControlViewInfo
-            {
-                ItemsPanelTemplate = Application.Current.Resources["StackPanelItemsPanelTemplate"] as ItemsPanelTemplate,
-                ItemTemplate = Application.Current.Resources["CardDetailsItemTemplate"] as DataTemplate
-            };
-            _itemsControlViewInfos[1] = new ItemsControlViewInfo
-            {
-                ItemsPanelTemplate = Application.Current.Resources["WrapPanelItemsPanelTemplate"] as ItemsPanelTemplate,
-                ItemTemplate = Application.Current.Resources["CardOnlyItemTemplate"] as DataTemplate
-            };
-
             // set initial items panel template (from settings)
             var iptIndex = new AppSettings().ItemsControlViewInfoIndex;
-            _mainVm.ItemsControlViewInfo = _itemsControlViewInfos[iptIndex];
+            if (iptIndex == 1)
+            {
+                _mainVm.ItemsControlViewInfo = Application.Current.Resources["WrapGridViewInfo"] as ItemsControlViewInfo;
+            }
+            // default
+            else
+            {
+                _mainVm.ItemsControlViewInfo = Application.Current.Resources["DetailsListViewInfo"] as ItemsControlViewInfo;
+            }
 
             Loaded += MainPage_OnLoaded;
 
@@ -111,26 +105,6 @@ namespace HearthstoneCards
                     _mainVm.SelectedAttackToOption = Convert.ToInt32(tb.Text);
                 }
                 await _mainVm.OnQueryChangedAsync();
-            }
-        }
-
-        private void ItemsPanelTemplateMenuFlyoutItem_OnClick(object sender, RoutedEventArgs e)
-        {
-            var mfi = sender as MenuFlyoutItem;
-            if (mfi != null)
-            {
-                switch (mfi.Text)
-                {
-                    case "list":
-                        _mainVm.ItemsControlViewInfo = _itemsControlViewInfos[0];
-                        break;
-                    case "wrap":
-                        _mainVm.ItemsControlViewInfo = _itemsControlViewInfos[1];
-                        break;
-                    default:
-                        _mainVm.ItemsControlViewInfo = _itemsControlViewInfos[0];
-                        break;
-                }
             }
         }
 

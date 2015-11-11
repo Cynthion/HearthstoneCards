@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.UI.Core;
-using Windows.UI.Xaml.Controls;
 using HearthstoneCards.Helper;
 using HearthstoneCards.Model;
 using Newtonsoft.Json;
@@ -17,22 +16,10 @@ using WPDevToolkit.Selection;
 
 namespace HearthstoneCards.ViewModel
 {
-    public class MainViewModel : AsyncLoader, ILocatable, IIncrementalSource<Card>
+    public class MainViewModel : AsyncLoader, ILocatable, IIncrementalSource<Card>, IViewInfoProvider
     {
-        // provided by the view
+        public ChangeViewInfoCommand ChangeViewInfoCommand { get; private set; }
         private ItemsControlViewInfo _itemsControlViewInfo;
-        public ItemsControlViewInfo ItemsControlViewInfo
-        {
-            get { return _itemsControlViewInfo; }
-            set
-            {
-                if (_itemsControlViewInfo != value)
-                {
-                    _itemsControlViewInfo = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
 
         public IList<ImageSelectionItem<string>> ClassOptions { get; private set; }
         public IList<ImageSelectionItem<string>> SetOptions { get; private set; }
@@ -57,6 +44,8 @@ namespace HearthstoneCards.ViewModel
 
         public MainViewModel()
         {
+            ChangeViewInfoCommand = new ChangeViewInfoCommand(this);
+
             // TODO get options from DB
             ClassOptions = new List<ImageSelectionItem<string>>
             {
@@ -286,6 +275,19 @@ namespace HearthstoneCards.ViewModel
             finally
             {
                 CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => IsIncrementalLoading = false);
+            }
+        }
+
+        public ItemsControlViewInfo ItemsControlViewInfo
+        {
+            get { return _itemsControlViewInfo; }
+            set
+            {
+                if (_itemsControlViewInfo != value)
+                {
+                    _itemsControlViewInfo = value;
+                    NotifyPropertyChanged();
+                }
             }
         }
 

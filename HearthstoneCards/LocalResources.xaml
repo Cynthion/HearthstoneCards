@@ -2,11 +2,14 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:HearthstoneCards"
-    xmlns:wpDevToolkit="using:WPDevToolkit">
+    xmlns:toolkit="using:WPDevToolkit">
 
+    <!-- COMMANDS -->
+    <!--<toolkit:ChangeItemsControlViewInfoCommand x:Key="ChangeItemsControlViewInfoCommand"/>-->
+            
     <!-- STYLES -->
-    <Style x:Key="SelectionListViewItemStyle"  TargetType="ListViewItem">
-        <Setter Property="wpDevToolkit:BindingHelper.IsSelectedContainerBinding" Value="IsSelected"/>
+    <Style x:Key="SelectionListViewItemStyle" TargetType="ListViewItem">
+        <Setter Property="toolkit:BindingHelper.IsSelectedContainerBinding" Value="IsSelected"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListViewItem">
@@ -23,15 +26,6 @@
         </Setter>
     </Style>
 
-    <!-- ITEMS PANEL TEMPLATES -->
-    <ItemsPanelTemplate x:Key="StackPanelItemsPanelTemplate">
-        <ItemsStackPanel Orientation="Vertical"/>
-    </ItemsPanelTemplate>
-    
-    <ItemsPanelTemplate x:Key="WrapPanelItemsPanelTemplate">
-        <ItemsWrapGrid Orientation="Horizontal"/>
-    </ItemsPanelTemplate>
-    
     <!-- ITEM TEMPLATES -->
     <!-- MultiComboBox filter options -->
     <DataTemplate x:Key="OptionItemTemplate">
@@ -112,7 +106,7 @@
                 <TextBlock Text="{Binding Rarity}"/>
                 <TextBlock Text="{Binding Class}"/>
                 <TextBlock Text="{Binding Type}"/>
-                <TextBlock Text="{Binding CardSet}"/>
+                <TextBlock Text="{Binding Set}"/>
             </StackPanel>
         </Grid>
     </DataTemplate>

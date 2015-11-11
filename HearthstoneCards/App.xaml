@@ -11,6 +11,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles.xaml"/>
                 <ResourceDictionary Source="LocalResources.xaml"/>
+                <ResourceDictionary Source="ItemControlResources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <!-- CONVERTERS -->

@@ -5,6 +5,7 @@
     xmlns:local="using:HearthstoneCards"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:HearthstoneCards.ViewModel"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <!--<Page.DataContext>
@@ -159,11 +160,13 @@
                         <FlyoutBase.AttachedFlyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem
-                                    Text="list"
-                                    Click="ItemsPanelTemplateMenuFlyoutItem_OnClick"/>
+                                    Text="details list"
+                                    Command="{Binding ChangeViewInfoCommand}"
+                                    CommandParameter="{StaticResource DetailsListViewInfo}"/>
                                 <MenuFlyoutItem
-                                    Text="wrap"
-                                    Click="ItemsPanelTemplateMenuFlyoutItem_OnClick"/>
+                                    Text="wrap grid"
+                                    Command="{Binding ChangeViewInfoCommand}"
+                                    CommandParameter="{StaticResource WrapGridViewInfo}"/>
                             </MenuFlyout>
                         </FlyoutBase.AttachedFlyout>
                     </Button>
@@ -174,10 +177,10 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         ItemsSource="{Binding PresentedCards}"
-                        IsItemClickEnabled="True"
                         ItemTemplate="{Binding ItemsControlViewInfo.ItemTemplate}"
-                        ItemClick="CardList_OnItemClick"
-                        ItemsPanel="{Binding ItemsControlViewInfo.ItemsPanelTemplate}"/>
+                        ItemsPanel="{Binding ItemsControlViewInfo.ItemsPanelTemplate}"
+                        IsItemClickEnabled="True"
+                        ItemClick="CardList_OnItemClick"/>
                     <!-- Empty Result Message -->
                     <TextBlock
                         Grid.Row="1"

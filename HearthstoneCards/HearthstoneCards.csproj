@@ -101,8 +101,6 @@
     <Compile Include="Helper\CardConverter.cs" />
     <Compile Include="Helper\GlobalCollectionConverter.cs" />
     <Compile Include="Helper\Initializer.cs" />
-    <Compile Include="Helper\ItemsControlViewInfo.cs" />
-    <Compile Include="Helper\ChangeItemsPanelTemplateCommand.cs" />
     <Compile Include="Helper\Storage.cs" />
     <Compile Include="LoadingImage.xaml.cs">
       <DependentUpon>LoadingImage.xaml</DependentUpon>
@@ -197,6 +195,11 @@
     <Page Include="CollectionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ItemControlResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="LoadingImage.xaml">
       <SubType>Designer</SubType>
