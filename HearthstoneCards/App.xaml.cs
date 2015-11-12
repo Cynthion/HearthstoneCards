@@ -6,6 +6,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using HearthstoneCards.Common;
+using HearthstoneCards.Helper;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
 
@@ -29,6 +30,9 @@ namespace HearthstoneCards
 
             // global exception handling
             // this.UnhandledException += App_UnhandledException;
+
+            // initialize app
+            Initializer.Initialize();
         }
 
         private void App_UnhandledException(object sender, UnhandledExceptionEventArgs unhandledExceptionEventArgs)

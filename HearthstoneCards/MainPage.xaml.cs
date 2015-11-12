@@ -20,9 +20,6 @@ namespace HearthstoneCards
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
 
-            // initialize app
-            Initializer.Initialize(); // TODO move to App.cs?
-            
             // set data context
             _mainVm = SingletonLocator.Get<MainViewModel>();
             DataContext = _mainVm;
@@ -89,23 +86,6 @@ namespace HearthstoneCards
         private void SortConfigurationElement_OnClicked(object sender, RoutedEventArgs e)
         {
             _mainVm.IsSortConfigurationChanged = true;
-        }
-
-        private async void AttackTextBox_OnSelectionChanged(object sender, RoutedEventArgs e)
-        {
-            var tb = sender as TextBox;
-            if (tb != null)
-            {
-                if (tb.Tag.Equals("from"))
-                {
-                    _mainVm.SelectedAttackFromOption = Convert.ToInt32(tb.Text);
-                }
-                else if (tb.Tag.Equals("to"))
-                {
-                    _mainVm.SelectedAttackToOption = Convert.ToInt32(tb.Text);
-                }
-                await _mainVm.OnQueryChangedAsync();
-            }
         }
 
         private void ItemsPanelTemplateButton_OnClick(object sender, RoutedEventArgs e)

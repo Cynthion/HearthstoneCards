@@ -12,10 +12,6 @@
         <vm:MainViewModel/>
     </Page.DataContext>-->
     
-    <!--<local:BasePage.Resources>
-        <CollectionViewSource x:Name="Cvs" x:Key="cvs" Source="{Binding PresentedResults}" IsSourceGrouped="False"/>
-    </local:BasePage.Resources>-->
-
     <Hub
         Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <!-- FILTER -->
@@ -23,7 +19,7 @@
             <DataTemplate>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -36,9 +32,9 @@
                     </Grid.RowDefinitions>
                     <!-- Class Filter -->
                     <local:MultiComboBox
-                        Grid.Row="1"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
+                        Grid.Row="1"
                         Header="Class"
                         Options="{Binding ClassOptions}"
                         ItemTemplate="{StaticResource OptionItemTemplate}"
@@ -46,9 +42,9 @@
                         SelectionChanged="MultiSelector_OnSelectionChanged"/>
                     <!-- Set Filter -->
                     <local:MultiComboBox
-                        Grid.Row="2"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
+                        Grid.Row="2"
                         Header="Set"
                         Options="{Binding SetOptions}"
                         ItemTemplate="{StaticResource SetOptionItemTemplate}"
@@ -56,49 +52,31 @@
                         SelectionChanged="MultiSelector_OnSelectionChanged"/>
                     <!-- Rarity Filter -->
                     <local:MultiComboBox
-                        Grid.Row="3"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
+                        Grid.Row="3"
                         Header="Rarity"
                         Options="{Binding RarityOptions}"
                         ItemTemplate="{StaticResource RarityOptionItemTemplate}"
                         ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
                         SelectionChanged="MultiSelector_OnSelectionChanged"/>
                     <!-- Attack Filter -->
-                    <TextBox
-                        Grid.Row="4"
+                    <local:RangeBox
                         Grid.Column="0"
-                        Margin="0,0,5,0"
-                        Header="Attack"
-                        InputScope="Number"
-                        Tag="from"
-                        PlaceholderText="{Binding SelectedAttackFromOption}"
-                        SelectionChanged="AttackTextBox_OnSelectionChanged"/>
-                    <TextBox
                         Grid.Row="4"
+                        Title="Attack"
+                        From="{Binding SelectedAttackFromOption, Mode=TwoWay}"
+                        To="{Binding SelectedAttackToOption, Mode=TwoWay}"/>
+                    <Button
                         Grid.Column="1"
-                        Margin="5,0,0,0"
-                        InputScope="Number"
-                        Header=" "
-                        Tag="to"
-                        PlaceholderText="{Binding SelectedAttackToOption}"
-                        SelectionChanged="AttackTextBox_OnSelectionChanged"/>
-                    <!--<ComboBox
                         Grid.Row="4"
-                        Grid.Column="0"
-                        Header="Attack"
-                        Tag="from"
-                        PlaceholderText="{Binding SelectedAttackFromOption}"
-                        ItemsSource="{Binding AttackOptions}"
-                        SelectionChanged="AttackComboBox_OnSelectionChanged"/>
-                    <ComboBox
-                        Grid.Row="4"
-                        Grid.Column="1"
+                        Margin="20,0,0,0"
+                        Content="All"
+                        Style="{StaticResource BorderlessButton}"
+                        Background="{StaticResource PhoneAccentBrush}"
                         VerticalAlignment="Bottom"
-                        Tag="to"
-                        PlaceholderText="{Binding SelectedAttackToOption}"
-                        ItemsSource="{Binding AttackOptions}"
-                        SelectionChanged="AttackComboBox_OnSelectionChanged"/>-->
+                        HorizontalAlignment="Stretch"
+                        Height="{StaticResource TextControlThemeMinHeight}"/>
                 </Grid>
             </DataTemplate>
         </HubSection>
