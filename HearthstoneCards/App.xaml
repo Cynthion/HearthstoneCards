@@ -9,6 +9,7 @@
 
             <!-- Styles from merged Resource Dictionary -->
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="IconResources.xaml"/>
                 <ResourceDictionary Source="Styles.xaml"/>
                 <ResourceDictionary Source="LocalResources.xaml"/>
                 <ResourceDictionary Source="ItemControlResources.xaml"/>

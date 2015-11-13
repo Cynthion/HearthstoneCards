@@ -49,8 +49,19 @@
                         </StackPanel>
                         <Button
                             Grid.Column="1"
-                            Content="Reset"
-                            HorizontalAlignment="Right"/>
+                            Width="50"
+                            Height="50"
+                            BorderBrush="{StaticResource PhoneAccentBrush}"
+                            Style="{StaticResource IconButtonStyle}"
+                            HorizontalAlignment="Right">
+                            <!-- content -->
+                            <ContentControl
+                                Foreground="Red"
+                                Template="{StaticResource IconControlTemplate}">
+                                <ContentControl Template="{StaticResource ListIconControlTemplate}"/>
+                               
+                            </ContentControl>
+                        </Button>
                     </Grid>
                     <!-- Name Filter -->
                     <TextBox

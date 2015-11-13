@@ -1,0 +1,14 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ControlTemplate x:Key="ListIconControlTemplate">
+        <Canvas Width="24"
+                Height="24">
+            <Path 
+                Fill="{TemplateBinding Foreground}"
+                Data="M3,4V12L8,8L3,4M10,7V9H19V7H10M7,11V13H19V11H7M7,15V17H19V15H7Z"/>
+        </Canvas>
+    </ControlTemplate>
+    
+</ResourceDictionary>
