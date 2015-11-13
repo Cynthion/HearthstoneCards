@@ -24,7 +24,7 @@ namespace HearthstoneCards.ViewModel
         public string NameFilter { get; set; }
         public IList<ImageSelectionItem<string>> ClassOptions { get; private set; }
         public IList<ImageSelectionItem<string>> SetOptions { get; private set; }
-        public IList<ImageSelectionItem<string>> RarityOptions { get; private set; }
+        public IList<ImageSelectionItem<Rarity>> RarityOptions { get; private set; }
         public IList<int> AttackOptions { get; private set; }
         public IList<ISelectionItem<Func<Card, object>>> SortOptions { get; private set; }
         public IncrementalObservableCollection<MainViewModel, Card> PresentedCards { get { return _presentedCards; } }
@@ -73,13 +73,13 @@ namespace HearthstoneCards.ViewModel
                 new ImageSelectionItem<string>("Blackrock Mountain") { ImagePath = "../Assets/Icons/Sets/blackrock.png"},
                 new ImageSelectionItem<string>("The Grand Tournament") { ImagePath = "../Assets/Icons/Sets/tgt.png"},
             };
-            RarityOptions = new List<ImageSelectionItem<string>>
+            RarityOptions = new List<ImageSelectionItem<Rarity>>
             {
-                new ImageSelectionItem<string>("Free"),
-                new ImageSelectionItem<string>("Common") { ImagePath = "../Assets/Icons/Rarity/common.png"},
-                new ImageSelectionItem<string>("Rare") { ImagePath = "../Assets/Icons/Rarity/rare.png"},
-                new ImageSelectionItem<string>("Epic") { ImagePath = "../Assets/Icons/Rarity/epic.png"},
-                new ImageSelectionItem<string>("Legendary") { ImagePath = "../Assets/Icons/Rarity/legendary.png"},
+                new ImageSelectionItem<Rarity>("Free", Rarity.Free),
+                new ImageSelectionItem<Rarity>("Common", Rarity.Common) { ImagePath = "../Assets/Icons/Rarity/common.png"},
+                new ImageSelectionItem<Rarity>("Rare", Rarity.Rare) { ImagePath = "../Assets/Icons/Rarity/rare.png"},
+                new ImageSelectionItem<Rarity>("Epic", Rarity.Epic) { ImagePath = "../Assets/Icons/Rarity/epic.png"},
+                new ImageSelectionItem<Rarity>("Legendary", Rarity.Legendary) { ImagePath = "../Assets/Icons/Rarity/legendary.png"},
             };
             SortOptions = new List<ISelectionItem<Func<Card, object>>>
             {
@@ -90,7 +90,7 @@ namespace HearthstoneCards.ViewModel
                 new SelectionItem<Func<Card, object>>("Health", c => c.Health),
                 new SelectionItem<Func<Card, object>>("Name", c => c.Name),
                 new SelectionItem<Func<Card, object>>("Race", c => c.Race),
-                new SelectionItem<Func<Card, object>>("Rarity", c => c.Rarity), // TODO find appropriate sorting mechanism
+                new SelectionItem<Func<Card, object>>("Rarity", c => c.Rarity),
                 new SelectionItem<Func<Card, object>>("Set", c => c.Set),
                 new SelectionItem<Func<Card, object>>("Text", c => c.Text),
                 new SelectionItem<Func<Card, object>>("Type", c => c.Type)
@@ -194,10 +194,10 @@ namespace HearthstoneCards.ViewModel
             var filtered =
                 from card in _allCards
                 where card.IsCollectible
-                where IsNameFilterEnabled && card.Name.Contains(NameFilter)
+                where !IsNameFilterEnabled || card.Name.Contains(NameFilter)
                 where ClassOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Class))
                 where SetOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Set))
-                where RarityOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Rarity))
+                where RarityOptions.Where(o => o.IsSelected).Any(o => o.Value.Equals(card.Rarity))
                 //where card.Attack >= SelectedAttackFromOption && card.Attack <= SelectedAttackToOption
                 select card;
 
