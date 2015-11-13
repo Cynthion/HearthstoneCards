@@ -122,14 +122,16 @@
     </DataTemplate>
 
     <DataTemplate x:Key="CardTableItemTemplate">
-        <Grid Background="Green">
+        <Grid>
             <Grid.Resources>
                 <Style TargetType="TextBlock" BasedOn="{StaticResource Tk-BodyBigSized}">
-                    <Setter Property="Margin" Value="5,0,0,0"/>
+                    <Setter Property="Margin" Value="7,0,7,0"/>
+                    <Setter Property="MinWidth" Value="20"/>
                     <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalAlignment" Value="Right"/>
+                    <Setter Property="TextAlignment" Value="Right"/>
                 </Style>
                 <Style TargetType="Image">
-                    <Setter Property="Margin" Value="5,0,0,0"/>
                     <Setter Property="VerticalAlignment" Value="Center"/>
                     <Setter Property="Height" Value="30"/>
                     <Setter Property="Stretch" Value="Uniform"/>
@@ -141,26 +143,26 @@
             </Grid.ColumnDefinitions>
             <TextBlock
                 Grid.Column="0"
+                HorizontalAlignment="Left"
+                TextAlignment="Left"
                 Text="{Binding Name}"/>
             <StackPanel
                 Grid.Column="1"
                 Orientation="Horizontal"
                 HorizontalAlignment="Right">
-                <Image
-                    Source="../Assets/Icons/Stats/mana.png"/>
                 <TextBlock
                     Text="{Binding Cost}"/>
                 <Image
-                    Source="../Assets/Icons/Stats/attack.png"/>
+                    Source="../Assets/Icons/Stats/mana.png"/>
                 <TextBlock
                     Text="{Binding Attack}"/>
                 <Image
-                    Source="../Assets/Icons/Stats/health.png"/>
+                    Source="../Assets/Icons/Stats/attack.png"/>
                 <TextBlock
                     Text="{Binding Health}"/>
+                <Image
+                    Source="../Assets/Icons/Stats/health.png"/>
             </StackPanel>
-            
-            
         </Grid>
     </DataTemplate>
 
