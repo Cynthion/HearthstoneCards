@@ -143,8 +143,11 @@
             </Grid.ColumnDefinitions>
             <TextBlock
                 Grid.Column="0"
+                Margin="0"
+                TextWrapping="WrapWholeWords"
                 HorizontalAlignment="Left"
                 TextAlignment="Left"
+                Foreground="{Binding Rarity, Converter={StaticResource RarityToBrushConverter}}"
                 Text="{Binding Name}"/>
             <StackPanel
                 Grid.Column="1"

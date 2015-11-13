@@ -2,7 +2,8 @@
     x:Class="HearthstoneCards.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converter="using:WPDevToolkit.Converter">
+    xmlns:converter="using:WPDevToolkit.Converter"
+    xmlns:localConverter="using:HearthstoneCards.Converter">
 
     <Application.Resources>
         <ResourceDictionary>
@@ -20,6 +21,7 @@
             <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <converter:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
             <converter:SortDirectionToStringConverter x:Key="SortDirectionToStringConverter"/>
+            <localConverter:RarityToBrushConverter x:Key="RarityToBrushConverter"/>
             
         </ResourceDictionary>
     </Application.Resources>
