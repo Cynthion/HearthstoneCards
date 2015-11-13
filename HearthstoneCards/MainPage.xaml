@@ -49,18 +49,12 @@
                         </StackPanel>
                         <Button
                             Grid.Column="1"
-                            Width="50"
-                            Height="50"
-                            Foreground="Red"
                             BorderBrush="{StaticResource PhoneAccentBrush}"
                             Style="{StaticResource IconButtonStyle}"
                             HorizontalAlignment="Right">
-                            <!-- content -->
-                            <ContentControl
-                                Template="{StaticResource IconControlTemplate}">
-                                <ContentControl Template="{StaticResource ListIconControlTemplate}"/>
-                               
-                            </ContentControl>
+                            <local:Icon
+                                IconTemplate="{StaticResource ListIconControlTemplate}"
+                                Color="Gray"/>
                         </Button>
                     </Grid>
                     <!-- Name Filter -->

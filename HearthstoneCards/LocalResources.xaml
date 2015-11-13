@@ -240,16 +240,9 @@
     <Style x:Key="IconButtonStyle" TargetType="Button" BasedOn="{StaticResource MinDimensionsButtonStyle}">
         <Setter Property="Template" Value="{StaticResource RoundCornerButtonControlTemplate}"/>
         <Setter Property="Padding" Value="0"/>
-        
+        <Setter Property="Width" Value="{StaticResource PhoneButtonMinHeight}"/>
+        <Setter Property="Height" Value="{StaticResource PhoneButtonMinHeight}"/>
     </Style>
-    
-    <ControlTemplate x:Key="IconControlTemplate" TargetType="ContentControl">
-        <Viewbox>
-            <ContentPresenter/>
-        </Viewbox>
-    </ControlTemplate>
-    
-    
     
     <DataTemplate x:Key="SearchButtonContentTemplate">
         <Border

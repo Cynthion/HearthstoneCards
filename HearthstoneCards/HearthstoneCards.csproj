@@ -102,6 +102,9 @@
     <Compile Include="Helper\GlobalCollectionConverter.cs" />
     <Compile Include="Helper\Initializer.cs" />
     <Compile Include="Helper\Storage.cs" />
+    <Compile Include="Icon.xaml.cs">
+      <DependentUpon>Icon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoadingImage.xaml.cs">
       <DependentUpon>LoadingImage.xaml</DependentUpon>
     </Compile>
@@ -195,6 +198,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="CollectionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Icon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
