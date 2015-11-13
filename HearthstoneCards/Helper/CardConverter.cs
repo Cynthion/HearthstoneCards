@@ -22,7 +22,7 @@ namespace HearthstoneCards.Helper
             card.Name = ExtractValue<string>(jo, "name");
             card.Cost = ExtractValue<int>(jo, "cost");
             card.Type = ExtractValue<string>(jo, "type");
-            card.Rarity = ExtractValue<string>(jo, "rarity");
+            card.Rarity = ExtractEnum<Rarity>(jo, "rarity");
             card.Faction = ExtractValue<string>(jo, "faction");
             card.Race = ExtractValue<string>(jo, "race");
             card.Class = jo["playerClass"] != null ? (string)jo["playerClass"] : "Neutral";
@@ -46,6 +46,13 @@ namespace HearthstoneCards.Helper
         private static T ExtractValue<T>(JObject jo, string key) 
         {
             return jo[key] != null ? jo[key].CastToGeneric<T>() : default(T);
+        }
+
+        private static TEnum ExtractEnum<TEnum>(JObject jo, string key) where TEnum : struct
+        {
+            TEnum extractedEnum;
+            Enum.TryParse(ExtractValue<string>(jo, key), true, out extractedEnum);
+            return extractedEnum;
         }
 
         public override bool CanConvert(Type objectType)
