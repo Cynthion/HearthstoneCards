@@ -244,12 +244,8 @@
     </Style>
     
     <ControlTemplate x:Key="IconControlTemplate" TargetType="ContentControl">
-        <Viewbox
-            Width="{TemplateBinding Width}"
-            Height="{TemplateBinding Height}">
-            <ContentPresenter
-                ContentTemplate="{TemplateBinding ContentTemplate}"
-				Content="{TemplateBinding Content}"/>
+        <Viewbox>
+            <ContentPresenter/>
         </Viewbox>
     </ControlTemplate>
     
