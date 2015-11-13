@@ -28,12 +28,16 @@ namespace HearthstoneCards
             var iptIndex = new AppSettings().ItemsControlViewInfoIndex;
             if (iptIndex == 1)
             {
-                _mainVm.ItemsControlViewInfo = Application.Current.Resources["WrapGridViewInfo"] as ItemsControlViewInfo;
+                _mainVm.ItemsControlViewInfo = Application.Current.Resources["ImagesViewInfo"] as ItemsControlViewInfo;
+            }
+            else if (iptIndex == 2)
+            {
+                _mainVm.ItemsControlViewInfo = Application.Current.Resources["TableViewInfo"] as ItemsControlViewInfo;
             }
             // default
             else
             {
-                _mainVm.ItemsControlViewInfo = Application.Current.Resources["DetailsListViewInfo"] as ItemsControlViewInfo;
+                _mainVm.ItemsControlViewInfo = Application.Current.Resources["VisualsListViewInfo"] as ItemsControlViewInfo;
             }
 
             Loaded += MainPage_OnLoaded;
@@ -91,6 +95,16 @@ namespace HearthstoneCards
         private void ItemsPanelTemplateButton_OnClick(object sender, RoutedEventArgs e)
         {
             FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+        }
+
+        private async void NameTextBox_OnSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            var tb = sender as TextBox;
+            if (tb != null)
+            {
+                _mainVm.NameFilter = tb.Text;
+                await _mainVm.OnQueryChangedAsync();
+            }
         }
     }
 }

@@ -15,15 +15,21 @@
     
     <!-- ItemsControlViewInfos -->
     <toolkit:ItemsControlViewInfo
-        x:Key="DetailsListViewInfo"
-        ItemTemplate="{StaticResource CardDetailsItemTemplate}"
+        x:Key="VisualsListViewInfo"
+        ItemTemplate="{StaticResource CardVisualItemTemplate}"
         ItemsPanelTemplate="{StaticResource StackPanelItemsPanelTemplate}">
     </toolkit:ItemsControlViewInfo>
 
     <toolkit:ItemsControlViewInfo
-        x:Key="WrapGridViewInfo"
-        ItemTemplate="{StaticResource CardOnlyItemTemplate}"
+        x:Key="ImagesViewInfo"
+        ItemTemplate="{StaticResource CardImageItemTemplate}"
         ItemsPanelTemplate="{StaticResource WrapPanelItemsPanelTemplate}">
+    </toolkit:ItemsControlViewInfo>
+
+    <toolkit:ItemsControlViewInfo
+        x:Key="TableViewInfo"
+        ItemTemplate="{StaticResource CardTableItemTemplate}"
+        ItemsPanelTemplate="{StaticResource StackPanelItemsPanelTemplate}">
     </toolkit:ItemsControlViewInfo>
 
 </ResourceDictionary>

@@ -21,6 +21,7 @@ namespace HearthstoneCards.ViewModel
         public ChangeViewInfoCommand ChangeViewInfoCommand { get; private set; }
         private ItemsControlViewInfo _itemsControlViewInfo;
 
+        public string NameFilter { get; set; }
         public IList<ImageSelectionItem<string>> ClassOptions { get; private set; }
         public IList<ImageSelectionItem<string>> SetOptions { get; private set; }
         public IList<ImageSelectionItem<string>> RarityOptions { get; private set; }
@@ -35,6 +36,7 @@ namespace HearthstoneCards.ViewModel
         private readonly List<Card> _allCards;                                                  // whole DB
         private readonly List<Card> _filteredCards;                                             // filtered DB
         private readonly IncrementalObservableCollection<MainViewModel, Card> _presentedCards;  // presented filtered -> sorted, incrementally loaded
+        private int _resultsCount;
 
         private bool _isSortedAscending;
         private bool _isSortingControlVisible;
@@ -209,6 +211,7 @@ namespace HearthstoneCards.ViewModel
             var filtered =
                 from card in _allCards
                 where card.IsCollectible
+                where card.Name.Contains(NameFilter)
                 where ClassOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Class))
                 where SetOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Set))
                 where RarityOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Rarity))
@@ -233,6 +236,7 @@ namespace HearthstoneCards.ViewModel
             // update filtered DB
             _filteredCards.Clear();
             _filteredCards.AddRange(sorted);
+            ResultsCount = _filteredCards.Count;
             IsResultEmpty = _filteredCards.Count == 0;
 
             // present results, start incremental loading
@@ -286,6 +290,19 @@ namespace HearthstoneCards.ViewModel
                 if (_itemsControlViewInfo != value)
                 {
                     _itemsControlViewInfo = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public int ResultsCount
+        {
+            get { return _resultsCount; }
+            private set
+            {
+                if (_resultsCount != value)
+                {
+                    _resultsCount = value;
                     NotifyPropertyChanged();
                 }
             }
