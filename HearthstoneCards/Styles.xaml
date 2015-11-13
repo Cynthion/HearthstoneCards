@@ -2,13 +2,55 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
-    <!-- GLOBAL -->
     <!-- TextBlock -->
-    <Style x:Key="BodyNormalSized" TargetType="TextBlock">
+    <Style x:Key="Tk-TitleBigSized" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe WP"/>
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+    </Style>
+    <Style x:Key="Tk-TitleMediumSized" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe WP"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+    </Style>
+    <Style x:Key="Tk-TitleMediumSizedBold" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe WP"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+    <Style x:Key="Tk-TitleMediumSizedLight" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe WP"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Light"/>
+    </Style>
+    <Style x:Key="Tk-TitleSmallSized" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe WP SemiLight"/>
+        <Setter Property="FontSize" Value="18"/>
+    </Style>
+    <Style x:Key="Tk-TitleSmallSizedBold" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe WP"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+    <Style x:Key="Tk-BodyBigSized" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe WP SemiLight"/>
+        <Setter Property="FontSize" Value="18"/>
+    </Style>
+    <Style x:Key="Tk-BodyNormalSized" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="Segoe WP SemiLight"/>
         <Setter Property="FontSize" Value="16"/>
     </Style>
-    <Style TargetType="TextBlock" BasedOn="{StaticResource BodyNormalSized}"/>
+    <Style x:Key="Tk-BodySmallSized" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe WP SemiLight"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Thin"/>
+    </Style>
+    <Style x:Key="Tk-SortHeaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource Tk-TitleSmallSized}">
+        <Setter Property="Foreground" Value="Gray"/>
+    </Style>
+    <Style x:Key="Tk-MenuItemSizedStyle" BasedOn="{StaticResource Tk-TitleBigSized}" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+    </Style>
     
     <!-- ProgressRing (centered) -->
     <Style TargetType="ProgressRing">
@@ -124,59 +166,17 @@
         </Setter>
     </Style>
     
-    <!-- TextBlock -->
-    <Style x:Key="TitleBigSized" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="Segoe WP"/>
-        <Setter Property="FontSize" Value="30"/>
-        <Setter Property="FontWeight" Value="Medium"/>
-    </Style>
-    <Style x:Key="TitleMediumSized" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="Segoe WP"/>
-        <Setter Property="FontSize" Value="24"/>
-        <Setter Property="FontWeight" Value="Normal"/>
-    </Style>
-    <Style x:Key="TitleMediumSizedBold" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="Segoe WP"/>
-        <Setter Property="FontSize" Value="24"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-    </Style>
-    <Style x:Key="TitleMediumSizedLight" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="Segoe WP"/>
-        <Setter Property="FontSize" Value="24"/>
-        <Setter Property="FontWeight" Value="Light"/>
-    </Style>
-    <Style x:Key="TitleSmallSized" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="Segoe WP SemiLight"/>
-        <Setter Property="FontSize" Value="18"/>
-    </Style>
-    <Style x:Key="TitleSmallSizedBold" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="Segoe WP"/>
-        <Setter Property="FontSize" Value="18"/>
-        <Setter Property="FontWeight" Value="SemiBold"/>
-    </Style>
-
-    <Style x:Key="BodySmallSized" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="Segoe WP SemiLight"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontWeight" Value="Thin"/>
-    </Style>
-    <Style x:Key="SortHeaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource TitleSmallSized}">
-        <Setter Property="Foreground" Value="Gray"/>
-    </Style>
-    <Style x:Key="MenuItemSized" BasedOn="{StaticResource TitleBigSized}" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
-    </Style>
     
-    <!-- ListView (full width) -->
-    <Style x:Key="FullWidthListViewItemStyle" TargetType="ListViewItem">
+    <!-- Full-Width controls -->
+    <Style x:Key="Tk-FullWidthControlStyle" TargetType="Control">
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
     </Style>
 
-    <Style x:Key="FullWidthListViewStyle" TargetType="ListView">
+    <Style x:Key="Tk-FullWidthItemsControlStyle" TargetType="ItemsControl">
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-        <Setter Property="ItemContainerStyle" Value="{StaticResource FullWidthListViewItemStyle}"/>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource Tk-FullWidthControlStyle}"/>
     </Style>
 
     <!-- CheckboxListBoxItem -->
@@ -463,12 +463,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <!-- CheckboxListBox --><!--
-    <Style x:Key="CheckboxListBox" TargetType="ListBox">
-        <Setter Property="ItemTemplate" Value="{StaticResource CheckboxListBoxItem}"/>
-    </Style>-->
-
-
     
 </ResourceDictionary>

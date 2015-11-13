@@ -83,7 +83,7 @@
         
         <!--<StackPanel Canvas.ZIndex="1" HorizontalAlignment="Left" VerticalAlignment="Top">
             <StackPanel.Resources>
-                <Style TargetType="TextBlock" BasedOn="{StaticResource BodyNormalSized}">
+                <Style TargetType="TextBlock" BasedOn="{StaticResource Tk-BodyNormalSized}">
                     <Setter Property="VerticalAlignment" Value="Center"/>
                 </Style>
             </StackPanel.Resources>

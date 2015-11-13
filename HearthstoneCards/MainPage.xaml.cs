@@ -26,19 +26,7 @@ namespace HearthstoneCards
 
             // set initial items panel template (from settings)
             var iptIndex = new AppSettings().ItemsControlViewInfoIndex;
-            if (iptIndex == 1)
-            {
-                _mainVm.ItemsControlViewInfo = Application.Current.Resources["ImagesViewInfo"] as ItemsControlViewInfo;
-            }
-            else if (iptIndex == 2)
-            {
-                _mainVm.ItemsControlViewInfo = Application.Current.Resources["TableViewInfo"] as ItemsControlViewInfo;
-            }
-            // default
-            else
-            {
-                _mainVm.ItemsControlViewInfo = Application.Current.Resources["VisualsListViewInfo"] as ItemsControlViewInfo;
-            }
+            SetItemsPanelTemplate(iptIndex);
 
             Loaded += MainPage_OnLoaded;
 
@@ -52,6 +40,23 @@ namespace HearthstoneCards
                     args.Handled = true;
                 }
             };
+        }
+
+        private void SetItemsPanelTemplate(int index)
+        {
+            if (index == 1)
+            {
+                _mainVm.ItemsControlViewInfo = Application.Current.Resources["ImagesViewInfo"] as ItemsControlViewInfo;
+            }
+            else if (index == 2)
+            {
+                _mainVm.ItemsControlViewInfo = Application.Current.Resources["TableViewInfo"] as ItemsControlViewInfo;
+            }
+            // default
+            else
+            {
+                _mainVm.ItemsControlViewInfo = Application.Current.Resources["VisualsListViewInfo"] as ItemsControlViewInfo;
+            }
         }
 
         public async void MainPage_OnLoaded(object sender, RoutedEventArgs e)
@@ -102,7 +107,9 @@ namespace HearthstoneCards
             var tb = sender as TextBox;
             if (tb != null)
             {
-                _mainVm.NameFilter = tb.Text;
+                var txt = tb.Text;
+                _mainVm.NameFilter = txt;
+                _mainVm.IsNameFilterEnabled = !(string.IsNullOrEmpty(txt) || string.IsNullOrWhiteSpace(txt));
                 await _mainVm.OnQueryChangedAsync();
             }
         }

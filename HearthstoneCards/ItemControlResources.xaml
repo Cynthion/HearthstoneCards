@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:HearthstoneCards"
     xmlns:toolkit="using:WPDevToolkit">
 
     <!-- ITEMS PANEL TEMPLATES -->
@@ -16,18 +15,24 @@
     <!-- ItemsControlViewInfos -->
     <toolkit:ItemsControlViewInfo
         x:Key="VisualsListViewInfo"
+        Id="0"
+        Style="{StaticResource Tk-FullWidthItemsControlStyle}"
         ItemTemplate="{StaticResource CardVisualItemTemplate}"
         ItemsPanelTemplate="{StaticResource StackPanelItemsPanelTemplate}">
     </toolkit:ItemsControlViewInfo>
 
     <toolkit:ItemsControlViewInfo
         x:Key="ImagesViewInfo"
+        Id="1"
+        Style="{StaticResource Tk-FullWidthItemsControlStyle}"
         ItemTemplate="{StaticResource CardImageItemTemplate}"
         ItemsPanelTemplate="{StaticResource WrapPanelItemsPanelTemplate}">
     </toolkit:ItemsControlViewInfo>
 
     <toolkit:ItemsControlViewInfo
         x:Key="TableViewInfo"
+        Id="2"
+        Style="{StaticResource Tk-FullWidthItemsControlStyle}"
         ItemTemplate="{StaticResource CardTableItemTemplate}"
         ItemsPanelTemplate="{StaticResource StackPanelItemsPanelTemplate}">
     </toolkit:ItemsControlViewInfo>

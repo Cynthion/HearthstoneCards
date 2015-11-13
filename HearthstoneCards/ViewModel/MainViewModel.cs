@@ -44,6 +44,8 @@ namespace HearthstoneCards.ViewModel
         private bool _isIncrementalLoading;
         private bool _isResultEmpty = true;
 
+        private bool _isNameFilterEnabled;
+
         public MainViewModel()
         {
             ChangeViewInfoCommand = new ChangeViewInfoCommand(this);
@@ -113,25 +115,6 @@ namespace HearthstoneCards.ViewModel
             LoadSelection(RarityOptions, AppSettings.RaritySelectionKey);
             LoadSelection(SortOptions, AppSettings.SortOptionsSelectionKey);
             SelectedSortOption = SortOptions.First(o => o.IsSelected);
-        }
-
-        private static void LoadSelection<T>(IList<T> options, string settingKey) where T : ISelectionItem
-        {
-            var selections = BaseSettings.Load<bool[]>(settingKey);
-            for (var i = 0; i < options.Count && i < selections.Length; i++)
-            {
-                options[i].IsSelected = selections[i];
-            }
-        }
-
-        private static void StoreSelection<T>(IList<T> options, string settingKey) where T : ISelectionItem
-        {
-            var selections = new bool[options.Count];
-            for (var i = 0; i < options.Count; i++)
-            {
-                selections[i] = options[i].IsSelected;
-            }
-            BaseSettings.Store(settingKey, selections);
         }
 
         public async void PresentedResultsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
@@ -211,7 +194,7 @@ namespace HearthstoneCards.ViewModel
             var filtered =
                 from card in _allCards
                 where card.IsCollectible
-                where card.Name.Contains(NameFilter)
+                where IsNameFilterEnabled && card.Name.Contains(NameFilter)
                 where ClassOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Class))
                 where SetOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Set))
                 where RarityOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Rarity))
@@ -221,9 +204,7 @@ namespace HearthstoneCards.ViewModel
             await SortAndPresentAsync(filtered.ToList());
             
             // store filter settings
-            StoreSelection(ClassOptions, AppSettings.ClassSelectionKey);
-            StoreSelection(SetOptions, AppSettings.SetSelectionKey);
-            StoreSelection(RarityOptions, AppSettings.RaritySelectionKey);
+            SaveSettings();
         }
 
         private async Task SortAndPresentAsync(IEnumerable<Card> filtered)
@@ -282,6 +263,34 @@ namespace HearthstoneCards.ViewModel
             }
         }
 
+        private void SaveSettings()
+        {
+            var settings = new AppSettings();
+            StoreSelection(ClassOptions, AppSettings.ClassSelectionKey);
+            StoreSelection(SetOptions, AppSettings.SetSelectionKey);
+            StoreSelection(RarityOptions, AppSettings.RaritySelectionKey);
+            settings.ItemsControlViewInfoIndex = ItemsControlViewInfo.Id;
+        }
+
+        private static void LoadSelection<T>(IList<T> options, string settingKey) where T : ISelectionItem
+        {
+            var selections = BaseSettings.Load<bool[]>(settingKey);
+            for (var i = 0; i < options.Count && i < selections.Length; i++)
+            {
+                options[i].IsSelected = selections[i];
+            }
+        }
+
+        private static void StoreSelection<T>(IList<T> options, string settingKey) where T : ISelectionItem
+        {
+            var selections = new bool[options.Count];
+            for (var i = 0; i < options.Count; i++)
+            {
+                selections[i] = options[i].IsSelected;
+            }
+            BaseSettings.Store(settingKey, selections);
+        }
+
         public ItemsControlViewInfo ItemsControlViewInfo
         {
             get { return _itemsControlViewInfo; }
@@ -290,6 +299,7 @@ namespace HearthstoneCards.ViewModel
                 if (_itemsControlViewInfo != value)
                 {
                     _itemsControlViewInfo = value;
+                    SaveSettings();
                     NotifyPropertyChanged();
                 }
             }
@@ -382,6 +392,19 @@ namespace HearthstoneCards.ViewModel
                 if (_selectedSortOption != value)
                 {
                     _selectedSortOption = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public bool IsNameFilterEnabled
+        {
+            get { return _isNameFilterEnabled; }
+            set
+            {
+                if (_isNameFilterEnabled != value)
+                {
+                    _isNameFilterEnabled = value;
                     NotifyPropertyChanged();
                 }
             }

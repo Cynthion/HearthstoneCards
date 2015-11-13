@@ -20,7 +20,7 @@
             Grid.Row="1"
             Margin="0, 0, 0, 10"
             Text="Select Items"
-            Style="{StaticResource TitleMediumSized}"/>
+            Style="{StaticResource Tk-TitleMediumSized}"/>
         <ListView
             Grid.Row="2"
             x:Name="XListView"
@@ -29,7 +29,7 @@
             ItemsSource="{Binding MultiComboBox.Options}"
             ItemTemplate="{Binding MultiComboBox.ItemTemplate}"
             ItemContainerStyle="{Binding MultiComboBox.ItemContainerStyle}"
-            Style="{StaticResource FullWidthListViewStyle}">
+            Style="{StaticResource Tk-FullWidthItemsControlStyle}">
         </ListView>
         <Grid
             Grid.Row="3"

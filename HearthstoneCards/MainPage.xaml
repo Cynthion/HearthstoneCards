@@ -41,11 +41,11 @@
                             Orientation="Horizontal">
                             <TextBlock
                                 Text="Results: "
-                                Style="{StaticResource TitleSmallSizedBold}"/>
+                                Style="{StaticResource Tk-TitleSmallSizedBold}"/>
                             <TextBlock
                                 Margin="10,0,0,0"
                                 Text="{Binding ResultsCount}"
-                                Style="{StaticResource TitleSmallSized}"/>
+                                Style="{StaticResource Tk-TitleSmallSized}"/>
                         </StackPanel>
                         <Button
                             Grid.Column="1"
@@ -178,7 +178,12 @@
                     <Button
                         Grid.Row="0"
                         Grid.Column="1"
+                        Style="{StaticResource IconButtonStyle}"
+                        BorderBrush="{StaticResource PhoneAccentBrush}"
                         Click="ItemsPanelTemplateButton_OnClick">
+                        <local:Icon
+                            IconTemplate="{StaticResource ListIconControlTemplate}"
+                            Color="Gray"/>
                         <FlyoutBase.AttachedFlyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem
@@ -213,9 +218,10 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         Margin="0,10,0,0"
-                        Text="No cards found.\nAdapt your filter options."
                         HorizontalAlignment="Left"
-                        Visibility="{Binding IsResultEmpty, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        Visibility="{Binding IsResultEmpty, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Span>No cards found.<LineBreak/>Adapt your filter options.</Span> 
+                    </TextBlock>
                     
                     <!-- Sorting Overlay -->
                     <Grid
@@ -240,7 +246,7 @@
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
                             Margin="0,0,0,10"
-                            Style="{StaticResource FullWidthListViewStyle}"
+                            Style="{StaticResource Tk-FullWidthItemsControlStyle}"
                             ItemsSource="{Binding SortOptions}"
                             IsItemClickEnabled="True"
                             ItemClick="SortConfigurationElement_OnClicked">

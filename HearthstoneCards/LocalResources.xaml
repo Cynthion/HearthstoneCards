@@ -40,6 +40,7 @@
                 VerticalAlignment="Center"/>
         </StackPanel>
     </DataTemplate>
+    
     <DataTemplate x:Key="SetOptionItemTemplate">
         <StackPanel
             Orientation="Horizontal"
@@ -55,6 +56,7 @@
                 VerticalAlignment="Center"/>
         </StackPanel>
     </DataTemplate>
+    
     <DataTemplate x:Key="RarityOptionItemTemplate">
         <StackPanel
             Orientation="Horizontal"
@@ -74,11 +76,6 @@
     <DataTemplate x:Key="CardVisualItemTemplate">
         <Grid
             Margin="0, 0, 0, 5">
-            <Grid.Resources>
-                <Style TargetType="TextBlock" BasedOn="{StaticResource TitleSmallSized}">
-                    <Setter Property="TextWrapping" Value="WrapWholeWords"/>
-                </Style>
-            </Grid.Resources>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -125,37 +122,45 @@
     </DataTemplate>
 
     <DataTemplate x:Key="CardTableItemTemplate">
-        <Grid>
+        <Grid Background="Green">
+            <Grid.Resources>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource Tk-BodyBigSized}">
+                    <Setter Property="Margin" Value="5,0,0,0"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                </Style>
+                <Style TargetType="Image">
+                    <Setter Property="Margin" Value="5,0,0,0"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="Stretch" Value="Uniform"/>
+                </Style>
+            </Grid.Resources>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <TextBlock
                 Grid.Column="0"
-                Name="{Binding Name}"/>
-            <Image
+                Text="{Binding Name}"/>
+            <StackPanel
                 Grid.Column="1"
-                Source="../Assets/Icons/Stats/mana.png"/>
-            <TextBlock
-                Grid.Column="2"
-                Name="{Binding Cost}"/>
-            <Image
-                Grid.Column="3"
-                Source="../Assets/Icons/Stats/attack.png"/>
-            <TextBlock
-                Grid.Column="4"
-                Name="{Binding Attack}"/>
-            <Image
-                Grid.Column="5"
-                Source="../Assets/Icons/Stats/health.png"/>
-            <TextBlock
-                Grid.Column="6"
-                Name="{Binding Health}"/>
+                Orientation="Horizontal"
+                HorizontalAlignment="Right">
+                <Image
+                    Source="../Assets/Icons/Stats/mana.png"/>
+                <TextBlock
+                    Text="{Binding Cost}"/>
+                <Image
+                    Source="../Assets/Icons/Stats/attack.png"/>
+                <TextBlock
+                    Text="{Binding Attack}"/>
+                <Image
+                    Source="../Assets/Icons/Stats/health.png"/>
+                <TextBlock
+                    Text="{Binding Health}"/>
+            </StackPanel>
+            
+            
         </Grid>
     </DataTemplate>
 
@@ -239,9 +244,9 @@
     
     <Style x:Key="IconButtonStyle" TargetType="Button" BasedOn="{StaticResource MinDimensionsButtonStyle}">
         <Setter Property="Template" Value="{StaticResource RoundCornerButtonControlTemplate}"/>
-        <Setter Property="Padding" Value="0"/>
-        <Setter Property="Width" Value="{StaticResource PhoneButtonMinHeight}"/>
-        <Setter Property="Height" Value="{StaticResource PhoneButtonMinHeight}"/>
+        <Setter Property="Padding" Value="3"/>
+        <Setter Property="Width" Value="50"/>
+        <Setter Property="Height" Value="50"/>
     </Style>
     
     <DataTemplate x:Key="SearchButtonContentTemplate">
