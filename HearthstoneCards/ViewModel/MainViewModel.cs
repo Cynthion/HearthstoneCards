@@ -68,7 +68,7 @@ namespace HearthstoneCards.ViewModel
             {
                 new ImageSelectionItem<Set>("Basic", Set.Basic),
                 new ImageSelectionItem<Set>("Classic", Set.Classic) { ImagePath = "../Assets/Icons/Sets/classic-60.png"},
-                new ImageSelectionItem<Set>("Naxxramas", Set.Naxxramas) { ImagePath = "../Assets/Icons/Sets/naxx-60.png"},
+                new ImageSelectionItem<Set>("Curse of Naxxramas", Set.Naxxramas) { ImagePath = "../Assets/Icons/Sets/naxx-60.png"},
                 new ImageSelectionItem<Set>("Goblins vs Gnomes", Set.GoblinVsGnomes) { ImagePath = "../Assets/Icons/Sets/gvg-60.png"},
                 new ImageSelectionItem<Set>("Blackrock Mountain", Set.BlackrockMountain) { ImagePath = "../Assets/Icons/Sets/brm-60.png"},
                 new ImageSelectionItem<Set>("The Grand Tournament", Set.TheGrandTournament) { ImagePath = "../Assets/Icons/Sets/tgt-60.png"},
@@ -159,7 +159,7 @@ namespace HearthstoneCards.ViewModel
                 {
                     // TODO load from storage, not from file
                     string fileContent;
-                    var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(@"ms-appx:///Assets/AllSets.enUS.json"));
+                    var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/AllSets.enUS.json"));
                     using (var reader = new StreamReader(await file.OpenStreamForReadAsync()))
                     {
                         fileContent = await reader.ReadToEndAsync();

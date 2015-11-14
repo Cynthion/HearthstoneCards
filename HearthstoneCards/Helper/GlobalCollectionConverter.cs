@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HearthstoneCards.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -25,7 +20,14 @@ namespace HearthstoneCards.Helper
 
             foreach (var property in jo.Properties())
             {
-                if (property.Name.Equals("Debug") || property.Name.Equals("Credits"))
+                if (property.Name.Equals("Debug") 
+                    || property.Name.Equals("Credits")
+                    || property.Name.Equals("Hero Skins")
+                    || property.Name.Equals("Missions")
+                    || property.Name.Equals("Promotion")
+                    || property.Name.Equals("Reward")
+                    || property.Name.Equals("System")
+                    || property.Name.Equals("Tavern Brawl"))
                 {
                     continue;
                 }
@@ -34,9 +36,10 @@ namespace HearthstoneCards.Helper
                     Cards = JsonConvert.DeserializeObject<Card[]>(property.Value.ToString())
                 };
                 // provide Set
+                var setEnum = ExtractSet(set.SetName);
                 foreach (var card in set.Cards)
                 {
-                    card.Set = ExtractSet(set.SetName);
+                    card.Set = setEnum;
                 }
                 globalCollection.CardSets.Add(set);
             }
@@ -50,11 +53,11 @@ namespace HearthstoneCards.Helper
             {
                 case "Classic": return Set.Classic;
                 case "Basic": return Set.Basic;
-                case "Naxxramas": return Set.Naxxramas;
-                case "Goblin Vs Gnomes": return Set.GoblinVsGnomes;
+                case "Curse of Naxxramas": return Set.Naxxramas;
+                case "Goblins vs Gnomes": return Set.GoblinVsGnomes;
                 case "Blackrock Mountain": return Set.BlackrockMountain;
                 case "The Grand Tournament": return Set.TheGrandTournament;
-                case "League Of Explorers": return Set.LeagueOfExplorers;
+                case "League of Explorers": return Set.LeagueOfExplorers;
                 default: return Set.Classic;
             }
         }

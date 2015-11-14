@@ -51,20 +51,11 @@
                     <!-- Name Filter -->
                     <TextBox
                         Grid.Column="0"
+                        Grid.ColumnSpan="2"
                         Grid.Row="2"
                         Header="Name"
                         PlaceholderText="Enter card name..."
                         SelectionChanged="NameTextBox_OnSelectionChanged"/>
-                    <Button
-                        Grid.Column="1"
-                        Grid.Row="2"
-                        Margin="10,0,0,10"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Bottom"
-                        Height="40"
-                        Style="{StaticResource MinDimensionsButtonStyle}"
-                        Template="{StaticResource SearchButtonControlTemplate}"
-                        ContentTemplate="{StaticResource SearchButtonContentTemplate}"/>
                     <!-- Class Filter -->
                     <local:MultiComboBox
                         Grid.Column="0"
