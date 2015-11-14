@@ -23,7 +23,7 @@ namespace HearthstoneCards.ViewModel
 
         public string NameFilter { get; set; }
         public IList<ImageSelectionItem<string>> ClassOptions { get; private set; }
-        public IList<ImageSelectionItem<string>> SetOptions { get; private set; }
+        public IList<ImageSelectionItem<Set>> SetOptions { get; private set; }
         public IList<ImageSelectionItem<Rarity>> RarityOptions { get; private set; }
         public IList<int> AttackOptions { get; private set; }
         public IList<ISelectionItem<Func<Card, object>>> SortOptions { get; private set; }
@@ -64,14 +64,15 @@ namespace HearthstoneCards.ViewModel
                 new ImageSelectionItem<string>("Warlock") { ImagePath = "../Assets/Icons/Classes/warlock.png"},
                 new ImageSelectionItem<string>("Warrior") { ImagePath = "../Assets/Icons/Classes/warrior.png"},
             };
-            SetOptions = new List<ImageSelectionItem<string>>
+            SetOptions = new List<ImageSelectionItem<Set>>
             {
-                new ImageSelectionItem<string>("Basic"),
-                new ImageSelectionItem<string>("Classic") { ImagePath = "../Assets/Icons/Sets/classic.png"},
-                new ImageSelectionItem<string>("Naxxramas") { ImagePath = "../Assets/Icons/Sets/naxx.png"},
-                new ImageSelectionItem<string>("Goblins vs Gnomes") { ImagePath = "../Assets/Icons/Sets/gvg.png"},
-                new ImageSelectionItem<string>("Blackrock Mountain") { ImagePath = "../Assets/Icons/Sets/blackrock.png"},
-                new ImageSelectionItem<string>("The Grand Tournament") { ImagePath = "../Assets/Icons/Sets/tgt.png"},
+                new ImageSelectionItem<Set>("Basic", Set.Basic),
+                new ImageSelectionItem<Set>("Classic", Set.Classic) { ImagePath = "../Assets/Icons/Sets/classic-60.png"},
+                new ImageSelectionItem<Set>("Naxxramas", Set.Naxxramas) { ImagePath = "../Assets/Icons/Sets/naxx-60.png"},
+                new ImageSelectionItem<Set>("Goblins vs Gnomes", Set.GoblinVsGnomes) { ImagePath = "../Assets/Icons/Sets/gvg-60.png"},
+                new ImageSelectionItem<Set>("Blackrock Mountain", Set.BlackrockMountain) { ImagePath = "../Assets/Icons/Sets/brm-60.png"},
+                new ImageSelectionItem<Set>("The Grand Tournament", Set.TheGrandTournament) { ImagePath = "../Assets/Icons/Sets/tgt-60.png"},
+                new ImageSelectionItem<Set>("League of Explorers", Set.LeagueOfExplorers) { ImagePath = "../Assets/Icons/Sets/loe-60.png"},
             };
             RarityOptions = new List<ImageSelectionItem<Rarity>>
             {
@@ -158,7 +159,7 @@ namespace HearthstoneCards.ViewModel
                 {
                     // TODO load from storage, not from file
                     string fileContent;
-                    var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(@"ms-appx:///Assets/AllSets.json"));
+                    var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(@"ms-appx:///Assets/AllSets.enUS.json"));
                     using (var reader = new StreamReader(await file.OpenStreamForReadAsync()))
                     {
                         fileContent = await reader.ReadToEndAsync();
@@ -167,7 +168,7 @@ namespace HearthstoneCards.ViewModel
                     if (json != null)
                     {
                         var globalCollection = JsonConvert.DeserializeObject<GlobalCollection>(json);
-                        foreach (var set in globalCollection.Sets)
+                        foreach (var set in globalCollection.CardSets)
                         {
                             _allCards.AddRange(set.Cards);
                         }
@@ -196,7 +197,7 @@ namespace HearthstoneCards.ViewModel
                 where card.IsCollectible
                 where !IsNameFilterEnabled || card.Name.Contains(NameFilter)
                 where ClassOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Class))
-                where SetOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Set))
+                where SetOptions.Where(o => o.IsSelected).Any(o => o.Value.Equals(card.Set))
                 where RarityOptions.Where(o => o.IsSelected).Any(o => o.Value.Equals(card.Rarity))
                 //where card.Attack >= SelectedAttackFromOption && card.Attack <= SelectedAttackToOption
                 select card;

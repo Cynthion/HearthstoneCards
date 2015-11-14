@@ -16,8 +16,10 @@ namespace HearthstoneCards.Helper
                 settings.ItemsControlViewInfoIndex = 0;
                 settings.IsSortedAscending = true;
                 settings.SortOptionSelection = new[] { true, false, false };
+                // 9 classes, 1 neutral
                 settings.ClassSelection = new [] { true, true, true, true, true, true, true, true, true, true };
-                settings.SetSelection = new[] { true, true, true, true, true, true, true, true, true, true, true, true, true, true };
+                // 7 sets
+                settings.SetSelection = new[] { true, true, true, true, true, true, true };
                 settings.RaritySelection = new [] { true, true, true, true, true };
                 
                 settings.IsFirstRun = false;

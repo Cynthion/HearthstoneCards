@@ -7,11 +7,11 @@ namespace HearthstoneCards.Model
     [JsonConverter(typeof(GlobalCollectionConverter))]
     public class GlobalCollection
     {
-        public IList<Set> Sets { get; private set; }
+        public IList<CardSet> CardSets { get; private set; }
 
         public GlobalCollection()
         {
-            Sets = new List<Set>(14);
+            CardSets = new List<CardSet>();
         }
     }
 }

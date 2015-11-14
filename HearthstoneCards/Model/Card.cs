@@ -8,14 +8,7 @@ using WPDevToolkit;
 
 namespace HearthstoneCards.Model
 {
-    public enum Rarity
-    {
-        Free = 0,
-        Common = 1,
-        Rare = 2,
-        Epic = 3,
-        Legendary = 4
-    }
+
 
     [JsonConverter(typeof(CardConverter))]
     public class Card : BaseNotifyPropertyChanged, IEquatable<Card>
@@ -41,7 +34,7 @@ namespace HearthstoneCards.Model
         public bool IsElite { get; set; }
         public string HowToGet { get; set; }
         public string HowToGetGold { get; set; }
-        public string Set { get; set; }
+        public Set Set { get; set; }
         
         private ImageSource _image;
         //private ImageSource _imageGold;

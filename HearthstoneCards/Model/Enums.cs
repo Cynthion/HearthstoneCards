@@ -1,0 +1,22 @@
+﻿namespace HearthstoneCards.Model
+{
+    public enum Rarity
+    {
+        Free = 0,
+        Common = 1,
+        Rare = 2,
+        Epic = 3,
+        Legendary = 4
+    }
+
+    public enum Set
+    {
+        Basic = 0,
+        Classic = 1,
+        Naxxramas = 2,
+        GoblinVsGnomes = 3,
+        BlackrockMountain = 4,
+        TheGrandTournament = 5,
+        LeagueOfExplorers = 6
+    }
+}

@@ -29,18 +29,34 @@ namespace HearthstoneCards.Helper
                 {
                     continue;
                 }
-                var set = new Set(property.Name)
+                var set = new CardSet(property.Name)
                 {
                     Cards = JsonConvert.DeserializeObject<Card[]>(property.Value.ToString())
                 };
+                // provide Set
                 foreach (var card in set.Cards)
                 {
-                    card.Set = set.Name;
+                    card.Set = ExtractSet(set.SetName);
                 }
-                globalCollection.Sets.Add(set);
+                globalCollection.CardSets.Add(set);
             }
 
             return globalCollection;
+        }
+
+        private static Set ExtractSet(string name)
+        {
+            switch (name)
+            {
+                case "Classic": return Set.Classic;
+                case "Basic": return Set.Basic;
+                case "Naxxramas": return Set.Naxxramas;
+                case "Goblin Vs Gnomes": return Set.GoblinVsGnomes;
+                case "Blackrock Mountain": return Set.BlackrockMountain;
+                case "The Grand Tournament": return Set.TheGrandTournament;
+                case "League Of Explorers": return Set.LeagueOfExplorers;
+                default: return Set.Classic;
+            }
         }
 
         public override bool CanConvert(Type objectType)

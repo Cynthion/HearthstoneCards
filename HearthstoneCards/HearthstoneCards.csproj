@@ -113,9 +113,10 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Card.cs" />
+    <Compile Include="Model\Enums.cs" />
     <Compile Include="Model\GlobalCollection.cs" />
     <Compile Include="Model\ImageSelectionItem.cs" />
-    <Compile Include="Model\Set.cs" />
+    <Compile Include="Model\CardSet.cs" />
     <Compile Include="MultiComboBox.cs" />
     <Compile Include="MultiComboBoxPage.xaml.cs">
       <DependentUpon>MultiComboBoxPage.xaml</DependentUpon>
@@ -179,18 +180,23 @@
     <Content Include="Assets\Icons\Rarity\rare.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Sets\blackrock.png">
+    <Content Include="Assets\Icons\Sets\brm.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Icons\Sets\brm-60.png" />
+    <Content Include="Assets\Icons\Sets\classic-60.png" />
+    <Content Include="Assets\Icons\Sets\gvg-60.png" />
     <Content Include="Assets\Icons\Sets\gvg.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Icons\Sets\naxx-60.png" />
     <Content Include="Assets\Icons\Sets\naxx.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Icons\Sets\classic.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Icons\Sets\tgt-60.png" />
     <Content Include="Assets\Icons\Sets\tgt.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -278,7 +284,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\AllSets.json" />
+    <Content Include="Assets\AllSets.enUS.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

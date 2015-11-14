@@ -2,15 +2,15 @@
 
 namespace HearthstoneCards.Model
 {
-    public class Set
+    public class CardSet
     {
-        public string Name { get; private set; }
+        public string SetName { get; private set; }
 
         public IList<Card> Cards { get; set; }
 
-        public Set(string name)
+        public CardSet(string setName)
         {
-            Name = name;
+            SetName = setName;
             Cards = new List<Card>();
         }
     }
