@@ -66,7 +66,7 @@ namespace HearthstoneCards.ViewModel
             };
             SetOptions = new List<ImageSelectionItem<Set>>
             {
-                new ImageSelectionItem<Set>("Basic", Set.Basic),
+                new ImageSelectionItem<Set>("Basic", Set.Basic) { ImagePath = "../Assets/Icons/Sets/basic-60.png"},
                 new ImageSelectionItem<Set>("Classic", Set.Classic) { ImagePath = "../Assets/Icons/Sets/classic-60.png"},
                 new ImageSelectionItem<Set>("Curse of Naxxramas", Set.Naxxramas) { ImagePath = "../Assets/Icons/Sets/naxx-60.png"},
                 new ImageSelectionItem<Set>("Goblins vs Gnomes", Set.GoblinVsGnomes) { ImagePath = "../Assets/Icons/Sets/gvg-60.png"},
