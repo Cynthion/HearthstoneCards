@@ -137,19 +137,22 @@
                 </Style>
             </Grid.Resources>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock
+            <Image
                 Grid.Column="0"
-                Margin="0"
+                Source="{Binding Set, Converter={StaticResource SetToImageSourceConverter}}"/>
+            <TextBlock
+                Grid.Column="1"
                 TextWrapping="WrapWholeWords"
                 HorizontalAlignment="Left"
                 TextAlignment="Left"
                 Foreground="{Binding Rarity, Converter={StaticResource RarityToBrushConverter}}"
                 Text="{Binding Name}"/>
             <StackPanel
-                Grid.Column="1"
+                Grid.Column="2"
                 Orientation="Horizontal"
                 HorizontalAlignment="Right">
                 <TextBlock

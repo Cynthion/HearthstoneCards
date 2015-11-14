@@ -61,7 +61,7 @@ namespace HearthstoneCards
             {
                 return;
             }
-            var selectedOptions = options.OfType<ISelectionItem>().Where(i => i.IsSelected).ToList();
+            var selectedOptions = options.OfType<ISelectionItem>().Where(i => i.IsSelected).Select(i => i.Key).ToList();
 
             // change status
             string status;

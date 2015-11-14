@@ -23,6 +23,7 @@
             <converter:ToUpperCaseConverter x:Key="ToUpperCaseConverter"/>
             <converter:SortDirectionToStringConverter x:Key="SortDirectionToStringConverter"/>
             <localConverter:RarityToBrushConverter x:Key="RarityToBrushConverter"/>
+            <localConverter:SetToImageSourceConverter x:Key="SetToImageSourceConverter"/>
             
         </ResourceDictionary>
     </Application.Resources>
