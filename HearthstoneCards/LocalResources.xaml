@@ -4,6 +4,10 @@
     xmlns:toolkit="using:WPDevToolkit">
 
     <!-- STYLES -->
+    <Style x:Key="CardCutStyle" TargetType="Image">
+        <Setter Property="Margin" Value="-4, -20, -8, -12"/>
+    </Style>
+    
     <Style x:Key="SelectionListViewItemStyle" TargetType="ListViewItem">
         <Setter Property="toolkit:BindingHelper.IsSelectedContainerBinding" Value="IsSelected"/>
         <Setter Property="Template">
@@ -21,7 +25,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-
+    
     <!-- ITEM TEMPLATES -->
     <!-- MultiComboBox filter options -->
     <DataTemplate x:Key="OptionItemTemplate">
@@ -76,23 +80,25 @@
     <DataTemplate x:Key="CardVisualItemTemplate">
         <Grid
             Margin="0, 0, 0, 5">
+            <Grid.Resources>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource Tk-TitleSmallSized}">
+                    <Setter Property="TextWrapping" Value="WrapWholeWords"/>
+                </Style>
+            </Grid.Resources>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid
                 Grid.Column="0">
-                <ProgressRing
-                    IsActive="{Binding IsImageLoading}"
-                    Visibility="{Binding RelativeSource={RelativeSource Self}, Path=IsActive, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 <Image
-                    VerticalAlignment="Center"
+                    Style="{StaticResource CardCutStyle}"
                     Source="{Binding Image}"/>
             </Grid>
             
             <StackPanel
                 Grid.Column="1"
-                Margin="10, 0">
+                Margin="10, 20, 10, 0">
                 <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
                 <TextBlock Text="{Binding Rarity}"/>
                 <TextBlock Text="{Binding Class}"/>
@@ -104,20 +110,12 @@
 
     <DataTemplate x:Key="CardImageItemTemplate">
         <Grid
-            Margin="0, 0, 0, 5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+            Margin="15">
             <Image
-                Grid.Row="0"
-                Height="227"
-                VerticalAlignment="Center"
+                Height="220"
+                Style="{StaticResource CardCutStyle}"
                 Source="{Binding Image}"
                 Stretch="Uniform"/>
-            <TextBlock
-                Grid.Row="1"
-                Text="{Binding Name}"/>
         </Grid>
     </DataTemplate>
 
