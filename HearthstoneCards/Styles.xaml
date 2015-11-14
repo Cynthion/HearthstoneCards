@@ -45,9 +45,6 @@
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontWeight" Value="Thin"/>
     </Style>
-    <Style x:Key="Tk-SortHeaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource Tk-TitleSmallSized}">
-        <Setter Property="Foreground" Value="Gray"/>
-    </Style>
     <Style x:Key="Tk-MenuItemSizedStyle" BasedOn="{StaticResource Tk-TitleBigSized}" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
     </Style>

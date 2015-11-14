@@ -122,9 +122,10 @@
     </DataTemplate>
 
     <DataTemplate x:Key="CardTableItemTemplate">
-        <Grid>
+        <Grid
+            Margin="0,0,0,20">
             <Grid.Resources>
-                <Style TargetType="TextBlock" BasedOn="{StaticResource Tk-BodyBigSized}">
+                <Style TargetType="TextBlock" BasedOn="{StaticResource Tk-TitleSmallSized}">
                     <Setter Property="Margin" Value="7,0,7,0"/>
                     <Setter Property="MinWidth" Value="20"/>
                     <Setter Property="VerticalAlignment" Value="Center"/>
@@ -250,8 +251,8 @@
     <Style x:Key="IconButtonStyle" TargetType="Button" BasedOn="{StaticResource MinDimensionsButtonStyle}">
         <Setter Property="Template" Value="{StaticResource RoundCornerButtonControlTemplate}"/>
         <Setter Property="Padding" Value="3"/>
-        <Setter Property="Width" Value="50"/>
-        <Setter Property="Height" Value="50"/>
+        <Setter Property="Width" Value="45"/>
+        <Setter Property="Height" Value="45"/>
     </Style>
     
     <DataTemplate x:Key="SearchButtonContentTemplate">
