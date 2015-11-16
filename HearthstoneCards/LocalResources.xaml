@@ -4,6 +4,19 @@
     xmlns:toolkit="using:WPDevToolkit">
 
     <!-- STYLES -->
+    <!-- Button -->
+    <Style x:Key="Hs-ButtonStyle" TargetType="Button">
+        <!-- min dimensions -->
+        <Setter Property="MinHeight" Value="30"/>
+        <Setter Property="MinWidth" Value="30"/>
+        <!-- default content template, but without overhang -->
+        <Setter Property="Template" Value="{StaticResource Tk-NoOverhangButtonControlTemplate}"/>
+        <!-- colouring -->
+        <Setter Property="Background" Value="{StaticResource PhoneAccentBrush}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderBrush" Value="White"/>
+    </Style>
+
     <Style x:Key="CardCutStyle" TargetType="Image">
         <Setter Property="Margin" Value="-4, -20, -8, -12"/>
     </Style>

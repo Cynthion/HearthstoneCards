@@ -101,6 +101,7 @@
     <Compile Include="Helper\ApiCaller.cs" />
     <Compile Include="Helper\AppSettings.cs" />
     <Compile Include="Helper\CardConverter.cs" />
+    <Compile Include="Helper\Constants.cs" />
     <Compile Include="Helper\GlobalCollectionConverter.cs" />
     <Compile Include="Helper\Initializer.cs" />
     <Compile Include="Helper\Storage.cs" />
@@ -245,6 +246,11 @@
     <Page Include="CollectionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Defaults.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="GlobalStyles.xaml">
       <SubType>Designer</SubType>

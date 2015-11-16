@@ -96,10 +96,12 @@
                     <Button
                         Grid.Column="1"
                         Grid.Row="6"
-                        Margin="20,0,0,0"
+                        Margin="10,0,0,0"
+                        
                         Content="All"
-                        Style="{StaticResource BorderlessButton}"
+                        Style="{StaticResource MinDimensionsButtonStyle}"
                         Background="{StaticResource PhoneAccentBrush}"
+                        BorderBrush="{StaticResource PhoneAccentBrush}"
                         VerticalAlignment="Bottom"
                         HorizontalAlignment="Stretch"
                         Height="{StaticResource TextControlThemeMinHeight}"/>
