@@ -101,6 +101,7 @@
     <Compile Include="Helper\ApiCaller.cs" />
     <Compile Include="Helper\AppSettings.cs" />
     <Compile Include="Helper\CardConverter.cs" />
+    <Compile Include="Helper\ConstantContainer.cs" />
     <Compile Include="Helper\Constants.cs" />
     <Compile Include="Helper\GlobalCollectionConverter.cs" />
     <Compile Include="Helper\Initializer.cs" />

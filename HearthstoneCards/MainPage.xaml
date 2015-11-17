@@ -91,6 +91,8 @@
                         Grid.Column="0"
                         Grid.Row="6"
                         Title="Attack"
+                        Min="{Binding Source={StaticResource Constants}, Path=MinAttack}"
+                        Max="{Binding Source={StaticResource Constants}, Path=MaxAttack}"
                         From="{Binding SelectedAttackFromOption, Mode=TwoWay}"
                         To="{Binding SelectedAttackToOption, Mode=TwoWay}"/>
                     <Button

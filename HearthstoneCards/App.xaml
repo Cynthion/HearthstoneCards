@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converter="using:WPDevToolkit.Converter"
     xmlns:localConverter="using:HearthstoneCards.Converter"
-    xmlns:wpDevToolkit="using:WPDevToolkit">
+    xmlns:wpDevToolkit="using:WPDevToolkit"
+    xmlns:helper="using:HearthstoneCards.Helper">
 
     <Application.Resources>
         <ResourceDictionary>
@@ -15,6 +16,9 @@
                 <ResourceDictionary Source="ItemControlResources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
+            <!-- Constants -->
+            <helper:ConstantContainer x:Key="Constants"/>
+            
             <!-- CONVERTERS -->
             <converter:ScreenSizeConverter x:Key="ScreenSizeConverter"/>
             <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -30,6 +34,9 @@
                 <!-- min dimensions -->
                 <Setter Property="MinHeight" Value="30"/>
                 <Setter Property="MinWidth" Value="30"/>
+                <!-- center content -->
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <!-- custom content template, without overhang, phone accent brush -->
                 <Setter Property="Template">
                     <Setter.Value>
@@ -94,8 +101,10 @@
                                         <ContentPresenter x:Name="ContentPresenter" 
                                             Foreground="{TemplateBinding Foreground}"
                                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{TemplateBinding Padding}"
-                                            Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                            Margin="{TemplateBinding Padding}"
+                                            Content="{TemplateBinding Content}" 
+                                            ContentTemplate="{TemplateBinding ContentTemplate}"
                                             AutomationProperties.AccessibilityView="Raw"/>
                                     </Border>
                                 </Border>
