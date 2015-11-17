@@ -97,11 +97,8 @@
                         Grid.Column="1"
                         Grid.Row="6"
                         Margin="10,0,0,0"
-                        
+                        Style="{StaticResource Hs-ButtonStyle}"
                         Content="All"
-                        Style="{StaticResource MinDimensionsButtonStyle}"
-                        Background="{StaticResource PhoneAccentBrush}"
-                        BorderBrush="{StaticResource PhoneAccentBrush}"
                         VerticalAlignment="Bottom"
                         HorizontalAlignment="Stretch"
                         Height="{StaticResource TextControlThemeMinHeight}"/>

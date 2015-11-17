@@ -164,7 +164,6 @@
         </Setter>
     </Style>
     
-    
     <!-- Full-Width controls -->
     <Style x:Key="Tk-FullWidthControlStyle" TargetType="Control">
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -306,7 +305,7 @@
     </Style>
 
     <!-- Button without touch overhang -->
-    <Style x:Key="NoTouchOverhangButtonStyle" TargetType="Button">
+    <Style x:Key="Tk-NoTouchOverhangButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="{ThemeResource PhoneForegroundBrush}" />
         <Setter Property="Foreground" Value="{ThemeResource PhoneForegroundBrush}" />
@@ -386,7 +385,7 @@
     </Style>
     
     <!-- Button with low MinHeight and MinWidth values -->
-    <Style x:Key="MinDimensionsButtonStyle" TargetType="Button" BasedOn="{StaticResource NoTouchOverhangButtonStyle}">
+    <Style x:Key="Tk-MinDimensionsButtonStyle" TargetType="Button" BasedOn="{StaticResource Tk-NoTouchOverhangButtonStyle}">
         <!-- Set dimensions to a minimum -->
         <Setter Property="MinHeight" Value="20" />
         <Setter Property="MinWidth" Value="20" />
@@ -498,7 +497,8 @@
         </Setter>
     </Style>
     
-    <!-- CONTROL TEMPLATES -->   
+    <!-- CONTROL TEMPLATES -->
+    <!-- Button -->
     <ControlTemplate x:Key="Tk-NoOverhangButtonControlTemplate" TargetType="Button">
         <Grid x:Name="Grid" Background="Transparent">
             <VisualStateManager.VisualStateGroups>
@@ -563,6 +563,74 @@
                     Content="{TemplateBinding Content}"
                     ContentTemplate="{TemplateBinding ContentTemplate}"
                     AutomationProperties.AccessibilityView="Raw"/>
+            </Border>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="RoundCornerButtonControlTemplate" TargetType="Button">
+        <Grid x:Name="Grid" Background="Transparent">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualStateGroup.Transitions>
+                        <VisualTransition From="Pressed" To="PointerOver">
+                            <Storyboard>
+                                <PointerUpThemeAnimation Storyboard.TargetName="Grid"/>
+                            </Storyboard>
+                        </VisualTransition>
+                        <VisualTransition From="PointerOver" To="Normal">
+                            <Storyboard>
+                                <PointerUpThemeAnimation Storyboard.TargetName="Grid"/>
+                            </Storyboard>
+                        </VisualTransition>
+                        <VisualTransition From="Pressed" To="Normal">
+                            <Storyboard>
+                                <PointerUpThemeAnimation Storyboard.TargetName="Grid"/>
+                            </Storyboard>
+                        </VisualTransition>
+                    </VisualStateGroup.Transitions>
+                    <VisualState x:Name="Normal"/>
+                    <VisualState x:Name="PointerOver"/>
+                    <VisualState x:Name="Pressed">
+                        <Storyboard>
+                            <PointerDownThemeAnimation Storyboard.TargetName="Grid"/>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedForegroundThemeBrush}"/>
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedBackgroundThemeBrush}"/>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+                    <VisualState x:Name="Disabled">
+                        <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledForegroundThemeBrush}"/>
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledBorderThemeBrush}"/>
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledBackgroundThemeBrush}"/>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <Border
+				x:Name="Border"
+                CornerRadius="45"
+				BorderBrush="{TemplateBinding BorderBrush}"
+				BorderThickness="{TemplateBinding BorderThickness}"
+				Background="{TemplateBinding Background}">
+                <ContentPresenter
+				    x:Name="ContentPresenter"
+				    AutomationProperties.AccessibilityView="Raw"
+				    ContentTemplate="{TemplateBinding ContentTemplate}"
+				    Content="{TemplateBinding Content}"
+				    Foreground="{TemplateBinding Foreground}"
+				    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+				    Margin="{TemplateBinding Padding}"/>
             </Border>
         </Grid>
     </ControlTemplate>

@@ -2,19 +2,16 @@
     x:Class="HearthstoneCards.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:helper="using:HearthstoneCards.Helper"
     xmlns:converter="using:WPDevToolkit.Converter"
-    xmlns:localConverter="using:HearthstoneCards.Converter">
+    xmlns:localConverter="using:HearthstoneCards.Converter"
+    xmlns:wpDevToolkit="using:WPDevToolkit">
 
     <Application.Resources>
         <ResourceDictionary>
             
-            <!-- Styles from merged Resource Dictionary -->
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Defaults.xaml"/>
                 <ResourceDictionary Source="IconResources.xaml"/>
                 <ResourceDictionary Source="Styles.xaml"/>
-                <ResourceDictionary Source="LocalResources.xaml"/>
                 <ResourceDictionary Source="ItemControlResources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
@@ -26,7 +23,267 @@
             <converter:SortDirectionToStringConverter x:Key="SortDirectionToStringConverter"/>
             <localConverter:RarityToBrushConverter x:Key="RarityToBrushConverter"/>
             <localConverter:SetToImageSourceConverter x:Key="SetToImageSourceConverter"/>
+
+            <!-- STYLES -->
+            <!-- Button -->
+            <Style x:Key="Hs-ButtonStyle" TargetType="Button">
+                <!-- min dimensions -->
+                <Setter Property="MinHeight" Value="30"/>
+                <Setter Property="MinWidth" Value="30"/>
+                <!-- custom content template, without overhang, phone accent brush -->
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid x:Name="Grid" Background="Transparent">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver" />
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <PointerDownThemeAnimation Storyboard.TargetName="Grid" />
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedForegroundThemeBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedBackgroundThemeBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledForegroundThemeBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledBorderThemeBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledBackgroundThemeBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualStateGroup.Transitions>
+                                            <VisualTransition From="Pressed" To="PointerOver">
+                                                <Storyboard>
+                                                    <PointerUpThemeAnimation Storyboard.TargetName="Grid" />
+                                                </Storyboard>
+                                            </VisualTransition>
+                                            <VisualTransition From="PointerOver" To="Normal">
+                                                <Storyboard>
+                                                    <PointerUpThemeAnimation Storyboard.TargetName="Grid" />
+                                                </Storyboard>
+                                            </VisualTransition>
+                                            <VisualTransition From="Pressed" To="Normal">
+                                                <Storyboard>
+                                                    <PointerUpThemeAnimation Storyboard.TargetName="Grid" />
+                                                </Storyboard>
+                                            </VisualTransition>
+                                        </VisualStateGroup.Transitions>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <!-- overhang margin removed from default style -->
+                                <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        Background="{TemplateBinding Background}" Margin="{TemplateBinding Margin}">
+                                    <Border>
+                                        <!-- dark background -->
+                                        <Border.Background>
+                                            <SolidColorBrush Color="Black" Opacity="0.5"/>
+                                        </Border.Background>
+                                        <ContentPresenter x:Name="ContentPresenter" 
+                                            Foreground="{TemplateBinding Foreground}"
+                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{TemplateBinding Padding}"
+                                            Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"
+                                            AutomationProperties.AccessibilityView="Raw"/>
+                                    </Border>
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                    </Setter>
+                    <!-- colouring -->
+                <Setter Property="Background" Value="{StaticResource PhoneAccentBrush}"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderBrush" Value="{StaticResource PhoneAccentBrush}"/>
+            </Style>
             
+            <Style x:Key="IconButtonStyle" TargetType="Button" BasedOn="{StaticResource Tk-MinDimensionsButtonStyle}">
+                <Setter Property="Template" Value="{StaticResource RoundCornerButtonControlTemplate}"/>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="Width" Value="45"/>
+                <Setter Property="Height" Value="45"/>
+            </Style>
+
+            <!-- Other -->
+            <Style x:Key="CardCutStyle" TargetType="Image">
+                <Setter Property="Margin" Value="-4, -20, -8, -12"/>
+            </Style>
+
+            <Style x:Key="SelectionListViewItemStyle" TargetType="ListViewItem">
+                <Setter Property="wpDevToolkit:BindingHelper.IsSelectedContainerBinding" Value="IsSelected"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListViewItem">
+                            <CheckBox
+                        VerticalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsSelected, Mode=TwoWay}">
+                                <ContentPresenter/>
+                            </CheckBox>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- ITEM TEMPLATES -->
+            <!-- MultiComboBox filter options -->
+            <DataTemplate x:Key="OptionItemTemplate">
+                <StackPanel
+            Orientation="Horizontal"
+            VerticalAlignment="Center">
+                    <Image
+                Margin="5,0,0,0"
+                Width="50"
+                Height="50"
+                Source="{Binding ImagePath}"
+                Stretch="Uniform"/>
+                    <TextBlock
+                Margin="10,0,0,0"
+                Text="{Binding Key}"
+                VerticalAlignment="Center"/>
+                </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate x:Key="SetOptionItemTemplate">
+                <StackPanel
+            Orientation="Horizontal"
+            VerticalAlignment="Center">
+                    <Image
+                Margin="5,0,0,0"
+                Width="38"
+                Height="27"
+                Source="{Binding ImagePath}"/>
+                    <TextBlock 
+                Margin="10,0,0,0"
+                Text="{Binding Key}"
+                VerticalAlignment="Center"/>
+                </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate x:Key="RarityOptionItemTemplate">
+                <StackPanel
+            Orientation="Horizontal"
+            VerticalAlignment="Center">
+                    <Image
+                Margin="5,0,0,0"
+                Width="24"
+                Height="32"
+                Source="{Binding ImagePath}"/>
+                    <TextBlock 
+                Margin="10,0,0,0"
+                Text="{Binding Key}"
+                VerticalAlignment="Center"/>
+                </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate x:Key="CardVisualItemTemplate">
+                <Grid
+            Margin="0, 0, 0, 5">
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource Tk-TitleSmallSized}">
+                            <Setter Property="TextWrapping" Value="WrapWholeWords"/>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid
+                Grid.Column="0">
+                        <Image
+                    Style="{StaticResource CardCutStyle}"
+                    Source="{Binding Image}"/>
+                    </Grid>
+
+                    <StackPanel
+                Grid.Column="1"
+                Margin="10, 20, 10, 0">
+                        <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Rarity}"/>
+                        <TextBlock Text="{Binding Class}"/>
+                        <TextBlock Text="{Binding Type}"/>
+                        <TextBlock Text="{Binding Set}"/>
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="CardImageItemTemplate">
+                <Grid
+            Margin="15">
+                    <Image
+                Height="220"
+                Style="{StaticResource CardCutStyle}"
+                Source="{Binding Image}"
+                Stretch="Uniform"/>
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="CardTableItemTemplate">
+                <Grid
+            Margin="0,0,0,20">
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource Tk-TitleSmallSized}">
+                            <Setter Property="Margin" Value="7,0,7,0"/>
+                            <Setter Property="MinWidth" Value="20"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Right"/>
+                            <Setter Property="TextAlignment" Value="Right"/>
+                        </Style>
+                        <Style TargetType="Image">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Height" Value="30"/>
+                            <Setter Property="Stretch" Value="Uniform"/>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Image
+                Grid.Column="0"
+                Source="{Binding Set, Converter={StaticResource SetToImageSourceConverter}}"/>
+                    <TextBlock
+                Grid.Column="1"
+                TextWrapping="WrapWholeWords"
+                HorizontalAlignment="Left"
+                TextAlignment="Left"
+                Foreground="{Binding Rarity, Converter={StaticResource RarityToBrushConverter}}"
+                Text="{Binding Name}"/>
+                    <StackPanel
+                Grid.Column="2"
+                Orientation="Horizontal"
+                HorizontalAlignment="Right">
+                        <TextBlock
+                    Text="{Binding Cost}"/>
+                        <Image
+                    Source="../Assets/Icons/Stats/mana.png"/>
+                        <TextBlock
+                    Text="{Binding Attack}"/>
+                        <Image
+                    Source="../Assets/Icons/Stats/attack.png"/>
+                        <TextBlock
+                    Text="{Binding Health}"/>
+                        <Image
+                    Source="../Assets/Icons/Stats/health.png"/>
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
     
