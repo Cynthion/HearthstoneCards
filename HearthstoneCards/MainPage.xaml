@@ -85,6 +85,7 @@
                         Grid.Column="0"
                         Grid.Row="6"
                         Title="Attack"
+                        IsChecked="{Binding IsNameFilterEnabled, Mode=TwoWay}"
                         Min="{Binding Source={StaticResource Constants}, Path=MinAttack}"
                         Max="{Binding Source={StaticResource Constants}, Path=MaxAttack}"
                         From="{Binding SelectedAttackFromOption, Mode=TwoWay}"

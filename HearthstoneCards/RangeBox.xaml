@@ -28,6 +28,7 @@
             InputScope="Number"
             Tag="from"
             PlaceholderText="{Binding From, Mode=TwoWay}"
+            IsEnabled="{Binding IsChecked}"
             SelectionChanged="TextBox_OnSelectionChanged"/>
         <TextBlock
             Grid.Column="1"
@@ -44,6 +45,7 @@
             InputScope="Number"
             Tag="to"
             PlaceholderText="{Binding To, Mode=TwoWay}"
+            IsEnabled="{Binding IsChecked}"
             SelectionChanged="TextBox_OnSelectionChanged"/>
         <CheckBox 
             Grid.Column="3"
@@ -51,7 +53,7 @@
             Margin="20,0,0,-8"
             VerticalAlignment="Bottom"
             Style="{StaticResource Tk-NoContentCheckBoxStyle}"
-            IsChecked="True"/>
+            IsChecked="{Binding IsChecked}"/>
         <TextBlock
             Grid.Column="0"
             Grid.ColumnSpan="3"

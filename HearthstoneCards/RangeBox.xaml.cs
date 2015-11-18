@@ -29,6 +29,9 @@ namespace HearthstoneCards
         private static readonly DependencyProperty IsValidProperty =
             DependencyProperty.Register("IsValid", typeof(bool), typeof(RangeBox), new PropertyMetadata(false));
 
+        private static readonly DependencyProperty IsCheckedProperty =
+            DependencyProperty.Register("IsChecked", typeof(bool), typeof(RangeBox), new PropertyMetadata(true));
+
         private static void RangeValue_Changed(DependencyObject dObj, DependencyPropertyChangedEventArgs args)
         {
             var from = (int) dObj.GetValue(FromProperty);
@@ -80,6 +83,12 @@ namespace HearthstoneCards
         {
             get { return (bool)GetValue(IsValidProperty); }
             private set { SetValue(IsValidProperty, value); }
+        }
+
+        public bool IsChecked
+        {
+            get { return (bool)GetValue(IsCheckedProperty); }
+            set { SetValue(IsCheckedProperty, value); }
         }
 
         private void TextBox_OnSelectionChanged(object sender, RoutedEventArgs e)
