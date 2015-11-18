@@ -14,6 +14,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -44,6 +45,13 @@
             Tag="to"
             PlaceholderText="{Binding To, Mode=TwoWay}"
             SelectionChanged="TextBox_OnSelectionChanged"/>
+        <CheckBox 
+            Grid.Column="3"
+            Grid.Row="0"
+            Margin="20,0,0,-8"
+            VerticalAlignment="Bottom"
+            Style="{StaticResource Tk-NoContentCheckBoxStyle}"
+            IsChecked="True"/>
         <TextBlock
             Grid.Column="0"
             Grid.ColumnSpan="3"
