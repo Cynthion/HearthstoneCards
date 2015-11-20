@@ -755,6 +755,6 @@
         </Grid>
     </ControlTemplate>
     
-    <Thickness x:Key="Tk-StandardPageMargin">19,20,19,0</Thickness>
+    <Thickness x:Key="Tk-StandardPageMargin">19,22,19,0</Thickness>
     
 </ResourceDictionary>

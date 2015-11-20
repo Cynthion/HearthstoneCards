@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.Resources>
-        <Style TargetType="TextBlock" BasedOn="{StaticResource Tk-TitleSmallSized}"/>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource Tk-BodyNormalSized}"/>
     </Page.Resources>
     
     <Grid>
@@ -24,13 +24,13 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Title -->
+            <!-- About -->
             <TextBlock
                 Grid.Row="0"
                 Grid.Column="0"
-                Margin="0,0,0,20"
+                Margin="0,0,0,10"
                 Text="About"
-                Style="{ThemeResource Tk-TitleBigSized}"/>
+                Style="{ThemeResource Tk-TitleMediumSized}"/>
             <Border
                 Grid.Row="1"
                 Grid.Column="0"
@@ -49,19 +49,27 @@
                 VerticalAlignment="Center">
                 <TextBlock
                     Margin="0,0,0,5"
-                    Text="Version 1.0.0"
                     Style="{StaticResource Tk-TitleMediumSized}"
-                    Foreground="Gray"/>
-                <TextBlock
+                    Foreground="Gray">
+                    <Span>Version <Run Text="{Binding Version}"/></Span>
+                </TextBlock>
+                <!--<TextBlock
+                    Margin="0,0,0,10"
                     Text="Released X/Y/ZZZZ"
-                    Foreground="Gray"/>
+                    Foreground="Gray"/>-->
+                <TextBlock Style="{StaticResource Tk-BodySmallSized}">
+                    <Hyperlink
+                        Foreground="{StaticResource PhoneAccentBrush}">
+                        See Release Notes
+                    </Hyperlink>
+                </TextBlock>
             </StackPanel>
             <StackPanel
                 Grid.Row="2"
                 Grid.Column="0"
                 Grid.ColumnSpan="2">
                 <StackPanel
-                    Margin="0,20,0,20"
+                    Margin="0,10,0,20"
                     Orientation="Horizontal">
                     <TextBlock
                         Text="Developed with"/>
@@ -70,25 +78,22 @@
                         Height="20"
                         Margin="10,0"
                         Source="Assets/Icons/heart.png"/>
-                    <TextBlock
-                        Text="by"/>
-                    <HyperlinkButton
-                        NavigateUri="http://www.twitter.com/biocodr">
-                        <HyperlinkButton.Template>
-                            <ControlTemplate>
-                                <TextBlock
-                                    Text=" @ Christian Lüthold"
-                                    Style="{StaticResource Tk-TitleSmallSized}"
-                                    Foreground="{StaticResource PhoneAccentBrush}"/>
-                            </ControlTemplate>
-                        </HyperlinkButton.Template>
-                    </HyperlinkButton>
+                    <TextBlock>
+                        by <Hyperlink
+                            Foreground="{StaticResource PhoneAccentBrush}"
+                            NavigateUri="http://www.twitter.com/biocodr">
+                            @ Christian Lüthold
+                        </Hyperlink>
+                    </TextBlock>
                 </StackPanel>
+                
+                <!-- SUPPORT -->
                 <TextBlock
+                    Margin="0,0,0,10"
                     Text="Support"
-                    Style="{ThemeResource Tk-TitleBigSized}"/>
+                    Style="{ThemeResource Tk-TitleMediumSized}"/>
                 <TextBlock
-                    Margin="0,10,0,20"
+                    Margin="0,0,0,20"
                     TextWrapping="WrapWholeWords">
                     If you like my work and want to show your support, please consider doing one (or all) of the following:
                 </TextBlock>
@@ -258,7 +263,6 @@
                     </ListViewItem>
                 </ListView>
             </StackPanel>
-
         </Grid>
     </Grid>
     

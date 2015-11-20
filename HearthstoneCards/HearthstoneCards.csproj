@@ -137,6 +137,7 @@
     </Compile>
     <Compile Include="SlideView\SlideView.cs" />
     <Compile Include="SlideView\SlideViewPanel.cs" />
+    <Compile Include="ViewModel\AboutViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
