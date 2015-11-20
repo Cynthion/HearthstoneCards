@@ -13,6 +13,7 @@ namespace HearthstoneCards
 
             // set data context
             _aboutVm = SingletonLocator.Get<AboutViewModel>();
+            DataContext = _aboutVm;
         }
     }
 }
