@@ -53,7 +53,9 @@
             Margin="20,0,0,-8"
             VerticalAlignment="Bottom"
             Style="{StaticResource Tk-NoContentCheckBoxStyle}"
-            IsChecked="{Binding IsChecked}"/>
+            IsChecked="{Binding IsChecked, Mode=TwoWay}"
+            Checked="ToggleButton_OnChecked"
+            Unchecked="ToggleButton_OnUnchecked"/>
         <TextBlock
             Grid.Column="0"
             Grid.ColumnSpan="3"

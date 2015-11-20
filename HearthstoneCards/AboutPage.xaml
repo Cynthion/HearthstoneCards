@@ -1,0 +1,265 @@
+﻿<local:BasePage
+    x:Class="HearthstoneCards.AboutPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HearthstoneCards"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource Tk-TitleSmallSized}"/>
+    </Page.Resources>
+    
+    <Grid>
+        <Grid Margin="{StaticResource Tk-StandardPageMargin}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Title -->
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="0,0,0,20"
+                Text="About"
+                Style="{ThemeResource Tk-TitleBigSized}"/>
+            <Border
+                Grid.Row="1"
+                Grid.Column="0"
+                Width="100"
+                Height="100"
+                HorizontalAlignment="Left"
+                Background="{StaticResource PhoneAccentBrush}">
+                <Image
+                    Source="Assets/Logo.scale-240.png"
+                    Stretch="Uniform"/>
+            </Border>
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="20,0,0,0"
+                VerticalAlignment="Center">
+                <TextBlock
+                    Margin="0,0,0,5"
+                    Text="Version 1.0.0"
+                    Style="{StaticResource Tk-TitleMediumSized}"
+                    Foreground="Gray"/>
+                <TextBlock
+                    Text="Released X/Y/ZZZZ"
+                    Foreground="Gray"/>
+            </StackPanel>
+            <StackPanel
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="2">
+                <StackPanel
+                    Margin="0,20,0,20"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Text="Developed with"/>
+                    <Image
+                        Width="20"
+                        Height="20"
+                        Margin="10,0"
+                        Source="Assets/Icons/heart.png"/>
+                    <TextBlock
+                        Text="by"/>
+                    <HyperlinkButton
+                        NavigateUri="http://www.twitter.com/biocodr">
+                        <HyperlinkButton.Template>
+                            <ControlTemplate>
+                                <TextBlock
+                                    Text=" @ Christian Lüthold"
+                                    Style="{StaticResource Tk-TitleSmallSized}"
+                                    Foreground="{StaticResource PhoneAccentBrush}"/>
+                            </ControlTemplate>
+                        </HyperlinkButton.Template>
+                    </HyperlinkButton>
+                </StackPanel>
+                <TextBlock
+                    Text="Support"
+                    Style="{ThemeResource Tk-TitleBigSized}"/>
+                <TextBlock
+                    Margin="0,10,0,20"
+                    TextWrapping="WrapWholeWords">
+                    If you like my work and want to show your support, please consider doing one (or all) of the following:
+                </TextBlock>
+                <ListView>
+                    <ListView.Resources>
+                        <Style TargetType="ListViewItem" BasedOn="{StaticResource Tk-FullWidthListViewItemStyle}">
+                            <Setter Property="Margin" Value="0,0,0,10"/>
+                        </Style>
+                    </ListView.Resources>
+                    <!-- Get Premium -->
+                    <!--<ListViewItem>
+                        <StackPanel
+                            Orientation="Horizontal">
+                            <Button
+                                Style="{StaticResource Hs-AboutPageButtonStyle}">
+                                <Border>
+                                    <Border.Background>
+                                        <SolidColorBrush Color="Black" Opacity="0.6"/>
+                                    </Border.Background>
+                                    <local:Icon
+                                        IconTemplate="{StaticResource DiamondIconControlTemplate}"/>
+                                </Border>
+                            </Button>
+                            <StackPanel
+                                Margin="10,0"
+                                VerticalAlignment="Center">
+                                <TextBlock
+                                    Text="BUY PREMIUM"
+                                    Style="{StaticResource Tk-TitleSmallSized}"
+                                    Foreground="{StaticResource PhoneAccentBrush}"/>
+                                <TextBlock
+                                    Text="Get the full version of this app."/>
+                            </StackPanel>
+                        </StackPanel>
+                    </ListViewItem>-->
+                    <!-- Donation -->
+                    <ListViewItem>
+                        <StackPanel
+                            Orientation="Horizontal">
+                            <Button
+                                Style="{StaticResource Hs-AboutPageButtonStyle}">
+                                <Border>
+                                    <Border.Background>
+                                        <SolidColorBrush Color="Black" Opacity="0.5"/>
+                                    </Border.Background>
+                                    <!-- TODO find donation icon -->
+                                    <local:Icon
+                                        IconTemplate="{StaticResource DiamondIconControlTemplate}"/>
+                                </Border>
+                            </Button>
+                            <StackPanel
+                                Margin="10,0"
+                                VerticalAlignment="Center">
+                                <TextBlock
+                                    Text="Donation"
+                                    Style="{StaticResource Tk-TitleSmallSized}"
+                                    Foreground="{StaticResource PhoneAccentBrush}"/>
+                                <TextBlock
+                                    Text="Very much appreciated."/>
+                            </StackPanel>
+                        </StackPanel>
+                    </ListViewItem>
+                     <!--Rating-->
+                    <ListViewItem>
+                        <StackPanel
+                            Orientation="Horizontal">
+                            <Button
+                                Style="{StaticResource Hs-AboutPageButtonStyle}">
+                                <Border>
+                                    <Border.Background>
+                                        <SolidColorBrush Color="Black" Opacity="0.4"/>
+                                    </Border.Background>
+                                    <local:Icon
+                                        IconTemplate="{StaticResource StarIconControlTemplate}"/>
+                                </Border>
+                            </Button>
+                            <StackPanel
+                                Margin="10,0"
+                                VerticalAlignment="Center">
+                                <TextBlock
+                                    Text="Rating"
+                                    Style="{StaticResource Tk-TitleSmallSized}"
+                                    Foreground="{StaticResource PhoneAccentBrush}"/>
+                                <TextBlock
+                                    Text="The more stars, the better."/>
+                            </StackPanel>
+                        </StackPanel>
+                    </ListViewItem>
+                    <!-- Feedback -->
+                    <ListViewItem>
+                        <StackPanel
+                            Orientation="Horizontal">
+                            <Button
+                                Style="{StaticResource Hs-AboutPageButtonStyle}">
+                                <Border>
+                                    <Border.Background>
+                                        <SolidColorBrush Color="Black" Opacity="0.3"/>
+                                    </Border.Background>
+                                    <local:Icon
+                                        IconTemplate="{StaticResource MailIconControlTemplate}"/>
+                                </Border>
+                            </Button>
+                            <StackPanel
+                                Margin="10,0"
+                                VerticalAlignment="Center">
+                                <TextBlock
+                                    Text="Feedback"
+                                    Style="{StaticResource Tk-TitleSmallSized}"
+                                    Foreground="{StaticResource PhoneAccentBrush}"/>
+                                <TextBlock
+                                    Text="Contact me directly."/>
+                            </StackPanel>
+                        </StackPanel>
+                    </ListViewItem>
+                    <!-- Twitter -->
+                    <ListViewItem>
+                        <StackPanel
+                            Orientation="Horizontal">
+                            <Button
+                                Style="{StaticResource Hs-AboutPageButtonStyle}">
+                                <Border>
+                                    <Border.Background>
+                                        <SolidColorBrush Color="Black" Opacity="0.2"/>
+                                    </Border.Background>
+                                    <local:Icon
+                                        IconTemplate="{StaticResource TwitterIconControlTemplate}"/>
+                                </Border>
+                            </Button>
+                            <StackPanel
+                                Margin="10,0"
+                                VerticalAlignment="Center">
+                                <TextBlock
+                                    Text="Twitter"
+                                    Style="{StaticResource Tk-TitleSmallSized}"
+                                    Foreground="{StaticResource PhoneAccentBrush}"/>
+                                <TextBlock
+                                    Text="Follow @..."/>
+                            </StackPanel>
+                        </StackPanel>
+                    </ListViewItem>
+                    <!-- Bugreport -->
+                    <ListViewItem>
+                        <StackPanel
+                            Orientation="Horizontal">
+                            <Button
+                                Style="{StaticResource Hs-AboutPageButtonStyle}">
+                                <Border>
+                                    <Border.Background>
+                                        <SolidColorBrush Color="Black" Opacity="0.1"/>
+                                    </Border.Background>
+                                    <!-- TODO find bug icon -->
+                                    <local:Icon
+                                        IconTemplate="{StaticResource TwitterIconControlTemplate}"/>
+                                </Border>
+                            </Button>
+                            <StackPanel
+                                Margin="10,0"
+                                VerticalAlignment="Center">
+                                <TextBlock
+                                    Text="Bug Report"
+                                    Style="{StaticResource Tk-TitleSmallSized}"
+                                    Foreground="{StaticResource PhoneAccentBrush}"/>
+                                <TextBlock
+                                    Text="Found a bug? Report it to me."/>
+                            </StackPanel>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+    
+</local:BasePage>

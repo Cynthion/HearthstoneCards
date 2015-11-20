@@ -85,11 +85,12 @@
                         Grid.Column="0"
                         Grid.Row="6"
                         Title="Attack"
-                        IsChecked="{Binding IsNameFilterEnabled, Mode=TwoWay}"
+                        IsChecked="{Binding IsAttackFilterEnabled, Mode=TwoWay}"
                         Min="{Binding Source={StaticResource Constants}, Path=MinAttack}"
                         Max="{Binding Source={StaticResource Constants}, Path=MaxAttack}"
                         From="{Binding SelectedAttackFromOption, Mode=TwoWay}"
-                        To="{Binding SelectedAttackToOption, Mode=TwoWay}"/>
+                        To="{Binding SelectedAttackToOption, Mode=TwoWay}"
+                        IsCheckedChanged="AttackRangeBox_OnIsCheckedChanged"/>
                 </Grid>
             </DataTemplate>
         </HubSection>
@@ -111,7 +112,7 @@
                     <Button
                         Grid.Row="0"
                         Grid.Column="0"
-                        Style="{StaticResource BorderlessButton}"
+                        Style="{StaticResource Hs-BorderlessButton}"
                         HorizontalAlignment="Stretch"
                         Click="SorterButton_OnClick">
                         <Grid>
@@ -150,7 +151,7 @@
                     <Button
                         Grid.Row="0"
                         Grid.Column="1"
-                        Style="{StaticResource IconButtonStyle}"
+                        Style="{StaticResource Hs-RoundIconButtonStyle}"
                         BorderBrush="{StaticResource PhoneAccentBrush}"
                         Click="ItemsPanelTemplateButton_OnClick">
                         <local:Icon
@@ -257,25 +258,25 @@
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
                             Margin="0,0,0,12"
-                            Style="{StaticResource BorderlessButton}"
+                            Height="70"
+                            Content="Done"
+                            Style="{StaticResource Hs-ButtonStyle}"
                             HorizontalAlignment="Stretch"
-                            Click="ApplySortButton_OnClick">
-                            <Border
-                                Height="50" 
-                                Background="{StaticResource PhoneAccentBrush}"
-                                BorderBrush="{StaticResource PhoneForegroundBrush}"
-                                BorderThickness="2">
-                                <TextBlock
-                                    Text="Done"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Foreground="{StaticResource PhoneForegroundBrush}"/>
-                            </Border>
-                        </Button>
+                            Click="ApplySortButton_OnClick"/>
                     </Grid>
                 </Grid>
             </DataTemplate>
         </HubSection>
     </Hub>
     
+    <Page.BottomAppBar>
+        <CommandBar Background="Black">
+            <!--<CommandBar.PrimaryCommands>
+                <AppBarButton Label="about"/>
+            </CommandBar.PrimaryCommands>-->
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="about" Click="AboutAppBarButton_OnClick"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
 </local:BasePage>

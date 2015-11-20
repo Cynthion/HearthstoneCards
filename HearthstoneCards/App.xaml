@@ -5,7 +5,8 @@
     xmlns:converter="using:WPDevToolkit.Converter"
     xmlns:localConverter="using:HearthstoneCards.Converter"
     xmlns:wpDevToolkit="using:WPDevToolkit"
-    xmlns:helper="using:HearthstoneCards.Helper">
+    xmlns:helper="using:HearthstoneCards.Helper"
+    xmlns:hearthstoneCards="using:HearthstoneCards">
 
     <Application.Resources>
         <ResourceDictionary>
@@ -111,20 +112,105 @@
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
-                    </Setter>
-                    <!-- colouring -->
+                </Setter>
+                <!-- default colouring -->
                 <Setter Property="Background" Value="{StaticResource PhoneAccentBrush}"/>
                 <Setter Property="Foreground" Value="White"/>
                 <Setter Property="BorderBrush" Value="{StaticResource PhoneAccentBrush}"/>
             </Style>
-            
-            <Style x:Key="IconButtonStyle" TargetType="Button" BasedOn="{StaticResource Tk-MinDimensionsButtonStyle}">
-                <Setter Property="Template" Value="{StaticResource RoundCornerButtonControlTemplate}"/>
-                <Setter Property="Padding" Value="5"/>
-                <Setter Property="Width" Value="45"/>
-                <Setter Property="Height" Value="45"/>
+
+            <Style x:Key="Hs-BorderlessButton" TargetType="Button">
+                <!-- min dimensions -->
+                <Setter Property="MinHeight" Value="30"/>
+                <Setter Property="MinWidth" Value="30"/>
+                <!-- center content -->
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <!-- custom content template, without border -->
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid x:Name="Grid" Background="Transparent">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver" />
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <PointerDownThemeAnimation Storyboard.TargetName="Grid" />
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedForegroundThemeBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedBackgroundThemeBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledForegroundThemeBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledBorderThemeBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledBackgroundThemeBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualStateGroup.Transitions>
+                                            <VisualTransition From="Pressed" To="PointerOver">
+                                                <Storyboard>
+                                                    <PointerUpThemeAnimation Storyboard.TargetName="Grid" />
+                                                </Storyboard>
+                                            </VisualTransition>
+                                            <VisualTransition From="PointerOver" To="Normal">
+                                                <Storyboard>
+                                                    <PointerUpThemeAnimation Storyboard.TargetName="Grid" />
+                                                </Storyboard>
+                                            </VisualTransition>
+                                            <VisualTransition From="Pressed" To="Normal">
+                                                <Storyboard>
+                                                    <PointerUpThemeAnimation Storyboard.TargetName="Grid" />
+                                                </Storyboard>
+                                            </VisualTransition>
+                                        </VisualStateGroup.Transitions>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <!-- removed border-->
+                                <ContentPresenter x:Name="ContentPresenter" 
+                                    Foreground="{TemplateBinding Foreground}"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                    Margin="{TemplateBinding Padding}"
+                                    Content="{TemplateBinding Content}" 
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    AutomationProperties.AccessibilityView="Raw"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
 
+            <Style x:Key="Hs-IconButtonStyle" TargetType="Button" BasedOn="{StaticResource Tk-MinDimensionsButtonStyle}">
+                <Setter Property="Width" Value="45"/>
+                <Setter Property="Height" Value="45"/>
+                <Setter Property="Padding" Value="3"/>
+            </Style>
+
+            <Style x:Key="Hs-RoundIconButtonStyle" TargetType="Button">
+                <Setter Property="Width" Value="45"/>
+                <Setter Property="Height" Value="45"/>
+                <Setter Property="Template" Value="{StaticResource RoundCornerButtonControlTemplate}"/>
+                <Setter Property="Padding" Value="5"/>
+            </Style>
+            
+            <Style x:Key="Hs-AboutPageButtonStyle" TargetType="Button" BasedOn="{StaticResource Hs-IconButtonStyle}">
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Background" Value="{StaticResource PhoneAccentBrush}"/>
+            </Style>
+            
             <!-- Other -->
             <Style x:Key="CardCutStyle" TargetType="Image">
                 <Setter Property="Margin" Value="-4, -20, -8, -12"/>

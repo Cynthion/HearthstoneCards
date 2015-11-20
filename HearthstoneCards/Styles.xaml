@@ -285,7 +285,7 @@
     </Style>
     
     <!-- Full-Width controls -->
-    <Style x:Key="Tk-FullWidthControlStyle" TargetType="Control">
+    <Style x:Key="Tk-FullWidthListViewItemStyle" TargetType="ListViewItem">
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
     </Style>
@@ -293,7 +293,7 @@
     <Style x:Key="Tk-FullWidthItemsControlStyle" TargetType="ItemsControl">
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-        <Setter Property="ItemContainerStyle" Value="{StaticResource Tk-FullWidthControlStyle}"/>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource Tk-FullWidthListViewItemStyle}"/>
     </Style>
 
     <!-- CheckboxListBoxItem -->
@@ -754,5 +754,7 @@
             </Border>
         </Grid>
     </ControlTemplate>
+    
+    <Thickness x:Key="Tk-StandardPageMargin">19,20,19,0</Thickness>
     
 </ResourceDictionary>

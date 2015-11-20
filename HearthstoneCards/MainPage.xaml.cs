@@ -113,5 +113,15 @@ namespace HearthstoneCards
                 await _mainVm.OnQueryChangedAsync();
             }
         }
+
+        private void AttackRangeBox_OnIsCheckedChanged(object sender, CheckedEventArgs e)
+        {
+            
+        }
+
+        private void AboutAppBarButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof (AboutPage));
+        }
     }
 }

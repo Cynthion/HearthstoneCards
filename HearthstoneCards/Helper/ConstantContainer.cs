@@ -8,7 +8,7 @@
         public ConstantContainer()
         {
             MinAttack = 0;
-            MaxAttack = 30; // TODO check if correct
+            MaxAttack = 30;
         }
     }
 }

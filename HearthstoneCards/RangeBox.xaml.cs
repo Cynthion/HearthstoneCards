@@ -4,8 +4,22 @@ using Windows.UI.Xaml.Controls;
 
 namespace HearthstoneCards
 {
+    public sealed class CheckedEventArgs
+    {
+        public bool IsChecked { get; private set; }
+        
+        public CheckedEventArgs(bool isChecked)
+        {
+            IsChecked = isChecked;
+        }
+    }
+
     public sealed partial class RangeBox : UserControl
     {
+        public delegate void IsCheckedChangedEventHandler(object sender, CheckedEventArgs e);
+
+        public event IsCheckedChangedEventHandler IsCheckedChanged;
+
         public RangeBox()
         {
             this.InitializeComponent();
@@ -105,6 +119,22 @@ namespace HearthstoneCards
                 {
                     To = Convert.ToInt32(tb.Text);
                 }
+            }
+        }
+
+        private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
+        {
+            if (IsCheckedChanged != null)
+            {
+                IsCheckedChanged(this, new CheckedEventArgs(true));
+            }
+        }
+
+        private void ToggleButton_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            if (IsCheckedChanged != null)
+            {
+                IsCheckedChanged(this, new CheckedEventArgs(false));
             }
         }
     }

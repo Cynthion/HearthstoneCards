@@ -7,6 +7,7 @@ namespace HearthstoneCards.Helper
         // settings
         public const string ItemsControlViewInfoIndexKey = "itemsControlViewInfoIndex";
         public const string IsSortedAscendingKey = "sortDirection";
+        public const string IsAttackFilterEnabledKey = "attackFilterEnabled";
         public const string SortOptionsSelectionKey = "sortOptionSelection";
         public const string ClassSelectionKey = "classSelection";
         public const string SetSelectionKey = "setSelection";
@@ -25,7 +26,13 @@ namespace HearthstoneCards.Helper
             get { return Load<bool>(IsSortedAscendingKey); }
             set { Store(IsSortedAscendingKey, value); }
         }
-        
+
+        public bool IsAttackFilterEnabled
+        {
+            get { return Load<bool>(IsAttackFilterEnabledKey); }
+            set { Store(IsAttackFilterEnabledKey, value); }
+        }
+
         public bool[] SortOptionSelection
         {
             get { return Load<bool[]>(SortOptionsSelectionKey); }

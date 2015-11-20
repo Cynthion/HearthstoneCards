@@ -22,6 +22,7 @@ namespace HearthstoneCards.ViewModel
         private ItemsControlViewInfo _itemsControlViewInfo;
 
         public string NameFilter { get; set; }
+        public bool _isAttackFilterEnabled;
         public IList<ImageSelectionItem<string>> ClassOptions { get; private set; }
         public IList<ImageSelectionItem<Set>> SetOptions { get; private set; }
         public IList<ImageSelectionItem<Rarity>> RarityOptions { get; private set; }
@@ -109,6 +110,7 @@ namespace HearthstoneCards.ViewModel
             
             var settings = new AppSettings();
             IsSortedAscending = settings.IsSortedAscending;
+            IsAttackFilterEnabled = settings.IsAttackFilterEnabled;
             SelectedAttackFromOption = settings.AttackFromSelection;
             SelectedAttackToOption = settings.AttackToSelection;
             LoadSelection(ClassOptions, AppSettings.ClassSelectionKey);
@@ -406,6 +408,19 @@ namespace HearthstoneCards.ViewModel
                 if (_isNameFilterEnabled != value)
                 {
                     _isNameFilterEnabled = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public bool IsAttackFilterEnabled
+        {
+            get { return _isAttackFilterEnabled; }
+            set
+            {
+                if (_isAttackFilterEnabled != value)
+                {
+                    _isAttackFilterEnabled = value;
                     NotifyPropertyChanged();
                 }
             }
