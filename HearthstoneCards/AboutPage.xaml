@@ -8,10 +8,6 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Page.Resources>
-        <Style TargetType="TextBlock" BasedOn="{StaticResource Tk-BodyBigSized}"/>
-    </Page.Resources>
-    
     <Grid>
         <Grid Margin="{StaticResource Tk-StandardPageMargin}">
             <Grid.RowDefinitions>
@@ -90,7 +86,7 @@
                 </StackPanel>
             </StackPanel>
                 
-                <!-- SUPPORT -->
+            <!-- SUPPORT -->
             <TextBlock
                 Grid.Row="3"
                 Grid.Column="0"
@@ -145,7 +141,6 @@
                                 <Border.Background>
                                     <SolidColorBrush Color="Black" Opacity="0.6"/>
                                 </Border.Background>
-                                <!-- TODO find donation icon -->
                                 <local:Icon
                                     IconTemplate="{StaticResource GiftIconControlTemplate}"/>
                             </Border>

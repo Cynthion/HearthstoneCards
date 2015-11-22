@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using HearthstoneCards.ViewModel;
 using WPDevToolkit;
@@ -16,6 +18,13 @@ namespace HearthstoneCards
             // set data context
             _aboutVm = SingletonLocator.Get<AboutViewModel>();
             DataContext = _aboutVm;
+
+            Loaded += AboutPage_OnLoaded;
+        }
+
+        private async void AboutPage_OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+            await _aboutVm.LoadAsync();
         }
 
         private async void SupportListViewItem_OnTapped(object sender, TappedRoutedEventArgs e)
@@ -26,7 +35,7 @@ namespace HearthstoneCards
             switch ((string)lvi.Tag)
             {
                 case "donation":
-                    await _aboutVm.HandleDonationAsync();
+                    Frame.Navigate(typeof (DonationPage));
                     break;
                 case "rating":
                     _aboutVm.HandleRating();

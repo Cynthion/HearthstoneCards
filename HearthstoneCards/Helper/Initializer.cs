@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using HearthstoneCards.Model;
 using WPDevToolkit;
 
 namespace HearthstoneCards.Helper
 {
     public static class Initializer
     {
-        public static void Initialize()
+        public static async Task InitializeAsync()
         {
             var settings = new AppSettings();
 
@@ -24,6 +27,8 @@ namespace HearthstoneCards.Helper
                 settings.RaritySelection = new [] { true, true, true, true, true };
                 
                 settings.IsFirstRun = false;
+
+                await AddPurchasesAsync();
             }
         }
 
@@ -33,6 +38,19 @@ namespace HearthstoneCards.Helper
             var storedVersion = settings.AppVersion;
 
             return string.Compare(currentVersion, storedVersion, StringComparison.Ordinal) > 0;
+        }
+
+        private static async Task AddPurchasesAsync()
+        {
+            var purchases = new List<PurchaseItem>
+            {
+                new PurchaseItem("donation1", 1.00),
+                new PurchaseItem("donation2", 2.00),
+                new PurchaseItem("donation3", 3.00),
+                new PurchaseItem("donation4", 4.00),
+                new PurchaseItem("donation5", 5.00)
+            };
+            await Storage.StorePurchasesAsync(purchases);
         }
     }
 }

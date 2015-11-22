@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using HearthstoneCards.Model;
 using WPDevToolkit;
 
 namespace HearthstoneCards.Helper
@@ -7,15 +9,23 @@ namespace HearthstoneCards.Helper
     {
         // folders
         // private const string UsersFolderName = "users";
-        private const string TestingFolderName = "testing";
+        private const string PurchasesFolderName = "purchases";
 
         // files
         // private const string CollageFileName = "collage";
-        private const string WindowsStoreProxy = "WindowsStoreProxy.xml";
+        private const string PurchasesFileName = "purchases";
 
-        #region Store Simulation
+        #region Purchases
 
+        public static async Task StorePurchasesAsync(IList<PurchaseItem> purchaseItems)
+        {
+            await SaveAsync(purchaseItems, await GetFolderAsync(PurchasesFolderName), PurchasesFileName);
+        }
 
+        public static async Task<IList<PurchaseItem>> LoadPurchasesAsync()
+        {
+            return await LoadAsync<IList<PurchaseItem>>(await GetFolderAsync(PurchasesFolderName), PurchasesFileName) ?? new List<PurchaseItem>();
+        }
 
         #endregion
 

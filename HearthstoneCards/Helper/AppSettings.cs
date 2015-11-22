@@ -1,4 +1,5 @@
-﻿using WPDevToolkit;
+﻿using HearthstoneCards.Model;
+using WPDevToolkit;
 
 namespace HearthstoneCards.Helper
 {

@@ -1,53 +1,79 @@
-﻿using System.Threading.Tasks;
-using Windows.ApplicationModel.Store;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using HearthstoneCards.Helper;
+using HearthstoneCards.Model;
 using WPDevToolkit;
 using WPDevToolkit.Interfaces;
-using WPDevToolkit.ViewModel;
 
 namespace HearthstoneCards.ViewModel
 {
-    public class AboutViewModel : BaseViewModel, ILocatable
+    public class AboutViewModel : AsyncLoader, ILocatable
     {
         public string Version { get; private set; }
+
+        private IList<PurchaseItem> _donationAmounts;
 
         public AboutViewModel()
         {
             Version = PhoneInteraction.GetAppVersion();
         }
 
-        public async Task HandleDonationAsync()
+        protected override async Task<LoadResult> DoLoadAsync()
         {
-            var purchased = await WindowsStoreManager.BuyFeatureAsync("donation1");
-            if (purchased)
+            DonationAmounts = await Storage.LoadPurchasesAsync();
+            return LoadResult.Success;
+        }
+
+        public async Task BuyDonationAsync(PurchaseItem purchaseItem)
+        {
+            var success = await WindowsStoreManager.BuyFeatureAsync(purchaseItem.Id);
+            if (success)
             {
-                await Messaging.ShowMessage("Thank you very much for your contribution.", "Thank you!");
+                purchaseItem.IsPurchased = true;
+                await Messaging.ShowMessage(string.Format("{0} received! Thank you very much for your contribution.",  purchaseItem.Price), "Thank you!");
             }
+
+            // store purchase items
+            await Storage.StorePurchasesAsync(_donationAmounts);
         }
 
         public void HandleRating()
         {
-            throw new System.NotImplementedException();
+
         }
 
         public void HandleFeedback()
         {
-            throw new System.NotImplementedException();
+
         }
 
         public void HandleUserVoice()
         {
-            throw new System.NotImplementedException();
+
         }
 
         public void HandleTwitter()
         {
-            throw new System.NotImplementedException();
+
         }
 
         public void HandleBugReport()
         {
-            throw new System.NotImplementedException();
+
+        }
+
+        public IList<PurchaseItem> DonationAmounts
+        {
+            get { return _donationAmounts; }
+            private set
+            {
+                if (_donationAmounts != value)
+                {
+                    _donationAmounts = value;
+                    NotifyPropertyChanged();
+                }
+            }
         }
     }
 }

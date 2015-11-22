@@ -32,7 +32,7 @@ namespace HearthstoneCards
             // this.UnhandledException += App_UnhandledException;
 
             // initialize app
-            Initializer.Initialize();
+            Initializer.InitializeAsync();
         }
 
         private void App_UnhandledException(object sender, UnhandledExceptionEventArgs unhandledExceptionEventArgs)

@@ -29,6 +29,9 @@
             <localConverter:RarityToBrushConverter x:Key="RarityToBrushConverter"/>
             <localConverter:SetToImageSourceConverter x:Key="SetToImageSourceConverter"/>
 
+            <!-- GLOBAL STYLES -->
+            <Style TargetType="TextBlock" BasedOn="{StaticResource Tk-BodyBigSized}"/>
+
             <!-- STYLES -->
             <!-- Button -->
             <Style x:Key="Hs-ButtonStyle" TargetType="Button">
@@ -382,6 +385,31 @@
                 </Grid>
             </DataTemplate>
 
+            <DataTemplate x:Key="DonationItemTemplate">
+                <StackPanel
+                    Orientation="Horizontal">
+                    <Button IsHitTestVisible="False"
+                        Style="{StaticResource Hs-AboutPageButtonStyle}">
+                        <Border 
+                            Padding="3"
+                            Background="{StaticResource PhoneAccentBrush}">
+                            <hearthstoneCards:Icon
+                                IconTemplate="{StaticResource GiftIconControlTemplate}"/>
+                        </Border>
+                    </Button>
+                    <StackPanel
+                        Margin="10,0"
+                        VerticalAlignment="Center">
+                        <TextBlock
+                            Text="{Binding Price}"
+                            Style="{StaticResource Tk-TitleMediumSized}"/>
+                        <TextBlock
+                            Foreground="LimeGreen"
+                            Text="Already donated."
+                            Visibility="{Binding IsPurchased, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    </StackPanel>
+                </StackPanel>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
     

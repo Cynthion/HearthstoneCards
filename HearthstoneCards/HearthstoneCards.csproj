@@ -101,6 +101,9 @@
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Converter\RarityToBrushConverter.cs" />
     <Compile Include="Converter\SetToImageSourceConverter.cs" />
+    <Compile Include="DonationPage.xaml.cs">
+      <DependentUpon>DonationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helper\ApiCaller.cs" />
     <Compile Include="Helper\AppSettings.cs" />
     <Compile Include="Helper\CardConverter.cs" />
@@ -124,6 +127,7 @@
     <Compile Include="Model\GlobalCollection.cs" />
     <Compile Include="Model\ImageSelectionItem.cs" />
     <Compile Include="Model\CardSet.cs" />
+    <Compile Include="Model\PurchaseItem.cs" />
     <Compile Include="MultiComboBox.cs" />
     <Compile Include="MultiComboBoxPage.xaml.cs">
       <DependentUpon>MultiComboBoxPage.xaml</DependentUpon>
@@ -258,6 +262,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CollectionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DonationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
