@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Store;
 using Windows.Storage;
+using WPDevToolkit;
 
 namespace HearthstoneCards.Helper
 {
@@ -33,10 +35,11 @@ namespace HearthstoneCards.Helper
             }
         }
 
-        public static async Task<bool> RequestFeatureAsync(string featureId)
+        public static async Task<bool> BuyFeatureAsync(string featureId)
         {
             if (!LicenseInformation.ProductLicenses[featureId].IsActive)
             {
+                ExceptionDispatchInfo exception = null;
                 try
                 {
 #if DEBUG
@@ -51,8 +54,13 @@ namespace HearthstoneCards.Helper
                         return true;
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    exception = ExceptionDispatchInfo.Capture(ex);
+                }
+                if (exception != null)
+                {
+                    await Messaging.ShowMessage("Something went wrong during the transaction. Please try again.", "Purchase unsucessful.");
                     return false;
                 }
             }

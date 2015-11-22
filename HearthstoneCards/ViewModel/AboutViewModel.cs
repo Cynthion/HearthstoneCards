@@ -18,7 +18,7 @@ namespace HearthstoneCards.ViewModel
 
         public async Task HandleDonationAsync()
         {
-            var purchased = await WindowsStoreManager.RequestFeatureAsync("donation1");
+            var purchased = await WindowsStoreManager.BuyFeatureAsync("donation1");
             if (purchased)
             {
                 await Messaging.ShowMessage("Thank you very much for your contribution.", "Thank you!");

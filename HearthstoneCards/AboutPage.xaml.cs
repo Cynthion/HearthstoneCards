@@ -1,4 +1,5 @@
 ﻿using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using HearthstoneCards.ViewModel;
 using WPDevToolkit;
 
@@ -17,15 +18,12 @@ namespace HearthstoneCards
             DataContext = _aboutVm;
         }
 
-        private async void SupportListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void SupportListViewItem_OnTapped(object sender, TappedRoutedEventArgs e)
         {
-            var lv = sender as ListView;
-            if (lv == null) return;
-
-            var lvi = lv.SelectedItem as ListViewItem;
+            var lvi = sender as ListViewItem;
             if (lvi == null) return;
 
-            switch ((string) lvi.Tag)
+            switch ((string)lvi.Tag)
             {
                 case "donation":
                     await _aboutVm.HandleDonationAsync();
