@@ -1,4 +1,5 @@
-﻿using WPDevToolkit;
+﻿using Newtonsoft.Json;
+using WPDevToolkit;
 
 namespace HearthstoneCards.Helper
 {
@@ -6,9 +7,17 @@ namespace HearthstoneCards.Helper
     {
         // folders
         // private const string UsersFolderName = "users";
+        private const string TestingFolderName = "testing";
 
         // files
         // private const string CollageFileName = "collage";
+        private const string WindowsStoreProxy = "WindowsStoreProxy.xml";
+
+        #region Store Simulation
+
+
+
+        #endregion
 
         //#region Shows
 

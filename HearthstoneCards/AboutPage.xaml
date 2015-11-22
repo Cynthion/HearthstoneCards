@@ -102,14 +102,15 @@
             <ListView
                 Grid.Row="4"
                 Grid.Column="0"
-                Grid.ColumnSpan="2">
+                Grid.ColumnSpan="2"
+                SelectionChanged="SupportListView_OnSelectionChanged">
                 <ListView.Resources>
                     <Style TargetType="ListViewItem" BasedOn="{StaticResource Tk-FullWidthListViewItemStyle}">
                         <Setter Property="Margin" Value="0,0,0,10"/>
                     </Style>
                 </ListView.Resources>
                 <!-- Get Premium -->
-                <!--<ListViewItem>
+                <!--<ListViewItem Tag="getpremium">
                     <StackPanel
                         Orientation="Horizontal">
                         <Button
@@ -127,7 +128,7 @@
                             VerticalAlignment="Center">
                             <TextBlock
                                 Text="BUY PREMIUM"
-                                Style="{StaticResource Tk-TitleSmallSized}"
+                                Style="{StaticResource Tk-TitleMediumSized}"
                                 Foreground="{StaticResource PhoneAccentBrush}"/>
                             <TextBlock
                                 Text="Get the full version of this app."/>
@@ -135,7 +136,7 @@
                     </StackPanel>
                 </ListViewItem>-->
                 <!-- Donation -->
-                <ListViewItem>
+                <ListViewItem Tag="donation">
                     <StackPanel
                         Orientation="Horizontal">
                         <Button
@@ -162,7 +163,7 @@
                     </StackPanel>
                 </ListViewItem>
                     <!--Rating-->
-                <ListViewItem>
+                <ListViewItem Tag="rating">
                     <StackPanel
                         Orientation="Horizontal">
                         <Button
@@ -188,7 +189,7 @@
                     </StackPanel>
                 </ListViewItem>
                 <!-- Feedback -->
-                <ListViewItem>
+                <ListViewItem Tag="feedback">
                     <StackPanel
                         Orientation="Horizontal">
                         <Button
@@ -214,7 +215,7 @@
                     </StackPanel>
                 </ListViewItem>
                 <!-- User Voice -->
-                <ListViewItem>
+                <ListViewItem Tag="uservoice">
                     <StackPanel
                         Orientation="Horizontal">
                         <Button
@@ -240,7 +241,7 @@
                     </StackPanel>
                 </ListViewItem>
                 <!-- Twitter -->
-                <ListViewItem>
+                <ListViewItem Tag="twitter">
                     <StackPanel
                         Orientation="Horizontal">
                         <Button
@@ -267,7 +268,7 @@
                     </StackPanel>
                 </ListViewItem>
                 <!-- Bugreport -->
-                <ListViewItem>
+                <ListViewItem Tag="bugreport">
                     <StackPanel
                         Orientation="Horizontal">
                         <Button

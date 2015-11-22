@@ -107,6 +107,7 @@
     <Compile Include="Helper\ConstantContainer.cs" />
     <Compile Include="Helper\Constants.cs" />
     <Compile Include="Helper\GlobalCollectionConverter.cs" />
+    <Compile Include="Helper\WindowsStoreManager.cs" />
     <Compile Include="Helper\Initializer.cs" />
     <Compile Include="Helper\Storage.cs" />
     <Compile Include="Icon.xaml.cs">
@@ -243,6 +244,9 @@
     <Content Include="Assets\Test\testCard3.png" />
     <Content Include="Assets\WideLogo.scale-240.png" />
     <Content Include="Common\ReadMe.txt" />
+    <Content Include="Assets\StoreSimulation\WindowsStoreProxy.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

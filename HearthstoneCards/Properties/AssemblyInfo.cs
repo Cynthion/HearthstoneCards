@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("HearthstoneCards")]
+[assembly: AssemblyTitle("Hearthstone Cards")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Zuehlke Technology Group")]
+[assembly: AssemblyCompany("Christian Lüthold")]
 [assembly: AssemblyProduct("HearthstoneCards")]
-[assembly: AssemblyCopyright("Copyright © Zuehlke Technology Group 2015")]
+[assembly: AssemblyCopyright("Copyright © Christian Lüthold 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
