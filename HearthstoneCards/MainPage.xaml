@@ -270,7 +270,10 @@
     </Hub>
     
     <Page.BottomAppBar>
-        <CommandBar Background="Black">
+        <CommandBar 
+            Background="{StaticResource PhoneAccentBrush}"
+            Foreground="White"
+            ClosedDisplayMode="Minimal">
             <!--<CommandBar.PrimaryCommands>
                 <AppBarButton Label="about"/>
             </CommandBar.PrimaryCommands>-->
