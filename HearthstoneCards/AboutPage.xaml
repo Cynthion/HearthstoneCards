@@ -57,7 +57,8 @@
                     Foreground="Gray"/>-->
                 <TextBlock Style="{StaticResource Tk-BodyNormalSized}">
                     <Hyperlink
-                        Foreground="{StaticResource PhoneAccentBrush}">
+                        Foreground="{StaticResource PhoneAccentBrush}"
+                        Click="ReleaseNotes_OnClick">
                         Release Notes
                     </Hyperlink>
                 </TextBlock>

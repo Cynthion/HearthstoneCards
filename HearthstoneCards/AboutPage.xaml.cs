@@ -1,6 +1,7 @@
 ﻿using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using HearthstoneCards.ViewModel;
 using WPDevToolkit;
@@ -25,6 +26,11 @@ namespace HearthstoneCards
         private async void AboutPage_OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             await _aboutVm.LoadAsync();
+        }
+
+        private void ReleaseNotes_OnClick(Hyperlink sender, HyperlinkClickEventArgs args)
+        {
+            Frame.Navigate(typeof (ReleaseNotesPage));
         }
 
         private async void SupportListViewItem_OnTapped(object sender, TappedRoutedEventArgs e)

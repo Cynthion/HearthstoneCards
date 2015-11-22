@@ -75,5 +75,10 @@ namespace HearthstoneCards.ViewModel
                 }
             }
         }
+
+        public IList<ReleaseNotes> ReleaseNotes
+        {
+            get { return Model.ReleaseNotes.GetReleaseNotes(); }
+        }
     }
 }

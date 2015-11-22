@@ -128,6 +128,7 @@
     <Compile Include="Model\ImageSelectionItem.cs" />
     <Compile Include="Model\CardSet.cs" />
     <Compile Include="Model\PurchaseItem.cs" />
+    <Compile Include="Model\ReleaseNotes.cs" />
     <Compile Include="MultiComboBox.cs" />
     <Compile Include="MultiComboBoxPage.xaml.cs">
       <DependentUpon>MultiComboBoxPage.xaml</DependentUpon>
@@ -135,6 +136,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RangeBox.xaml.cs">
       <DependentUpon>RangeBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReleaseNotesPage.xaml.cs">
+      <DependentUpon>ReleaseNotesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SelectedItems.cs" />
     <Compile Include="SettingsPage.xaml.cs">
@@ -301,6 +305,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RangeBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReleaseNotesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

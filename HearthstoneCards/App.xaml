@@ -410,6 +410,28 @@
                     </StackPanel>
                 </StackPanel>
             </DataTemplate>
+            
+            <DataTemplate x:Key="ReleaseNoteItemTemplate">
+                <StackPanel>
+                    <TextBlock
+                        Margin="0,0,0,10"
+                        Text="{Binding Version}"
+                        Style="{StaticResource Tk-TitleMediumSizedLight}"
+                        Foreground="Gray"/>
+                    <ListView
+                        ItemsSource="{Binding Notes}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    Margin="0,0,0,5">
+                                    <Span>- <Run Text="{Binding}"/></Span>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </DataTemplate>
+            
         </ResourceDictionary>
     </Application.Resources>
     
