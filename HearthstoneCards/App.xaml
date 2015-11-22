@@ -401,7 +401,7 @@
                         Margin="10,0"
                         VerticalAlignment="Center">
                         <TextBlock
-                            Text="{Binding Price}"
+                            Text="{Binding}"
                             Style="{StaticResource Tk-TitleMediumSized}"/>
                         <TextBlock
                             Foreground="LimeGreen"

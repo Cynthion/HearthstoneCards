@@ -46,7 +46,7 @@
                 ItemClick="ListViewBase_OnItemClick">
                 <ListView.Resources>
                     <Style TargetType="ListViewItem" BasedOn="{StaticResource Tk-FullWidthListViewItemStyle}">
-                        <Setter Property="Margin" Value="0,0,0,10"/>
+                        <Setter Property="Margin" Value="0,0,0,20"/>
                     </Style>
                 </ListView.Resources>
             </ListView>

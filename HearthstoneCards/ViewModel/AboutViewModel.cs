@@ -31,7 +31,7 @@ namespace HearthstoneCards.ViewModel
             if (success)
             {
                 purchaseItem.IsPurchased = true;
-                await Messaging.ShowMessage(string.Format("{0} received! Thank you very much for your contribution.",  purchaseItem.Price), "Thank you!");
+                await Messaging.ShowMessage(string.Format("{0} received!\n Thank you very much for your contribution.",  purchaseItem), "Thank you!");
             }
 
             // store purchase items

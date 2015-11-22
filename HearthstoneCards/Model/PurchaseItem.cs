@@ -1,8 +1,9 @@
-﻿using WPDevToolkit;
+﻿using System;
+using System.Globalization;
+using WPDevToolkit;
 
 namespace HearthstoneCards.Model
 {
-    // TODO save state of pi's in settings
     public class PurchaseItem : BaseNotifyPropertyChanged
     {
         public string Id { get; private set; }
@@ -14,7 +15,6 @@ namespace HearthstoneCards.Model
         {
             Id = id;
             Price = price;
-            //TODO IsPurchased = BaseSettings.Load<>()
         }
 
         public bool IsPurchased
@@ -26,9 +26,13 @@ namespace HearthstoneCards.Model
                 {
                     _isPurchased = value;
                     NotifyPropertyChanged();
-                    // TODO save
                 }
             }
+        }
+
+        public override string ToString()
+        {
+            return Price.ToString("C", CultureInfo.CurrentCulture);
         }
     }
 }
