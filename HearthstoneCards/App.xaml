@@ -31,6 +31,7 @@
 
             <!-- GLOBAL STYLES -->
             <Style TargetType="TextBlock" BasedOn="{StaticResource Tk-BodyBigSized}"/>
+            <Style TargetType="ListViewItem" BasedOn="{StaticResource Tk-FullWidthListViewItemStyle}"/>
 
             <!-- STYLES -->
             <!-- Button -->
@@ -415,16 +416,18 @@
                 <StackPanel>
                     <TextBlock
                         Margin="0,0,0,10"
-                        Text="{Binding Version}"
                         Style="{StaticResource Tk-TitleMediumSizedLight}"
-                        Foreground="Gray"/>
+                        Foreground="{StaticResource PhoneAccentBrush}">
+                        <Span>Version <Run Text="{Binding Version}"/></Span>
+                    </TextBlock>
                     <ListView
+                        IsHitTestVisible="False"
                         ItemsSource="{Binding Notes}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock
-                                    Margin="0,0,0,5">
-                                    <Span>- <Run Text="{Binding}"/></Span>
+                                    Style="{StaticResource Tk-BodyBigSized}">
+                                    <Span>&#x2022; <Run Text="{Binding}"/></Span>
                                 </TextBlock>
                             </DataTemplate>
                         </ListView.ItemTemplate>

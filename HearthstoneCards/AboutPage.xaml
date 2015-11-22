@@ -105,6 +105,9 @@
                     <Style TargetType="ListViewItem" BasedOn="{StaticResource Tk-FullWidthListViewItemStyle}">
                         <Setter Property="Margin" Value="0,0,0,10"/>
                     </Style>
+                    <Style TargetType="local:Icon">
+                        <Setter Property="Color" Value="White"/>
+                    </Style>
                 </ListView.Resources>
                 <!-- Get Premium -->
                 <!--<ListViewItem Tag="getpremium" Tapped="SupportListViewItem_OnTapped">
@@ -258,7 +261,7 @@
                                 Style="{StaticResource Tk-TitleMediumSized}"
                                 Foreground="{StaticResource PhoneAccentBrush}"/>
                             <TextBlock>
-                                <Span>Spread the word with <Run Foreground="{StaticResource PhoneAccentBrush}">#hs-cards</Run></Span>
+                                <Span>Spread the word using <Run Text="{Binding Source={StaticResource Constants}, Path=TwitterHashtag}" Foreground="{StaticResource PhoneAccentBrush}"/></Span>
                             </TextBlock>
                         </StackPanel>
                     </StackPanel>

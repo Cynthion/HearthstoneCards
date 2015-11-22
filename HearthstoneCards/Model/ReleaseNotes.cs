@@ -19,7 +19,7 @@ namespace HearthstoneCards.Model
             {
                 new ReleaseNotes("1.0.0.0", new List<string>
                 {
-                    "Initial release."
+                    "Initial release.",
                 })
             };
         }
