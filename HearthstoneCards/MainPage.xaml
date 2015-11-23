@@ -9,9 +9,10 @@
     Background="{StaticResource PhoneBackgroundBrush}">
     
     <Hub
-        >
+        SectionsInViewChanged="Hub_OnSectionsInViewChanged">
         <!-- FILTER -->
-        <HubSection>
+        <HubSection
+            Tag="{Binding Source={StaticResource Constants}, Path=IsCommandBarVisibleTag}">
             <DataTemplate>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -257,7 +258,7 @@
                             Grid.Row="2"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
-                            Margin="0,0,0,12"
+                            Margin="0,0,0,10"
                             Height="70"
                             Content="Done"
                             Style="{StaticResource Hs-ButtonStyle}"
@@ -271,9 +272,11 @@
     
     <Page.BottomAppBar>
         <CommandBar 
-            Background="{StaticResource PhoneAccentBrush}"
-            Foreground="White"
+            Foreground="{StaticResource PhoneBackgroundBrush}"
             ClosedDisplayMode="Minimal">
+            <CommandBar.Background>
+                <SolidColorBrush Color="{StaticResource PhoneForegroundColor}" Opacity="0.4"/>
+            </CommandBar.Background>
             <!--<CommandBar.PrimaryCommands>
                 <AppBarButton Label="about"/>
             </CommandBar.PrimaryCommands>-->
