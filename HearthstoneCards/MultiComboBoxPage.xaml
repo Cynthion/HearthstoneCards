@@ -9,20 +9,29 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid
-        Margin="20">
+        Margin="{StaticResource Tk-StandardPageMargin}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="10"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         <TextBlock
-            Grid.Row="1"
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
             Margin="0, 0, 0, 10"
             Text="Select Items"
             Style="{StaticResource Tk-TitleMediumSized}"/>
         <ListView
-            Grid.Row="2"
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Margin="0,0,0,10"
             x:Name="XListView"
             SelectionMode="Multiple"
             SelectionChanged="OnSelectionChanged"
@@ -31,57 +40,43 @@
             ItemContainerStyle="{Binding MultiComboBox.ItemContainerStyle}"
             Style="{StaticResource Tk-FullWidthItemsControlStyle}">
         </ListView>
-        <Grid
+        
+        <Button
+            Grid.Row="2"
+            Grid.Column="0"
+            Margin="0, 0, 5, 5"
+            Height="50"
+            HorizontalAlignment="Stretch"
+            Background="{StaticResource PhoneBackgroundBrush}"
+            Foreground="{StaticResource PhoneForegroundBrush}"
+            BorderBrush="{StaticResource PhoneForegroundBrush}"
+            Style="{StaticResource Hs-ButtonStyle}"
+            Content="All"
+            Click="AllButton_OnClick">
+        </Button>
+        <Button
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="5, 0, 0, 5"
+            Height="50"
+            HorizontalAlignment="Stretch"
+            Background="{StaticResource PhoneBackgroundBrush}"
+            Foreground="{StaticResource PhoneForegroundBrush}"
+            BorderBrush="{StaticResource PhoneForegroundBrush}"
+            Style="{StaticResource Hs-ButtonStyle}"
+            Content="None"
+            Click="NoneButton_OnClick">
+        </Button>
+        <Button
             Grid.Row="3"
-            Margin="0,10,0,0">
-            <Grid.Resources>
-                <Style TargetType="TextBlock">
-                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                </Style>
-            </Grid.Resources>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Button
-                Grid.Row="0"
-                Grid.Column="0"
-                Margin="0, 0, 5, 5"
-                HorizontalAlignment="Stretch"
-                Background="{StaticResource PhoneBackgroundBrush}"
-                Foreground="{StaticResource PhoneForegroundBrush}"
-                BorderBrush="{StaticResource PhoneForegroundBrush}"
-                Style="{StaticResource Hs-ButtonStyle}"
-                Content="All"
-                Click="AllButton_OnClick">
-            </Button>
-            <Button
-                Grid.Row="0"
-                Grid.Column="1"
-                Margin="5, 0, 0, 5"
-                HorizontalAlignment="Stretch"
-                Background="{StaticResource PhoneBackgroundBrush}"
-                Foreground="{StaticResource PhoneForegroundBrush}"
-                BorderBrush="{StaticResource PhoneForegroundBrush}"
-                Style="{StaticResource Hs-ButtonStyle}"
-                Content="None"
-                Click="NoneButton_OnClick">
-            </Button>
-            <Button
-                Grid.Row="1"
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Margin="0, 5, 0, 0"
-                Height="70"
-                HorizontalAlignment="Stretch"
-                Style="{StaticResource Hs-ButtonStyle}"
-                Content="Done"
-                Click="ButtonBase_OnClick"/>
-        </Grid>
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Margin="0, 5, 0, 10"
+            Height="70"
+            HorizontalAlignment="Stretch"
+            Style="{StaticResource Hs-ButtonStyle}"
+            Content="Done"
+            Click="ButtonBase_OnClick"/>
+        
     </Grid>
 </local:BasePage>
