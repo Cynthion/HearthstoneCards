@@ -64,6 +64,6 @@
             Text="Invalid range."
             Style="{StaticResource Tk-BodyNormalSized}"
             Foreground="Red"
-            Visibility="{Binding IsValid, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            Visibility="{Binding IsValid, Converter={StaticResource InverseBooleanConverter}}"/>
     </Grid>
 </UserControl>

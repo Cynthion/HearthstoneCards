@@ -55,12 +55,15 @@ namespace HearthstoneCards
 
             // check range boundaries
             if (from < min) dObj.SetValue(FromProperty, min);
+            if (from > max) dObj.SetValue(FromProperty, max);
+            
+            if (to < min) dObj.SetValue(ToProperty, min);
             if (to > max) dObj.SetValue(ToProperty, max);
 
             // apply validity check
             from = (int)dObj.GetValue(FromProperty);
             to = (int)dObj.GetValue(ToProperty);
-            dObj.SetValue(IsValidProperty, @from <= to);
+            dObj.SetValue(IsValidProperty, from <= to);
         }
 
         public string Title
@@ -107,17 +110,17 @@ namespace HearthstoneCards
 
         private void TextBox_OnSelectionChanged(object sender, RoutedEventArgs e)
         {
-            // TODO handle format errors
             var tb = sender as TextBox;
             if (tb != null)
             {
+                var value = (int)Math.Round(Convert.ToDouble(tb.Text));
                 if (tb.Tag.Equals("from"))
                 {
-                    From = Convert.ToInt32(tb.Text);
+                    From = value;
                 }
                 else if (tb.Tag.Equals("to"))
                 {
-                    To = Convert.ToInt32(tb.Text);
+                    To = value;
                 }
             }
         }

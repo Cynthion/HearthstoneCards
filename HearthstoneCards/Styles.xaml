@@ -258,20 +258,17 @@
 								BorderThickness="{TemplateBinding BorderThickness}"
 								Background="{TemplateBinding Background}" 
 								Height="25.5"
-								IsHitTestVisible="False"
 								Width="25.5"/>
                             <Rectangle 
 								x:Name="NormalRectangle"
 								Fill="{ThemeResource CheckBoxBackgroundThemeBrush}" 
 								Height="13"
-								IsHitTestVisible="False"
 								Visibility="Collapsed" 
 								Width="13"/>
                             <Path x:Name="CheckGlyph" 
 								Data="M0,123 L39,93 L124,164 L256,18 L295,49 L124,240 z"
 								Fill="{ThemeResource CheckBoxForegroundThemeBrush}"
 								Height="17" 
-								IsHitTestVisible="False" 
 								Stretch="Fill" 
 								StrokeThickness="2.5" 
 								StrokeLineJoin="Round" 
@@ -506,9 +503,9 @@
     
     <!-- Button with low MinHeight and MinWidth values -->
     <Style x:Key="Tk-MinDimensionsButtonStyle" TargetType="Button" BasedOn="{StaticResource Tk-NoTouchOverhangButtonStyle}">
-        <!-- Set dimensions to a minimum -->
-        <Setter Property="MinHeight" Value="20" />
-        <Setter Property="MinWidth" Value="20" />
+        <!-- set dimensions to a minimum -->
+        <Setter Property="MinHeight" Value="30" />
+        <Setter Property="MinWidth" Value="30" />
     </Style>
     
     <!-- Borderless ToggleButton -->
