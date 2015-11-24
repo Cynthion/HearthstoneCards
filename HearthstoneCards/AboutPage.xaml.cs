@@ -47,7 +47,7 @@ namespace HearthstoneCards
                     _aboutVm.HandleRating();
                     break;
                 case "feedback":
-                    _aboutVm.HandleFeedback();
+                    _aboutVm.HandleFeedbackAsync();
                     break;
                 case "uservoice":
                     _aboutVm.HandleUserVoice();
@@ -56,7 +56,7 @@ namespace HearthstoneCards
                     _aboutVm.HandleTwitter();
                     break;
                 case "bugreport":
-                    _aboutVm.HandleBugReport();
+                    _aboutVm.HandleBugReportAsync();
                     break;
                 default:
                     return;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Email;
 using HearthstoneCards.Helper;
 using HearthstoneCards.Model;
 using WPDevToolkit;
@@ -43,9 +44,9 @@ namespace HearthstoneCards.ViewModel
 
         }
 
-        public void HandleFeedback()
+        public Task HandleFeedbackAsync()
         {
-
+            return SendEmailAsync("Feedback", ConstantContainer.FeedbackEmailBody);
         }
 
         public void HandleUserVoice()
@@ -58,9 +59,20 @@ namespace HearthstoneCards.ViewModel
 
         }
 
-        public void HandleBugReport()
+        public Task HandleBugReportAsync()
         {
+            return SendEmailAsync("Bug Report", ConstantContainer.FeedbackEmailBody);
+        }
 
+        private async Task SendEmailAsync(string subject, string body)
+        {
+            var mail = new EmailMessage
+            {
+                Subject = string.Format("[{0}] {1}", ConstantContainer.AppNameShort, subject),
+                Body = body
+            };
+            mail.To.Add(ConstantContainer.FeedbackEmailRecipient);
+            await EmailManager.ShowComposeNewEmailAsync(mail);
         }
 
         public IList<PurchaseItem> DonationAmounts
