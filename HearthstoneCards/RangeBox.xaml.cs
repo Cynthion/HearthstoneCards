@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -48,8 +50,8 @@ namespace HearthstoneCards
 
         private static void RangeValue_Changed(DependencyObject dObj, DependencyPropertyChangedEventArgs args)
         {
-            var from = (int) dObj.GetValue(FromProperty);
-            var to = (int) dObj.GetValue(ToProperty);
+            var from = (int)dObj.GetValue(FromProperty);
+            var to = (int)dObj.GetValue(ToProperty);
             var min = (int)dObj.GetValue(MinProperty);
             var max = (int)dObj.GetValue(MaxProperty);
 
@@ -108,21 +110,38 @@ namespace HearthstoneCards
             set { SetValue(IsCheckedProperty, value); }
         }
 
-        private void TextBox_OnSelectionChanged(object sender, RoutedEventArgs e)
+        private void TextBox_OnLGotFocus(object sender, RoutedEventArgs e)
         {
             var tb = sender as TextBox;
             if (tb != null)
             {
-                var value = (int)Math.Round(Convert.ToDouble(tb.Text));
+                tb.SelectAll();
+            }
+        }
+
+        private void TextBox_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            var tb = sender as TextBox;
+            if (tb != null && tb.Tag != null)
+            {
+                var isInvalid = string.IsNullOrEmpty(tb.Text) || string.IsNullOrWhiteSpace(tb.Text);
                 if (tb.Tag.Equals("from"))
                 {
-                    From = value;
+                    From = int.MinValue;
+                    From = isInvalid ? Min : ExtractNumber(tb.Text);
                 }
                 else if (tb.Tag.Equals("to"))
                 {
-                    To = value;
+                    To = int.MaxValue;
+                    To = isInvalid ? Max : ExtractNumber(tb.Text);
                 }
             }
+        }
+
+        private static int ExtractNumber(string text)
+        {
+            // TODO fix comma handling
+            return (int)Math.Round(double.Parse(text, System.Globalization.CultureInfo.InvariantCulture), 0);
         }
 
         private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)

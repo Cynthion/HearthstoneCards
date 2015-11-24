@@ -90,8 +90,7 @@
                         Min="{Binding Source={StaticResource Constants}, Path=MinAttack}"
                         Max="{Binding Source={StaticResource Constants}, Path=MaxAttack}"
                         From="{Binding SelectedAttackFromOption, Mode=TwoWay}"
-                        To="{Binding SelectedAttackToOption, Mode=TwoWay}"
-                        IsCheckedChanged="AttackRangeBox_OnIsCheckedChanged"/>
+                        To="{Binding SelectedAttackToOption, Mode=TwoWay}"/>
                 </Grid>
             </DataTemplate>
         </HubSection>
