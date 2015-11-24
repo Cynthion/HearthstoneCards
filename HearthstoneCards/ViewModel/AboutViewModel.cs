@@ -61,7 +61,7 @@ namespace HearthstoneCards.ViewModel
 
         public Task HandleBugReportAsync()
         {
-            return SendEmailAsync("Bug Report", ConstantContainer.FeedbackEmailBody);
+            return SendEmailAsync("Bug Report", ConstantContainer.BugReportEmailBody);
         }
 
         private async Task SendEmailAsync(string subject, string body)

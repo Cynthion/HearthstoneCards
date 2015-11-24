@@ -25,7 +25,7 @@ namespace HearthstoneCards.Helper
             TwitterHashtag = "#hs-cards";
             FeedbackEmailBody = string.Format("Hey Chris,\n\nI wanted to provide some feedback about the '{0}' app:\n\n", AppName);
             FeedbackEmailRecipient = new EmailRecipient("chris.windev@outlook.com", "Christian Lüthold");
-            FeedbackEmailBody = string.Format("Hey Chris,\n\nI wanted to let you know that I found a bug in the '{0}' app:\n\n", AppName);
+            BugReportEmailBody = string.Format("Hey Chris,\n\nI wanted to let you know that I found a bug in the '{0}' app:\n\n", AppName);
             BugReportEmailRecipient = FeedbackEmailRecipient;
 
             MinAttack = 0;
