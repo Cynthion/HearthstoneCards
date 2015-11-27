@@ -126,7 +126,6 @@ namespace HearthstoneCards
             if (hub != null && BottomAppBar != null)
             {
                 var isCommandBarVisible = hub.SectionsInView.Any(s => s.Tag != null && s.Tag.Equals(ConstantContainer.IsCommandBarVisibleTag));
-
                 BottomAppBar.Visibility = isCommandBarVisible ? Visibility.Visible : Visibility.Collapsed;
             }
         }

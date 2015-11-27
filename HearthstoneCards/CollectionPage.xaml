@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:caroussel="using:HearthstoneCards.Caroussel"
+    xmlns:helper="using:HearthstoneCards.Helper"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -73,11 +74,26 @@
             DataContext="{Binding ElementName=XLightStoneElement, Path=SelectedItem}">
             <StackPanel
                 Margin="10, 0">
-                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                <TextBlock
+                    helper:Properties.Html="{Binding Text}"
+                    TextWrapping="WrapWholeWords"/>
+                <!--<TextBlock Text="{Binding Name}" FontWeight="Bold"/>
                 <TextBlock Text="{Binding Rarity}"/>
                 <TextBlock Text="{Binding Class}"/>
                 <TextBlock Text="{Binding Type}"/>
                 <TextBlock Text="{Binding Set}"/>
+                <RichTextBlock>
+                    <Paragraph>
+                        <Paragraph.Inlines>
+                            <Span>
+                                <Bold>Battelcry: </Bold>
+                                Gains
+                                <Italic>+2/+2</Italic>
+                                on all Taunts
+                            </Span>
+                        </Paragraph.Inlines>
+                    </Paragraph>
+                </RichTextBlock>-->
             </StackPanel>
         </Border>
         
