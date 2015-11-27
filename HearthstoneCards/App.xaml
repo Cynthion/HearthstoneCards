@@ -223,11 +223,11 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="ListViewItem">
                             <CheckBox
-                        VerticalAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        HorizontalAlignment="Stretch"
-                        HorizontalContentAlignment="Stretch"
-                        IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsSelected, Mode=TwoWay}">
+                                VerticalAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch"
+                                IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsSelected, Mode=TwoWay}">
                                 <ContentPresenter/>
                             </CheckBox>
                         </ControlTemplate>

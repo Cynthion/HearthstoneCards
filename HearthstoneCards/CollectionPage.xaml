@@ -76,24 +76,9 @@
                 Margin="10, 0">
                 <TextBlock
                     helper:Properties.Html="{Binding Text}"
-                    TextWrapping="WrapWholeWords"/>
-                <!--<TextBlock Text="{Binding Name}" FontWeight="Bold"/>
-                <TextBlock Text="{Binding Rarity}"/>
-                <TextBlock Text="{Binding Class}"/>
-                <TextBlock Text="{Binding Type}"/>
-                <TextBlock Text="{Binding Set}"/>
-                <RichTextBlock>
-                    <Paragraph>
-                        <Paragraph.Inlines>
-                            <Span>
-                                <Bold>Battelcry: </Bold>
-                                Gains
-                                <Italic>+2/+2</Italic>
-                                on all Taunts
-                            </Span>
-                        </Paragraph.Inlines>
-                    </Paragraph>
-                </RichTextBlock>-->
+                    Style="{StaticResource Tk-TitleSmallSizedBold}"
+                    TextWrapping="WrapWholeWords"
+                    TextAlignment="Center"/>
             </StackPanel>
         </Border>
         

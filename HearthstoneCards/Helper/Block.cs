@@ -7,9 +7,7 @@ namespace HearthstoneCards.Helper
     {
         Normal,
         Bold,
-        Italic,
-        //Hyperlink,
-        //Underline
+        Italic
     }
 
     public class Block
@@ -27,15 +25,16 @@ namespace HearthstoneCards.Helper
         {
             switch (SpanType)
             {
-                case SpanType.Normal:
-                    return new Run { Text = Text, FontWeight = FontWeights.Normal, FontStyle = FontStyle.Normal };
                 case SpanType.Bold:
                     // TODO fix: replace with bold
-                    return new Run { Text = Text, FontWeight = FontWeights.ExtraBold };
+                    return new Run { Text = Text, FontWeight = FontWeights.Bold };
                 case SpanType.Italic:
                     return new Run { Text = Text, FontStyle = FontStyle.Italic };
+                case SpanType.Normal:
+                    return new Run { Text = Text, FontWeight = FontWeights.Normal, FontStyle = FontStyle.Normal };
+                default:
+                    return new Run { Text = Text, FontWeight = FontWeights.Normal, FontStyle = FontStyle.Normal };
             }
-            return new Run { Text = string.Empty };
         }
     }
 }

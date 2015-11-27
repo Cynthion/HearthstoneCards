@@ -11,12 +11,6 @@ namespace HearthstoneCards.Helper
         public static readonly DependencyProperty HtmlProperty
             = DependencyProperty.RegisterAttached("Html", typeof(string), typeof(Properties), new PropertyMetadata(null, Html_Changed));
 
-        //public string Html
-        //{
-        //    get { return (string)GetValue(HtmlProperty); }
-        //    set { SetValue(HtmlProperty, value); }
-        //}
-
         public static void SetHtml(DependencyObject obj, string html)
         {
             obj.SetValue(HtmlProperty, html);
@@ -54,44 +48,41 @@ namespace HearthstoneCards.Helper
             return html.Replace("$", string.Empty).Replace("#", string.Empty);
         }
 
-        private static IList<Block> GetBlocks(string html)
+        private static IEnumerable<Block> GetBlocks(string html)
         {
-            var blocks = new List<Block>();
+            var blocks = new List<Block> {new Block(html, SpanType.Normal)};
 
-            // bold
-            // | |
-            var splitText = html.Split(new[] { "<b>", "</b>" }, StringSplitOptions.None);
-            for (var i = 0; i < splitText.Length; i++)
-            {
-                var block = new Block(splitText[i], i % 2 == 1 ? SpanType.Bold : SpanType.Normal);
-                blocks.Add(block);
-            }
-            // | |b| |b(i)|n(i)|
+            SplitBlocks(blocks, new []{ "<b>", "</b>"}, SpanType.Bold);
+            SplitBlocks(blocks, new []{ "<i>", "</i>"}, SpanType.Italic);
 
-            // italic
+            return blocks.Where(b => b.Text.Length > 0).ToList();
+        }
+
+        /// <summary>
+        /// Processes all provided blocks based on the separators and span type.
+        /// <see cref="blocks"/> must at least contain one element.
+        /// </summary>
+        private static void SplitBlocks(IList<Block> blocks, string[] separators, SpanType spanType)
+        {
             for (var i = 0; i < blocks.Count; i++)
             {
-                splitText = blocks[i].Text.Split(new[] {"<i>", "</i>"}, StringSplitOptions.None);
-
+                var splitText = blocks[i].Text.Split(separators.ToArray(), StringSplitOptions.None);
                 if (splitText.Length > 1)
                 {
                     // remove old block
                     var oldBlock = blocks[i];
                     blocks.RemoveAt(i);
-                    
+
                     // add new blocks
                     for (var j = 0; j < splitText.Length; j++)
                     {
-                        var newBlock = new Block(splitText[j], j % 2 == 1 ? SpanType.Italic : oldBlock.SpanType);
-                        
+                        var block = new Block(splitText[j], j % 2 == 1 ? spanType : oldBlock.SpanType);
+
                         // insert and skip block in outer loop
-                        blocks.Insert(i++, newBlock);
+                        blocks.Insert(i++, block);
                     }
                 }
             }
-
-            return blocks.Where(b => b.Text.Length > 0).ToList();
         }
-
     }
 }
