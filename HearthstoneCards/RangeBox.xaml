@@ -55,6 +55,7 @@
             Margin="20,0,0,-8"
             VerticalAlignment="Bottom"
             Style="{StaticResource Tk-NoContentCheckBoxStyle}"
+            Foreground="{StaticResource PhoneAccentBrush}"
             IsChecked="{Binding IsChecked, Mode=TwoWay}"
             Checked="ToggleButton_OnChecked"
             Unchecked="ToggleButton_OnUnchecked"/>

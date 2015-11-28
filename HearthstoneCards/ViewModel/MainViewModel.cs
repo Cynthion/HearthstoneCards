@@ -21,11 +21,12 @@ namespace HearthstoneCards.ViewModel
         public ChangeViewInfoCommand ChangeViewInfoCommand { get; private set; }
         private ItemsControlViewInfo _itemsControlViewInfo;
 
-        public string NameFilter { get; set; }
+        public string TextFilter { get; set; }
         public bool _isAttackFilterEnabled;
         public IList<ImageSelectionItem<string>> ClassOptions { get; private set; }
         public IList<ImageSelectionItem<Set>> SetOptions { get; private set; }
         public IList<ImageSelectionItem<Rarity>> RarityOptions { get; private set; }
+        public IList<ImageSelectionItem<Mechanic>> MechanicOptions { get; private set; }
         public IList<int> AttackOptions { get; private set; }
         public IList<ISelectionItem<Func<Card, object>>> SortOptions { get; private set; }
         public IncrementalObservableCollection<MainViewModel, Card> PresentedCards { get { return _presentedCards; } }
@@ -45,7 +46,7 @@ namespace HearthstoneCards.ViewModel
         private bool _isIncrementalLoading;
         private bool _isResultEmpty = true;
 
-        private bool _isNameFilterEnabled;
+        private bool _isTextFilterEnabled;
 
         public MainViewModel()
         {
@@ -153,39 +154,37 @@ namespace HearthstoneCards.ViewModel
 
         protected override async Task<LoadResult> DoLoadAsync()
         {
-            if (_allCards.Count == 0)
+            if (_allCards.Count != 0)
             {
-                // TODO check if needs to be re-newed (serialized date)
-                // load from local storage
-                try
-                {
-                    // TODO load from storage, not from file
-                    string fileContent;
-                    var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/AllSets.enUS.json"));
-                    using (var reader = new StreamReader(await file.OpenStreamForReadAsync()))
-                    {
-                        fileContent = await reader.ReadToEndAsync();
-                    }
-                    var json = await new StringReader(fileContent).ReadToEndAsync();
-                    if (json != null)
-                    {
-                        var globalCollection = JsonConvert.DeserializeObject<GlobalCollection>(json);
-                        foreach (var set in globalCollection.CardSets)
-                        {
-                            _allCards.AddRange(set.Cards);
-                        }
-                    }
-
-                    // TODO remove
-                    await OnQueryChangedAsync();
-                    return LoadResult.Success;
-                }
-                catch (Exception e)
-                {
-                    return new LoadResult(e.Message);
-                }
+                return LoadResult.Success;
             }
-            return LoadResult.Success;
+            // load from local storage
+            try
+            {
+                string fileContent;
+                var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/AllSets.enUS.json"));
+                using (var reader = new StreamReader(await file.OpenStreamForReadAsync()))
+                {
+                    fileContent = await reader.ReadToEndAsync();
+                }
+                var json = await new StringReader(fileContent).ReadToEndAsync();
+                if (json != null)
+                {
+                    var globalCollection = JsonConvert.DeserializeObject<GlobalCollection>(json);
+                    foreach (var set in globalCollection.CardSets)
+                    {
+                        _allCards.AddRange(set.Cards);
+                    }
+                }
+
+                // TODO remove
+                await OnQueryChangedAsync();
+                return LoadResult.Success;
+            }
+            catch (Exception e)
+            {
+                return new LoadResult(e.Message);
+            }
         }
 
         public async Task OnQueryChangedAsync()
@@ -197,11 +196,11 @@ namespace HearthstoneCards.ViewModel
             var filtered =
                 from card in _allCards
                 where card.IsCollectible
-                where !IsNameFilterEnabled || card.Name.Contains(NameFilter)
+                where !IsTextFilterEnabled || (card.Name.Contains(TextFilter) || card.Text.Contains(TextFilter))
+                where !IsAttackFilterEnabled || (card.Attack >= SelectedAttackFromOption && card.Attack <= SelectedAttackToOption)
                 where ClassOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Class))
                 where SetOptions.Where(o => o.IsSelected).Any(o => o.Value.Equals(card.Set))
                 where RarityOptions.Where(o => o.IsSelected).Any(o => o.Value.Equals(card.Rarity))
-                //where card.Attack >= SelectedAttackFromOption && card.Attack <= SelectedAttackToOption
                 select card;
 
             await SortAndPresentAsync(filtered.ToList());
@@ -400,14 +399,14 @@ namespace HearthstoneCards.ViewModel
             }
         }
 
-        public bool IsNameFilterEnabled
+        public bool IsTextFilterEnabled
         {
-            get { return _isNameFilterEnabled; }
+            get { return _isTextFilterEnabled; }
             set
             {
-                if (_isNameFilterEnabled != value)
+                if (_isTextFilterEnabled != value)
                 {
-                    _isNameFilterEnabled = value;
+                    _isTextFilterEnabled = value;
                     NotifyPropertyChanged();
                 }
             }

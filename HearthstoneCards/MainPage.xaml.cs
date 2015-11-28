@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Windows.Phone.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -103,15 +102,24 @@ namespace HearthstoneCards
             FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
         }
 
-        private async void NameTextBox_OnSelectionChanged(object sender, RoutedEventArgs e)
+        private async void TextFilterTextBox_OnSelectionChanged(object sender, RoutedEventArgs e)
         {
             var tb = sender as TextBox;
             if (tb != null)
             {
                 var txt = tb.Text;
-                _mainVm.NameFilter = txt;
-                _mainVm.IsNameFilterEnabled = !(string.IsNullOrEmpty(txt) || string.IsNullOrWhiteSpace(txt));
+                _mainVm.TextFilter = txt;
+                _mainVm.IsTextFilterEnabled = !(string.IsNullOrEmpty(txt) || string.IsNullOrWhiteSpace(txt));
                 await _mainVm.OnQueryChangedAsync();
+            }
+        }
+
+        private void TextBox_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            var tb = sender as TextBox;
+            if (tb != null)
+            {
+                tb.ActionOnEnter();
             }
         }
 
@@ -128,6 +136,12 @@ namespace HearthstoneCards
                 var isCommandBarVisible = hub.SectionsInView.Any(s => s.Tag != null && s.Tag.Equals(ConstantContainer.IsCommandBarVisibleTag));
                 BottomAppBar.Visibility = isCommandBarVisible ? Visibility.Visible : Visibility.Collapsed;
             }
+        }
+
+        private async void AttackRangeBox_OnIsCheckedChanged(object sender, CheckedEventArgs e)
+        {
+            _mainVm.IsAttackFilterEnabled = e.IsChecked;
+            await _mainVm.OnQueryChangedAsync();
         }
     }
 }

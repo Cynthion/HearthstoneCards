@@ -19,4 +19,17 @@
         TheGrandTournament = 5,
         LeagueOfExplorers = 6
     }
+
+    public enum Mechanic
+    {
+        Battlecry = 0,
+        Windfury = 1,
+        DivindeShield = 2,
+        Inspire,
+        Taunt,
+        Charge,
+        OneTurnEffect,
+        Spellpower,
+        ImmuneToSpellpowerd
+    }
 }

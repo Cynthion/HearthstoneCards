@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -125,15 +123,16 @@ namespace HearthstoneCards
             if (tb != null && tb.Tag != null)
             {
                 var isInvalid = string.IsNullOrEmpty(tb.Text) || string.IsNullOrWhiteSpace(tb.Text);
+                var tmp = tb.Text;
                 if (tb.Tag.Equals("from"))
                 {
                     From = int.MinValue;
-                    From = isInvalid ? Min : ExtractNumber(tb.Text);
+                    From = isInvalid ? Min : ExtractNumber(tmp);
                 }
                 else if (tb.Tag.Equals("to"))
                 {
                     To = int.MaxValue;
-                    To = isInvalid ? Max : ExtractNumber(tb.Text);
+                    To = isInvalid ? Max : ExtractNumber(tmp);
                 }
             }
         }

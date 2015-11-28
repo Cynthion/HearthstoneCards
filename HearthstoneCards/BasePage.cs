@@ -1,4 +1,5 @@
 ﻿using Windows.Graphics.Display;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using HearthstoneCards.Common;
@@ -36,6 +37,15 @@ namespace HearthstoneCards
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             _navigationHelper.OnNavigatedFrom(e);
+        }
+
+        protected void TextBox_SelectAll_OnLGotFocus(object sender, RoutedEventArgs e)
+        {
+            var tb = sender as TextBox;
+            if (tb != null)
+            {
+                tb.SelectAll();
+            }
         }
     }
 }

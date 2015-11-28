@@ -20,6 +20,16 @@ namespace HearthstoneCards.Helper
         // static constructor
         static ConstantContainer()
         {
+            Initialize();
+        }
+
+        public ConstantContainer()
+        {
+            Initialize();
+        }
+
+        private static void Initialize()
+        {
             AppName = "Hearthstone Cards";
             AppNameShort = "HS Cards";
             TwitterHashtag = "#hs-cards";

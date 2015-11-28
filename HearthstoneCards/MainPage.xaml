@@ -15,9 +15,6 @@
             Tag="{Binding Source={StaticResource Constants}, Path=IsCommandBarVisibleTag}">
             <DataTemplate>
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="20"/>
                         <RowDefinition Height="Auto"/>
@@ -29,14 +26,12 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid
-                        Grid.Column="0"
                         Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel 
-                            Grid.Column="0"
                             Orientation="Horizontal">
                             <TextBlock
                                 Text="Results: "
@@ -47,25 +42,24 @@
                                 Style="{StaticResource Tk-TitleSmallSized}"/>
                         </StackPanel>
                     </Grid>
-                    <!-- Name Filter -->
+                    <!-- Text Filter -->
                     <TextBox
-                        Grid.Column="0"
                         Grid.Row="2"
-                        Header="Name"
-                        PlaceholderText="Enter card name..."
-                        SelectionChanged="NameTextBox_OnSelectionChanged"/>
+                        Header="Text"
+                        PlaceholderText="Search name or description..."
+                        SelectionChanged="TextFilterTextBox_OnSelectionChanged"
+                        GotFocus="TextBox_SelectAll_OnLGotFocus"
+                        Loaded="TextBox_OnLoaded"/>
                     <!-- Class Filter -->
                     <local:MultiComboBox
-                        Grid.Column="0"
                         Grid.Row="3"
                         Header="Class"
                         Options="{Binding ClassOptions}"
-                        ItemTemplate="{StaticResource OptionItemTemplate}"
+                        ItemTemplate="{StaticResource ClassOptionItemTemplate}"
                         ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
                         SelectionChanged="MultiSelector_OnSelectionChanged"/>
                     <!-- Set Filter -->
                     <local:MultiComboBox
-                        Grid.Column="0"
                         Grid.Row="4"
                         Header="Set"
                         Options="{Binding SetOptions}"
@@ -74,23 +68,31 @@
                         SelectionChanged="MultiSelector_OnSelectionChanged"/>
                     <!-- Rarity Filter -->
                     <local:MultiComboBox
-                        Grid.Column="0"
                         Grid.Row="5"
                         Header="Rarity"
                         Options="{Binding RarityOptions}"
                         ItemTemplate="{StaticResource RarityOptionItemTemplate}"
                         ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
                         SelectionChanged="MultiSelector_OnSelectionChanged"/>
+                    <!-- Mechanics Filter -->
+                    <local:MultiComboBox
+                        Grid.Row="6"
+                        Header="Rarity"
+                        Options="{Binding MechanicOptions}"
+                        ItemTemplate="{StaticResource MechanicOptionItemTemplate}"
+                        ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
+                        SelectionChanged="MultiSelector_OnSelectionChanged"/>
                     <!-- Attack Filter -->
                     <local:RangeBox
-                        Grid.Column="0"
-                        Grid.Row="6"
+                        Grid.Row="7"
                         Title="Attack"
                         IsChecked="{Binding IsAttackFilterEnabled, Mode=TwoWay}"
                         Min="{Binding Source={StaticResource Constants}, Path=MinAttack}"
                         Max="{Binding Source={StaticResource Constants}, Path=MaxAttack}"
                         From="{Binding SelectedAttackFromOption, Mode=TwoWay}"
-                        To="{Binding SelectedAttackToOption, Mode=TwoWay}"/>
+                        To="{Binding SelectedAttackToOption, Mode=TwoWay}"
+                        IsCheckedChanged="AttackRangeBox_OnIsCheckedChanged"/>
+                    
                 </Grid>
             </DataTemplate>
         </HubSection>

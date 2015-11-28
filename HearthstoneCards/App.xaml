@@ -223,10 +223,9 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="ListViewItem">
                             <CheckBox
-                                VerticalAlignment="Center"
-                                VerticalContentAlignment="Center"
                                 HorizontalAlignment="Stretch"
                                 HorizontalContentAlignment="Stretch"
+                                Style="{StaticResource Tk-AccentColouredCheckBoxStyle}"
                                 IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsSelected, Mode=TwoWay}">
                                 <ContentPresenter/>
                             </CheckBox>
@@ -237,58 +236,64 @@
 
             <!-- ITEM TEMPLATES -->
             <!-- MultiComboBox filter options -->
-            <DataTemplate x:Key="OptionItemTemplate">
+            <DataTemplate x:Key="ClassOptionItemTemplate">
                 <StackPanel
-            Orientation="Horizontal"
-            VerticalAlignment="Center">
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center">
                     <Image
-                Margin="5,0,0,0"
-                Width="50"
-                Height="50"
-                Source="{Binding ImagePath}"
-                Stretch="Uniform"/>
+                        Margin="5,0,0,0"
+                        Width="50"
+                        Height="50"
+                        Source="{Binding ImagePath}"
+                        Stretch="Uniform"/>
                     <TextBlock
-                Margin="10,0,0,0"
-                Text="{Binding Key}"
-                VerticalAlignment="Center"/>
+                        Margin="10,0,0,0"
+                        Text="{Binding Key}"
+                        VerticalAlignment="Center"/>
                 </StackPanel>
             </DataTemplate>
 
             <DataTemplate x:Key="SetOptionItemTemplate">
                 <StackPanel
-            Orientation="Horizontal"
-            VerticalAlignment="Center">
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center">
                     <Image
-                Margin="5,0,0,0"
-                Width="38"
-                Height="27"
-                Source="{Binding ImagePath}"/>
+                        Margin="5,0,0,0"
+                        Width="38"
+                        Height="27"
+                        Source="{Binding ImagePath}"/>
                     <TextBlock 
-                Margin="10,0,0,0"
-                Text="{Binding Key}"
-                VerticalAlignment="Center"/>
+                        Margin="10,0,0,0"
+                        Text="{Binding Key}"
+                        VerticalAlignment="Center"/>
                 </StackPanel>
             </DataTemplate>
 
             <DataTemplate x:Key="RarityOptionItemTemplate">
                 <StackPanel
-            Orientation="Horizontal"
-            VerticalAlignment="Center">
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center">
                     <Image
-                Margin="5,0,0,0"
-                Width="24"
-                Height="32"
-                Source="{Binding ImagePath}"/>
+                        Margin="5,0,0,0"
+                        Width="24"
+                        Height="32"
+                        Source="{Binding ImagePath}"/>
                     <TextBlock 
-                Margin="10,0,0,0"
-                Text="{Binding Key}"
-                VerticalAlignment="Center"/>
+                        Margin="10,0,0,0"
+                        Text="{Binding Key}"
+                        VerticalAlignment="Center"/>
                 </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate x:Key="MechanicOptionItemTemplate">
+                <TextBlock 
+                    Text="{Binding Key}"
+                    VerticalAlignment="Center"/>
             </DataTemplate>
 
             <DataTemplate x:Key="CardVisualItemTemplate">
                 <Grid
-            Margin="0, 0, 0, 5">
+                    Margin="0, 0, 0, 5">
                     <Grid.Resources>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource Tk-TitleSmallSized}">
                             <Setter Property="TextWrapping" Value="WrapWholeWords"/>
@@ -299,15 +304,15 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid
-                Grid.Column="0">
+                        Grid.Column="0">
                         <Image
-                    Style="{StaticResource CardCutStyle}"
-                    Source="{Binding Image}"/>
+                            Style="{StaticResource CardCutStyle}"
+                            Source="{Binding Image}"/>
                     </Grid>
 
                     <StackPanel
-                Grid.Column="1"
-                Margin="10, 20, 10, 0">
+                        Grid.Column="1"
+                        Margin="10, 20, 10, 0">
                         <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
                         <TextBlock Text="{Binding Rarity}"/>
                         <TextBlock Text="{Binding Class}"/>
@@ -319,18 +324,18 @@
 
             <DataTemplate x:Key="CardImageItemTemplate">
                 <Grid
-            Margin="15">
+                    Margin="15">
                     <Image
-                Height="220"
-                Style="{StaticResource CardCutStyle}"
-                Source="{Binding Image}"
-                Stretch="Uniform"/>
+                        Height="220"
+                        Style="{StaticResource CardCutStyle}"
+                        Source="{Binding Image}"
+                        Stretch="Uniform"/>
                 </Grid>
             </DataTemplate>
 
             <DataTemplate x:Key="CardTableItemTemplate">
                 <Grid
-            Margin="0,0,0,20">
+                    Margin="0,0,0,20">
                     <Grid.Resources>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource Tk-TitleSmallSized}">
                             <Setter Property="Margin" Value="7,0,7,0"/>
@@ -351,31 +356,31 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Image
-                Grid.Column="0"
-                Source="{Binding Set, Converter={StaticResource SetToImageSourceConverter}}"/>
+                        Grid.Column="0"
+                        Source="{Binding Set, Converter={StaticResource SetToImageSourceConverter}}"/>
                     <TextBlock
-                Grid.Column="1"
-                TextWrapping="WrapWholeWords"
-                HorizontalAlignment="Left"
-                TextAlignment="Left"
-                Foreground="{Binding Rarity, Converter={StaticResource RarityToBrushConverter}}"
-                Text="{Binding Name}"/>
+                        Grid.Column="1"
+                        TextWrapping="WrapWholeWords"
+                        HorizontalAlignment="Left"
+                        TextAlignment="Left"
+                        Foreground="{Binding Rarity, Converter={StaticResource RarityToBrushConverter}}"
+                        Text="{Binding Name}"/>
                     <StackPanel
-                Grid.Column="2"
-                Orientation="Horizontal"
-                HorizontalAlignment="Right">
+                        Grid.Column="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
                         <TextBlock
-                    Text="{Binding Cost}"/>
+                           Text="{Binding Cost}"/>
                         <Image
-                    Source="../Assets/Icons/Stats/mana.png"/>
+                            Source="../Assets/Icons/Stats/mana.png"/>
                         <TextBlock
-                    Text="{Binding Attack}"/>
+                            Text="{Binding Attack}"/>
                         <Image
-                    Source="../Assets/Icons/Stats/attack.png"/>
+                           Source="../Assets/Icons/Stats/attack.png"/>
                         <TextBlock
-                    Text="{Binding Health}"/>
+                          Text="{Binding Health}"/>
                         <Image
-                    Source="../Assets/Icons/Stats/health.png"/>
+                           Source="../Assets/Icons/Stats/health.png"/>
                     </StackPanel>
                 </Grid>
             </DataTemplate>

@@ -57,7 +57,7 @@
     </Style>
     
     <!-- Checkbox (accent coloured tick) -->
-    <Style x:Key="AccentColouredCheckBoxStyle" TargetType="CheckBox">
+    <Style x:Key="Tk-AccentColouredCheckBoxStyle" TargetType="CheckBox">
         <Setter Property="Background" Value="{ThemeResource CheckBoxBackgroundThemeBrush}"/>
         <Setter Property="BorderBrush" Value="{ThemeResource CheckBoxBorderThemeBrush}"/>
         <Setter Property="BorderThickness" Value="{ThemeResource PhoneBorderThickness}"/>
@@ -267,7 +267,7 @@
 								Width="13"/>
                             <Path x:Name="CheckGlyph" 
 								Data="M0,123 L39,93 L124,164 L256,18 L295,49 L124,240 z"
-								Fill="{ThemeResource CheckBoxForegroundThemeBrush}"
+								Fill="{TemplateBinding Foreground}"
 								Height="17" 
 								Stretch="Fill" 
 								StrokeThickness="2.5" 
