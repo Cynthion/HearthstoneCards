@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.UI.Core;
+using Windows.UI.Text;
 using HearthstoneCards.Helper;
 using HearthstoneCards.Model;
 using Newtonsoft.Json;
@@ -22,11 +24,10 @@ namespace HearthstoneCards.ViewModel
         private ItemsControlViewInfo _itemsControlViewInfo;
 
         public string TextFilter { get; set; }
-        public bool _isAttackFilterEnabled;
         public IList<ImageSelectionItem<string>> ClassOptions { get; private set; }
         public IList<ImageSelectionItem<Set>> SetOptions { get; private set; }
         public IList<ImageSelectionItem<Rarity>> RarityOptions { get; private set; }
-        public IList<ImageSelectionItem<Mechanic>> MechanicOptions { get; private set; }
+        public IList<SelectionItem<Mechanic>> MechanicOptions { get; private set; }
         public IList<int> AttackOptions { get; private set; }
         public IList<ISelectionItem<Func<Card, object>>> SortOptions { get; private set; }
         public IncrementalObservableCollection<MainViewModel, Card> PresentedCards { get { return _presentedCards; } }
@@ -47,6 +48,7 @@ namespace HearthstoneCards.ViewModel
         private bool _isResultEmpty = true;
 
         private bool _isTextFilterEnabled;
+        private bool _isAttackFilterEnabled;
 
         public MainViewModel()
         {
@@ -84,6 +86,7 @@ namespace HearthstoneCards.ViewModel
                 new ImageSelectionItem<Rarity>("Epic", Rarity.Epic) { ImagePath = "../Assets/Icons/Rarity/epic.png"},
                 new ImageSelectionItem<Rarity>("Legendary", Rarity.Legendary) { ImagePath = "../Assets/Icons/Rarity/legendary.png"},
             };
+            MechanicOptions = GetEnumSelections<Mechanic>();
             SortOptions = new List<ISelectionItem<Func<Card, object>>>
             {
                 new SelectionItem<Func<Card, object>>("Attack", c => c.Attack),
@@ -119,6 +122,21 @@ namespace HearthstoneCards.ViewModel
             LoadSelection(RarityOptions, AppSettings.RaritySelectionKey);
             LoadSelection(SortOptions, AppSettings.SortOptionsSelectionKey);
             SelectedSortOption = SortOptions.First(o => o.IsSelected);
+        }
+
+        private static IList<SelectionItem<TEnum>> GetEnumSelections<TEnum>()
+        {
+            var enumValues = Enum.GetValues(typeof(TEnum));
+
+            var selectionItems = new List<SelectionItem<TEnum>>();
+            foreach (var enumValue in enumValues)
+            {
+                var enumVal = (Enum) enumValue;
+                var description = enumVal.GetEnumDescription();
+                var tEnumVal = (TEnum) enumValue;
+                selectionItems.Add(new SelectionItem<TEnum>(description, tEnumVal));
+            }
+            return selectionItems;
         }
 
         public async void PresentedResultsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
@@ -175,9 +193,11 @@ namespace HearthstoneCards.ViewModel
                     {
                         _allCards.AddRange(set.Cards);
                     }
+
+                    //IList<string> mechanics = _allCards.SelectMany(c => c.Mechanics).Distinct().ToList();
                 }
 
-                // TODO remove
+                // query with current filter
                 await OnQueryChangedAsync();
                 return LoadResult.Success;
             }

@@ -77,7 +77,7 @@
                     <!-- Mechanics Filter -->
                     <local:MultiComboBox
                         Grid.Row="6"
-                        Header="Rarity"
+                        Header="Mechanics"
                         Options="{Binding MechanicOptions}"
                         ItemTemplate="{StaticResource MechanicOptionItemTemplate}"
                         ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"

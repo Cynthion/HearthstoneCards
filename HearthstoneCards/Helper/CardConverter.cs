@@ -28,7 +28,7 @@ namespace HearthstoneCards.Helper
             card.Class = jo["playerClass"] != null ? (string)jo["playerClass"] : "Neutral";
             card.Text = ExtractValue<string>(jo, "text");
             card.InPlayText = ExtractValue<string>(jo, "inPlayText");
-            card.Mechanics = jo["mechanics"] != null ? JsonConvert.DeserializeObject<List<string>>(jo["mechanics"].ToString()) : new List<string>();
+            card.Mechanics = ExtractEnums<Mechanic>(jo, "mechanics");
             card.Flavor = ExtractValue<string>(jo, "flavor");
             card.Artist = ExtractValue<string>(jo, "artist");
             card.Attack = ExtractValue<int>(jo, "attack");
@@ -53,6 +53,26 @@ namespace HearthstoneCards.Helper
             TEnum extractedEnum;
             Enum.TryParse(ExtractValue<string>(jo, key), true, out extractedEnum);
             return extractedEnum;
+        }
+
+        private static IList<TEnum> ExtractEnums<TEnum>(JObject jo, string key) where TEnum : struct
+        {
+            var enums = new List<TEnum>();
+            if (jo[key] == null)
+            {
+                return enums;
+            }
+            var items = JsonConvert.DeserializeObject<IEnumerable<string>>(jo[key].ToString());
+            if (items != null)
+            {
+                foreach (var item in items)
+                {
+                    TEnum extractedEnum;
+                    Enum.TryParse(item, out extractedEnum);
+                    enums.Add(extractedEnum);
+                }
+            }
+            return enums;
         }
 
         public override bool CanConvert(Type objectType)

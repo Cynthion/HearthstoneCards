@@ -23,7 +23,7 @@ namespace HearthstoneCards.Model
         public string Class { get; set; }
         public string Text { get; set; }
         public string InPlayText { get; set; }
-        public List<string> Mechanics { get; set; }
+        public IList<Mechanic> Mechanics { get; set; }
         public string Flavor { get; set; }
         public string Artist { get; set; }
         public int Attack { get; set; }

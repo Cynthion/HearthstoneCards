@@ -1,4 +1,6 @@
-﻿namespace HearthstoneCards.Model
+﻿using HearthstoneCards.Helper;
+
+namespace HearthstoneCards.Model
 {
     public enum Rarity
     {
@@ -22,14 +24,36 @@
 
     public enum Mechanic
     {
-        Battlecry = 0,
-        Windfury = 1,
-        DivindeShield = 2,
-        Inspire,
-        Taunt,
+        None,
+        [Description("Adjacent Buff")]
+        AdjacentBuff,
+        [Description("Affected By Spell Power")]
+        AffectedBySpellPower,
+        Aura,
+        Battlecry,
         Charge,
+        Combo,
+        Deathrattle,
+        [Description("Divine Shield")]
+        DivineShield,
+        Enrage,
+        Freeze,
+        [Description("Heal Target")]
+        HealTarget,
+        [Description("Immune To Spell Power")]
+        ImmuneToSpellpower,
+        Inspire,    
+        Morph,
+        [Description("One Turn Effect")]
         OneTurnEffect,
+        Overload,
+        Poisonous,
+        Secret,
+        Silence,
         Spellpower,
-        ImmuneToSpellpowerd
+        Stealth,
+        Summoned,
+        Taunt,
+        Windfury
     }
 }
