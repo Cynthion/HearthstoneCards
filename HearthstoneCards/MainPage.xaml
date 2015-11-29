@@ -35,11 +35,11 @@
                             Orientation="Horizontal">
                             <TextBlock
                                 Text="Results: "
-                                Style="{StaticResource Tk-TitleSmallSizedBold}"/>
+                                Style="{StaticResource Tk-BodyBigSized}"/>
                             <TextBlock
                                 Margin="10,0,0,0"
                                 Text="{Binding ResultsCount}"
-                                Style="{StaticResource Tk-TitleSmallSized}"/>
+                                Style="{StaticResource Tk-BodyBigSized}"/>
                         </StackPanel>
                     </Grid>
                     <!-- Text Filter -->
@@ -86,13 +86,12 @@
                     <local:RangeBox
                         Grid.Row="7"
                         Title="Attack"
-                        IsChecked="{Binding IsAttackFilterEnabled, Mode=TwoWay}"
                         Min="{Binding Source={StaticResource Constants}, Path=MinAttack}"
                         Max="{Binding Source={StaticResource Constants}, Path=MaxAttack}"
                         From="{Binding SelectedAttackFromOption, Mode=TwoWay}"
                         To="{Binding SelectedAttackToOption, Mode=TwoWay}"
+                        IsRangeBoxEnabled="{Binding IsAttackFilterEnabled}"
                         IsCheckedChanged="AttackRangeBox_OnIsCheckedChanged"/>
-                    
                 </Grid>
             </DataTemplate>
         </HubSection>
@@ -129,13 +128,14 @@
                             <TextBlock
                                 Grid.Column="0"
                                 Grid.Row="0"
-                                Style="{StaticResource Tk-TitleSmallSizedBold}"
+                                Style="{StaticResource Tk-BodyBigSized}"
+                                FontWeight="Bold"
                                 Text="{Binding SelectedSortOption.Key, Converter={StaticResource ToUpperCaseConverter}}"
                                 Foreground="Gray"/>
                             <TextBlock
                                 Grid.Column="0"
                                 Grid.Row="1"
-                                Style="{StaticResource Tk-TitleSmallSized}"
+                                Style="{StaticResource Tk-BodyBigSized}"
                                 Text="{Binding IsSortedAscending, Converter={StaticResource SortDirectionToStringConverter}}"
                                 Foreground="Gray"/>
                             <Path

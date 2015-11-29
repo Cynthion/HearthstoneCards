@@ -18,7 +18,7 @@ namespace HearthstoneCards.Helper
                 settings.AppVersion = PhoneInteraction.GetAppVersion();
                 settings.ItemsControlViewInfoIndex = 0;
                 settings.IsSortedAscending = true;
-                settings.IsAttackFilterEnabled = true;
+                settings.IsAttackFilterEnabled = false;
                 settings.SortOptionSelection = new[] { true, false, false };
                 // 9 classes, 1 neutral
                 settings.ClassSelection = new [] { true, true, true, true, true, true, true, true, true, true };

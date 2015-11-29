@@ -28,7 +28,8 @@ namespace HearthstoneCards.Helper
             card.Class = jo["playerClass"] != null ? (string)jo["playerClass"] : "Neutral";
             card.Text = ExtractValue<string>(jo, "text");
             card.InPlayText = ExtractValue<string>(jo, "inPlayText");
-            card.Mechanics = ExtractEnums<Mechanic>(jo, "mechanics");
+            var mechanics = ExtractEnums<Mechanic>(jo, "mechanics");
+            card.Mechanics = mechanics.Count > 0 ? mechanics : new[] { Mechanic.None };
             card.Flavor = ExtractValue<string>(jo, "flavor");
             card.Artist = ExtractValue<string>(jo, "artist");
             card.Attack = ExtractValue<int>(jo, "attack");

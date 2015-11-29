@@ -249,6 +249,7 @@
                     <TextBlock
                         Margin="10,0,0,0"
                         Text="{Binding Key}"
+                        Style="{StaticResource Tk-BodyBigSized}"
                         VerticalAlignment="Center"/>
                 </StackPanel>
             </DataTemplate>
@@ -295,7 +296,7 @@
                 <Grid
                     Margin="0, 0, 0, 5">
                     <Grid.Resources>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource Tk-TitleSmallSized}">
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource Tk-BodyBigSized}">
                             <Setter Property="TextWrapping" Value="WrapWholeWords"/>
                         </Style>
                     </Grid.Resources>
@@ -337,7 +338,7 @@
                 <Grid
                     Margin="0,0,0,20">
                     <Grid.Resources>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource Tk-TitleSmallSized}">
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource Tk-BodyBigSized}">
                             <Setter Property="Margin" Value="7,0,7,0"/>
                             <Setter Property="MinWidth" Value="20"/>
                             <Setter Property="VerticalAlignment" Value="Center"/>

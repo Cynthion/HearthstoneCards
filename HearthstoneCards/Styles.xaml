@@ -24,15 +24,6 @@
         <Setter Property="FontSize" Value="24"/>
         <Setter Property="FontWeight" Value="Light"/>
     </Style>
-    <Style x:Key="Tk-TitleSmallSized" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="Segoe WP SemiLight"/>
-        <Setter Property="FontSize" Value="18"/>
-    </Style>
-    <Style x:Key="Tk-TitleSmallSizedBold" TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="Segoe WP"/>
-        <Setter Property="FontSize" Value="18"/>
-        <Setter Property="FontWeight" Value="SemiBold"/>
-    </Style>
     <Style x:Key="Tk-BodyBigSized" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="Segoe WP SemiLight"/>
         <Setter Property="FontSize" Value="18"/>

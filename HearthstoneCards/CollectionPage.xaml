@@ -76,7 +76,7 @@
                 Margin="10, 0">
                 <TextBlock
                     helper:Properties.Html="{Binding Text}"
-                    Style="{StaticResource Tk-TitleSmallSizedBold}"
+                    Style="{StaticResource Tk-BodyBigSized}"
                     TextWrapping="WrapWholeWords"
                     TextAlignment="Center"/>
             </StackPanel>

@@ -6,8 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400"
-    DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    d:DesignWidth="400">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -28,7 +27,7 @@
             InputScope="Number"
             Tag="from"
             Text="{Binding From}"
-            IsEnabled="{Binding IsChecked}"
+            IsEnabled="{Binding ElementName=xCheckbox, Path=IsChecked}"
             GotFocus="TextBox_OnLGotFocus"
             LostFocus="TextBox_OnLostFocus"/>
         <TextBlock
@@ -46,19 +45,20 @@
             InputScope="Number"
             Tag="to"
             Text="{Binding To}"
-            IsEnabled="{Binding IsChecked}"
+            IsEnabled="{Binding ElementName=xCheckbox, Path=IsChecked}"
             GotFocus="TextBox_OnLGotFocus"
             LostFocus="TextBox_OnLostFocus"/>
         <CheckBox 
+            x:Name="xCheckbox"
             Grid.Column="3"
             Grid.Row="0"
             Margin="20,0,0,-8"
             VerticalAlignment="Bottom"
             Style="{StaticResource Tk-NoContentCheckBoxStyle}"
             Foreground="{StaticResource PhoneAccentBrush}"
-            IsChecked="{Binding IsChecked, Mode=TwoWay}"
-            Checked="ToggleButton_OnChecked"
-            Unchecked="ToggleButton_OnUnchecked"/>
+            IsChecked="{Binding IsRangeBoxEnabled}"
+            Checked="Checkbox_OnChecked"
+            Unchecked="Checkbox_OnUnchecked"/>
         <TextBlock
             Grid.Column="0"
             Grid.ColumnSpan="3"

@@ -140,7 +140,6 @@ namespace HearthstoneCards
 
         private async void AttackRangeBox_OnIsCheckedChanged(object sender, CheckedEventArgs e)
         {
-            _mainVm.IsAttackFilterEnabled = e.IsChecked;
             await _mainVm.OnQueryChangedAsync();
         }
     }

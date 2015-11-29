@@ -23,6 +23,9 @@ namespace HearthstoneCards
         public RangeBox()
         {
             this.InitializeComponent();
+
+            // set data context
+            DataContext = this;
         }
 
         public static readonly DependencyProperty TitleProperty =
@@ -43,8 +46,8 @@ namespace HearthstoneCards
         private static readonly DependencyProperty IsValidProperty =
             DependencyProperty.Register("IsValid", typeof(bool), typeof(RangeBox), new PropertyMetadata(false));
 
-        private static readonly DependencyProperty IsCheckedProperty =
-            DependencyProperty.Register("IsChecked", typeof(bool), typeof(RangeBox), new PropertyMetadata(true));
+        private static readonly DependencyProperty IsRangeBoxEnabledProperty =
+            DependencyProperty.Register("IsRangeBoxEnabled", typeof(bool), typeof(RangeBox), new PropertyMetadata(false));
 
         private static void RangeValue_Changed(DependencyObject dObj, DependencyPropertyChangedEventArgs args)
         {
@@ -102,10 +105,10 @@ namespace HearthstoneCards
             private set { SetValue(IsValidProperty, value); }
         }
 
-        public bool IsChecked
+        public bool IsRangeBoxEnabled
         {
-            get { return (bool)GetValue(IsCheckedProperty); }
-            set { SetValue(IsCheckedProperty, value); }
+            get { return (bool)GetValue(IsRangeBoxEnabledProperty); }
+            set { SetValue(IsRangeBoxEnabledProperty, value); }
         }
 
         private void TextBox_OnLGotFocus(object sender, RoutedEventArgs e)
@@ -143,7 +146,7 @@ namespace HearthstoneCards
             return (int)Math.Round(double.Parse(text, System.Globalization.CultureInfo.InvariantCulture), 0);
         }
 
-        private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
+        private void Checkbox_OnChecked(object sender, RoutedEventArgs e)
         {
             if (IsCheckedChanged != null)
             {
@@ -151,7 +154,7 @@ namespace HearthstoneCards
             }
         }
 
-        private void ToggleButton_OnUnchecked(object sender, RoutedEventArgs e)
+        private void Checkbox_OnUnchecked(object sender, RoutedEventArgs e)
         {
             if (IsCheckedChanged != null)
             {
