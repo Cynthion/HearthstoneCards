@@ -142,5 +142,10 @@ namespace HearthstoneCards
         {
             await _mainVm.OnQueryChangedAsync();
         }
+
+        private async void AttackRangeBox_OnRangeValueChanged(RangeBox sender, RangeBoxEventArgs args)
+        {
+            await _mainVm.OnQueryChangedAsync();
+        }
     }
 }

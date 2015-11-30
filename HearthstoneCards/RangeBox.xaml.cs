@@ -14,11 +14,25 @@ namespace HearthstoneCards
         }
     }
 
+    public sealed class RangeBoxEventArgs
+    {
+        public int From { get; private set; }
+        public int To { get; private set; }
+
+        public RangeBoxEventArgs(int from, int to)
+        {
+            From = from;
+            To = to;
+        }
+    }
+
     public sealed partial class RangeBox : UserControl
     {
-        public delegate void IsCheckedChangedEventHandler(object sender, CheckedEventArgs e);
-
+        public delegate void IsCheckedChangedEventHandler(object sender, CheckedEventArgs args);
         public event IsCheckedChangedEventHandler IsCheckedChanged;
+
+        public delegate void RangeValueChangedEventHandler(RangeBox sender, RangeBoxEventArgs args);
+        public event RangeValueChangedEventHandler RangeValueChanged;
 
         public RangeBox()
         {
@@ -133,6 +147,10 @@ namespace HearthstoneCards
                 {
                     To = int.MaxValue;
                     To = isInvalid ? Max : ExtractNumber(tmp);
+                }
+                if (RangeValueChanged != null)
+                {
+                    RangeValueChanged(this, new RangeBoxEventArgs(From, To));
                 }
             }
         }

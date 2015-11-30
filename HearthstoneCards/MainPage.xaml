@@ -91,7 +91,8 @@
                         From="{Binding SelectedAttackFromOption, Mode=TwoWay}"
                         To="{Binding SelectedAttackToOption, Mode=TwoWay}"
                         IsRangeBoxEnabled="{Binding IsAttackFilterEnabled}"
-                        IsCheckedChanged="AttackRangeBox_OnIsCheckedChanged"/>
+                        IsCheckedChanged="AttackRangeBox_OnIsCheckedChanged"
+                        RangeValueChanged="AttackRangeBox_OnRangeValueChanged"/>
                 </Grid>
             </DataTemplate>
         </HubSection>

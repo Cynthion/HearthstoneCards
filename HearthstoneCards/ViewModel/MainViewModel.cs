@@ -128,7 +128,6 @@ namespace HearthstoneCards.ViewModel
             var selectionItems = new List<SelectionItem<Mechanic>>();
             foreach (var mechanic in mechanics)
             {
-                
                 selectionItems.Add(new SelectionItem<Mechanic>(EnumHelper.GetMechanicName(mechanic), mechanic));
             }
             return selectionItems;
