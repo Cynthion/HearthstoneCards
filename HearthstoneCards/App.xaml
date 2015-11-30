@@ -17,9 +17,6 @@
                 <ResourceDictionary Source="ItemControlResources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <!-- Constants -->
-            <helper:ConstantContainer x:Key="Constants"/>
-            
             <!-- CONVERTERS -->
             <converter:ScreenSizeConverter x:Key="ScreenSizeConverter"/>
             <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>

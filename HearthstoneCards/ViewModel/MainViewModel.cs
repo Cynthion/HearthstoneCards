@@ -18,6 +18,8 @@ namespace HearthstoneCards.ViewModel
 {
     public class MainViewModel : AsyncLoader, ILocatable, IIncrementalSource<Card>, IViewInfoProvider
     {
+        public static Variables Variables { get; private set; }
+
         public ChangeViewInfoCommand ChangeViewInfoCommand { get; private set; }
         private ItemsControlViewInfo _itemsControlViewInfo;
 
@@ -50,6 +52,7 @@ namespace HearthstoneCards.ViewModel
 
         public MainViewModel()
         {
+            Variables = new Variables();
             ChangeViewInfoCommand = new ChangeViewInfoCommand(this);
 
             // TODO get options from DB
@@ -188,7 +191,13 @@ namespace HearthstoneCards.ViewModel
                         _allCards.AddRange(set.Cards);
                     }
 
-                    //IList<string> mechanics = _allCards.SelectMany(c => c.Mechanics).Distinct().ToList();
+                    var attacks = _allCards.Select(c => c.Attack).Distinct().ToList();
+                    Variables.MinAttack = attacks.Min();
+                    Variables.MaxAttack = attacks.Max();
+                    
+                    var costs = _allCards.Select(c => c.Cost).Distinct().ToList();
+                    Variables.MinCost = costs.Min();
+                    Variables.MaxCost = costs.Max();
                 }
 
                 // query with current filter

@@ -8,11 +8,9 @@
     mc:Ignorable="d"
     Background="{StaticResource PhoneBackgroundBrush}">
     
-    <Hub
-        SectionsInViewChanged="Hub_OnSectionsInViewChanged">
+    <Hub>
         <!-- FILTER -->
-        <HubSection
-            Tag="{Binding Source={StaticResource Constants}, Path=IsCommandBarVisibleTag}">
+        <HubSection>
             <DataTemplate>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -86,8 +84,8 @@
                     <local:RangeBox
                         Grid.Row="7"
                         Title="Attack"
-                        Min="{Binding Source={StaticResource Constants}, Path=MinAttack}"
-                        Max="{Binding Source={StaticResource Constants}, Path=MaxAttack}"
+                        Min="{Binding Variables.MinAttack}"
+                        Max="{Binding Variables.MaxAttack}"
                         From="{Binding SelectedAttackFromOption, Mode=TwoWay}"
                         To="{Binding SelectedAttackToOption, Mode=TwoWay}"
                         IsRangeBoxEnabled="{Binding IsAttackFilterEnabled}"

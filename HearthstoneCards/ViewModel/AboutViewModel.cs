@@ -46,7 +46,7 @@ namespace HearthstoneCards.ViewModel
 
         public Task HandleFeedbackAsync()
         {
-            return SendEmailAsync("Feedback", ConstantContainer.FeedbackEmailBody);
+            return SendEmailAsync("Feedback", Variables.FeedbackEmailBody);
         }
 
         public void HandleUserVoice()
@@ -61,17 +61,17 @@ namespace HearthstoneCards.ViewModel
 
         public Task HandleBugReportAsync()
         {
-            return SendEmailAsync("Bug Report", ConstantContainer.BugReportEmailBody);
+            return SendEmailAsync("Bug Report", Variables.BugReportEmailBody);
         }
 
         private async Task SendEmailAsync(string subject, string body)
         {
             var mail = new EmailMessage
             {
-                Subject = string.Format("[{0}] {1}", ConstantContainer.AppNameShort, subject),
+                Subject = string.Format("[{0}] {1}", Variables.AppNameShort, subject),
                 Body = body
             };
-            mail.To.Add(ConstantContainer.FeedbackEmailRecipient);
+            mail.To.Add(Variables.FeedbackEmailRecipient);
             await EmailManager.ShowComposeNewEmailAsync(mail);
         }
 

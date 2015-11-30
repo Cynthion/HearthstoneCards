@@ -128,15 +128,15 @@ namespace HearthstoneCards
             Frame.Navigate(typeof (AboutPage));
         }
 
-        private void Hub_OnSectionsInViewChanged(object sender, SectionsInViewChangedEventArgs e)
-        {
-            var hub = sender as Hub;
-            if (hub != null && BottomAppBar != null)
-            {
-                var isCommandBarVisible = hub.SectionsInView.Any(s => s.Tag != null && s.Tag.Equals(ConstantContainer.IsCommandBarVisibleTag));
-                BottomAppBar.Visibility = isCommandBarVisible ? Visibility.Visible : Visibility.Collapsed;
-            }
-        }
+        //private void Hub_OnSectionsInViewChanged(object sender, SectionsInViewChangedEventArgs e)
+        //{
+        //    var hub = sender as Hub;
+        //    if (hub != null && BottomAppBar != null)
+        //    {
+        //        var isCommandBarVisible = hub.SectionsInView.Any(s => s.Tag != null && s.Tag.Equals(Variables.IsCommandBarVisibleTag));
+        //        BottomAppBar.Visibility = isCommandBarVisible ? Visibility.Visible : Visibility.Collapsed;
+        //    }
+        //}
 
         private async void AttackRangeBox_OnIsCheckedChanged(object sender, CheckedEventArgs e)
         {

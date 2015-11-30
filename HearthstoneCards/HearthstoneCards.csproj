@@ -108,8 +108,7 @@
     <Compile Include="Helper\AppSettings.cs" />
     <Compile Include="Helper\Block.cs" />
     <Compile Include="Helper\CardConverter.cs" />
-    <Compile Include="Helper\ConstantContainer.cs" />
-    <Compile Include="Helper\Constants.cs" />
+    <Compile Include="Helper\Variables.cs" />
     <Compile Include="Helper\DescriptionAttribute.cs" />
     <Compile Include="Helper\GlobalCollectionConverter.cs" />
     <Compile Include="Helper\Properties.cs" />
