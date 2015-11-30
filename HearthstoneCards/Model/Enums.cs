@@ -24,6 +24,7 @@ namespace HearthstoneCards.Model
 
     public enum Mechanic
     {
+        [Description("No Mechanic")]
         None,
         [Description("Adjacent Buff")]
         AdjacentBuff,
@@ -55,5 +56,31 @@ namespace HearthstoneCards.Model
         Summoned,
         Taunt,
         Windfury
+    }
+
+    public static class EnumHelper
+    {
+        public static string GetMechanicName(Mechanic mechanic)
+        {
+            switch (mechanic)
+            {
+                case Mechanic.None: 
+                    return "No Mechanics";
+                case Mechanic.AdjacentBuff:
+                    return "Adjacent Buff";
+                case Mechanic.AffectedBySpellPower:
+                    return "Affected By Spell Power";
+                case Mechanic.DivineShield:
+                    return "Divine Shield";
+                case Mechanic.HealTarget:
+                    return "Heal Target";
+                case Mechanic.ImmuneToSpellpower:
+                    return "Immune To Spell Power";
+                case Mechanic.OneTurnEffect:
+                    return "One Turn Effect";
+                default:
+                    return mechanic.ToString();
+            }
+        }
     }
 }

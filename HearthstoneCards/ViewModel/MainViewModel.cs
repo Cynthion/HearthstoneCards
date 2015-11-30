@@ -84,7 +84,7 @@ namespace HearthstoneCards.ViewModel
                 new ImageSelectionItem<Rarity>("Epic", Rarity.Epic) { ImagePath = "../Assets/Icons/Rarity/epic.png"},
                 new ImageSelectionItem<Rarity>("Legendary", Rarity.Legendary) { ImagePath = "../Assets/Icons/Rarity/legendary.png"},
             };
-            MechanicOptions = GetEnumSelections<Mechanic>();
+            MechanicOptions = GetMechanicSelections();
             SortOptions = new List<ISelectionItem<Func<Card, object>>>
             {
                 new SelectionItem<Func<Card, object>>("Attack", c => c.Attack),
@@ -122,21 +122,18 @@ namespace HearthstoneCards.ViewModel
             SelectedSortOption = SortOptions.First(o => o.IsSelected);
         }
 
-        private static IList<SelectionItem<TEnum>> GetEnumSelections<TEnum>()
+        private static IList<SelectionItem<Mechanic>> GetMechanicSelections()
         {
-            var enumValues = Enum.GetValues(typeof(TEnum));
-
-            var selectionItems = new List<SelectionItem<TEnum>>();
-            foreach (var enumValue in enumValues)
+            var mechanics = Enum.GetValues(typeof(Mechanic)).Cast<Mechanic>();
+            var selectionItems = new List<SelectionItem<Mechanic>>();
+            foreach (var mechanic in mechanics)
             {
-                var enumVal = (Enum) enumValue;
-                var description = enumVal.GetEnumDescription();
-                var tEnumVal = (TEnum) enumValue;
-                selectionItems.Add(new SelectionItem<TEnum>(description, tEnumVal));
+                
+                selectionItems.Add(new SelectionItem<Mechanic>(EnumHelper.GetMechanicName(mechanic), mechanic));
             }
             return selectionItems;
         }
-
+        
         public async void PresentedResultsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
             // TODO correct for move/replace (use provided indices)
