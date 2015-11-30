@@ -23,9 +23,6 @@ namespace HearthstoneCards
         public RangeBox()
         {
             this.InitializeComponent();
-
-            // set data context
-            DataContext = this;
         }
 
         public static readonly DependencyProperty TitleProperty =

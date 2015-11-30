@@ -6,7 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignWidth="400"
+    x:Name="XUc">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -23,11 +24,11 @@
             Grid.Column="0"
             Grid.Row="0"
             Margin="0,0,10,0"
-            Header="{Binding Title}"
+            Header="{Binding ElementName=XUc, Path=Title}"
             InputScope="Number"
             Tag="from"
-            Text="{Binding From}"
-            IsEnabled="{Binding ElementName=xCheckbox, Path=IsChecked}"
+            Text="{Binding ElementName=XUc, Path=From}"
+            IsEnabled="{Binding ElementName=XCheckbox, Path=IsChecked}"
             GotFocus="TextBox_OnLGotFocus"
             LostFocus="TextBox_OnLostFocus"/>
         <TextBlock
@@ -44,19 +45,19 @@
             Header=" "
             InputScope="Number"
             Tag="to"
-            Text="{Binding To}"
-            IsEnabled="{Binding ElementName=xCheckbox, Path=IsChecked}"
+            Text="{Binding ElementName=XUc, Path=To}"
+            IsEnabled="{Binding ElementName=XCheckbox, Path=IsChecked}"
             GotFocus="TextBox_OnLGotFocus"
             LostFocus="TextBox_OnLostFocus"/>
         <CheckBox 
-            x:Name="xCheckbox"
+            x:Name="XCheckbox"
             Grid.Column="3"
             Grid.Row="0"
             Margin="20,0,0,-8"
             VerticalAlignment="Bottom"
             Style="{StaticResource Tk-NoContentCheckBoxStyle}"
             Foreground="{StaticResource PhoneAccentBrush}"
-            IsChecked="{Binding IsRangeBoxEnabled}"
+            IsChecked="{Binding ElementName=XUc, Path=IsRangeBoxEnabled}"
             Checked="Checkbox_OnChecked"
             Unchecked="Checkbox_OnUnchecked"/>
         <TextBlock
@@ -67,6 +68,6 @@
             Text="Invalid range."
             Style="{StaticResource Tk-BodyNormalSized}"
             Foreground="Red"
-            Visibility="{Binding IsValid, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}"/>
+            Visibility="{Binding ElementName=XUc, Path=IsValid, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Inverse}"/>
     </Grid>
 </UserControl>
