@@ -82,13 +82,15 @@
                                 Grid.Row="1"
                                 Style="{StaticResource Tk-AccentColouredCheckBoxStyle}"
                                 Content="Any"
-                                IsChecked="{Binding IsAnyMechanismChecked}"/>
+                                IsChecked="{Binding IsAnyMechanicsChecked, Mode=TwoWay}"
+                                Checked="MechanicsCheckbox_OnChecked"
+                                Unchecked="MechanicsCheckbox_OnChecked"/>
                             <CheckBox
                                 Grid.Column="1"
                                 Grid.Row="1"
                                 Style="{StaticResource Tk-AccentColouredCheckBoxStyle}"
                                 Content="All"
-                                IsChecked="{Binding IsAnyMechanismChecked, Converter={StaticResource InverseBooleanConverter}}"/>
+                                IsChecked="{Binding IsAnyMechanicsChecked, Converter={StaticResource InverseBooleanConverter}, Mode=TwoWay}"/>
 
                         </Grid>
                         <!-- Attack Filter -->

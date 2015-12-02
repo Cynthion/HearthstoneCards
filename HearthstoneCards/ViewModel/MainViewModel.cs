@@ -127,6 +127,8 @@ namespace HearthstoneCards.ViewModel
             SelectedCostFromOption = settings.CostFromSelection;
             SelectedCostToOption = settings.CostToSelection;
 
+            IsAnyMechanicsChecked = settings.IsAnyMechanicsChecked;
+
             LoadSelection(ClassOptions, AppSettings.ClassSelectionKey);
             LoadSelection(SetOptions, AppSettings.SetSelectionKey);
             LoadSelection(RarityOptions, AppSettings.RaritySelectionKey);
@@ -237,7 +239,8 @@ namespace HearthstoneCards.ViewModel
                 where ClassOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Class))
                 where SetOptions.Where(o => o.IsSelected).Any(o => o.Value.Equals(card.Set))
                 where RarityOptions.Where(o => o.IsSelected).Any(o => o.Value.Equals(card.Rarity))
-                //where MechanicOptions.Where(o => o.IsSelected).Any(o => card.Mechanics.Any(m => m.Equals(o.Value))) // TODO add ALL
+                where !IsAnyMechanicsChecked || (MechanicOptions.Where(o => o.IsSelected).Any(o => card.Mechanics.Any(m => m.Equals(o.Value))))
+                where IsAnyMechanicsChecked || (MechanicOptions.Where(o => o.IsSelected).All(o => card.Mechanics.Any(m => m.Equals(o.Value))))
                 select card;
 
             await SortAndPresentAsync(filtered.ToList());
@@ -309,7 +312,7 @@ namespace HearthstoneCards.ViewModel
             StoreSelection(SetOptions, AppSettings.SetSelectionKey);
             StoreSelection(RarityOptions, AppSettings.RaritySelectionKey);
             StoreSelection(MechanicOptions, AppSettings.MechanicsSelectionKey);
-            settings.IsAnyMechanismChecked = IsAnyMechanicsChecked;
+            settings.IsAnyMechanicsChecked = IsAnyMechanicsChecked;
             settings.ItemsControlViewInfoIndex = ItemsControlViewInfo.Id;
 
             settings.IsAttackFilterEnabled = IsAttackFilterEnabled;

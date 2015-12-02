@@ -153,5 +153,10 @@ namespace HearthstoneCards
         {
             await _mainVm.OnQueryChangedAsync();
         }
+
+        private async void MechanicsCheckbox_OnChecked(object sender, RoutedEventArgs e)
+        {
+            await _mainVm.OnQueryChangedAsync();
+        }
     }
 }

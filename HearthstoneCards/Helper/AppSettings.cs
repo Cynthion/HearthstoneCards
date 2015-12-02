@@ -14,7 +14,7 @@ namespace HearthstoneCards.Helper
         public const string SetSelectionKey = "setSelection";
         public const string RaritySelectionKey = "raritySelection";
         public const string MechanicsSelectionKey = "mechanicsSelection";
-        public const string IsAnyMechanismCheckedKey = "isAnyMechanismChecked";
+        public const string IsAnyMechanicsCheckedKey = "isAnyMechanicsChecked";
 
         public const string IsAttackFilterEnabledKey = "attackFilterEnabled";
         public const string AttackFromSelectionKey = "attackFromSelection";
@@ -79,10 +79,10 @@ namespace HearthstoneCards.Helper
             set { Store(MechanicsSelectionKey, value); }
         }
 
-        public bool IsAnyMechanismChecked
+        public bool IsAnyMechanicsChecked
         {
-            get { return Load<bool>(IsAnyMechanismCheckedKey); }
-            set { Store(IsAnyMechanismCheckedKey, value); }
+            get { return Load<bool>(IsAnyMechanicsCheckedKey); }
+            set { Store(IsAnyMechanicsCheckedKey, value); }
         }
 
         public int AttackFromSelection

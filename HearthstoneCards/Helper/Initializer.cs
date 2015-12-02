@@ -33,7 +33,7 @@ namespace HearthstoneCards.Helper
                     true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
                     true, true, true, true, true, true, true
                 };
-                settings.IsAnyMechanismChecked = true;
+                settings.IsAnyMechanicsChecked = true;
 
                 settings.IsFirstRun = false;
 
