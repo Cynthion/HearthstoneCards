@@ -91,7 +91,6 @@
                                 Style="{StaticResource Tk-AccentColouredCheckBoxStyle}"
                                 Content="All"
                                 IsChecked="{Binding IsAnyMechanicsChecked, Converter={StaticResource InverseBooleanConverter}, Mode=TwoWay}"/>
-
                         </Grid>
                         <!-- Attack Filter -->
                         <local:RangeBox

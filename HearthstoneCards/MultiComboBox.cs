@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -42,8 +44,21 @@ namespace HearthstoneCards
             DetermineStatus(d);
         }
 
+        private static bool _aggregating;
         internal void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // TODO FIX: this event is fired multiple times (for each item in the listview) when page is loaded (due to databinding in style)
+            // dirty workaround: aggregate all events within a time frame
+            if (_aggregating)
+            {
+                return;
+            }
+            _aggregating = true;
+            Task.Delay(TimeSpan.FromMilliseconds(500)).ContinueWith(_ =>
+            {
+                _aggregating = false;
+            });
+
             DetermineStatus(this);
 
             // fire public control event
