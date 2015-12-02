@@ -12,86 +12,107 @@
         <!-- FILTER -->
         <HubSection>
             <DataTemplate>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="20"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid
-                        Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel 
-                            Orientation="Horizontal">
-                            <TextBlock
-                                Text="Results: "
-                                Style="{StaticResource Tk-BodyBigSized}"/>
-                            <TextBlock
-                                Margin="10,0,0,0"
-                                Text="{Binding ResultsCount}"
-                                Style="{StaticResource Tk-BodyBigSized}"/>
-                        </StackPanel>
-                    </Grid>
-                    <!-- Text Filter -->
-                    <TextBox
-                        Grid.Row="2"
-                        Header="Text"
-                        PlaceholderText="Search name or description..."
-                        SelectionChanged="TextFilterTextBox_OnSelectionChanged"
-                        GotFocus="TextBox_SelectAll_OnLGotFocus"
-                        Loaded="TextBox_OnLoaded"/>
-                    <!-- Class Filter -->
-                    <local:MultiComboBox
-                        Grid.Row="3"
-                        Header="Class"
-                        Options="{Binding ClassOptions}"
-                        ItemTemplate="{StaticResource ClassOptionItemTemplate}"
-                        ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
-                        SelectionChanged="MultiSelector_OnSelectionChanged"/>
-                    <!-- Set Filter -->
-                    <local:MultiComboBox
-                        Grid.Row="4"
-                        Header="Set"
-                        Options="{Binding SetOptions}"
-                        ItemTemplate="{StaticResource SetOptionItemTemplate}"
-                        ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
-                        SelectionChanged="MultiSelector_OnSelectionChanged"/>
-                    <!-- Rarity Filter -->
-                    <local:MultiComboBox
-                        Grid.Row="5"
-                        Header="Rarity"
-                        Options="{Binding RarityOptions}"
-                        ItemTemplate="{StaticResource RarityOptionItemTemplate}"
-                        ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
-                        SelectionChanged="MultiSelector_OnSelectionChanged"/>
-                    <!-- Mechanics Filter -->
-                    <local:MultiComboBox
-                        Grid.Row="6"
-                        Header="Mechanics"
-                        Options="{Binding MechanicOptions}"
-                        ItemTemplate="{StaticResource MechanicOptionItemTemplate}"
-                        ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
-                        SelectionChanged="MultiSelector_OnSelectionChanged"/>
-                    <!-- Attack Filter -->
-                    <local:RangeBox
-                        Grid.Row="7"
-                        Title="Attack"
-                        Min="{Binding Variables.MinAttack}"
-                        Max="{Binding Variables.MaxAttack}"
-                        From="{Binding SelectedAttackFromOption, Mode=TwoWay}"
-                        To="{Binding SelectedAttackToOption, Mode=TwoWay}"
-                        IsRangeBoxEnabled="{Binding IsAttackFilterEnabled}"
-                        IsCheckedChanged="AttackRangeBox_OnIsCheckedChanged"
-                        RangeValueChanged="AttackRangeBox_OnRangeValueChanged"/>
-                </Grid>
+                <ScrollViewer>
+                    <StackPanel Margin="0,22,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel 
+                                Orientation="Horizontal">
+                                <TextBlock
+                                    Text="Results: "
+                                    Style="{StaticResource Tk-BodyBigSized}"/>
+                                <TextBlock
+                                    Margin="10,0,0,0"
+                                    Text="{Binding ResultsCount}"
+                                    Style="{StaticResource Tk-BodyBigSized}"/>
+                            </StackPanel>
+                        </Grid>
+                        <!-- Text Filter -->
+                        <TextBox
+                            Header="Text"
+                            PlaceholderText="Search name or description..."
+                            SelectionChanged="TextFilterTextBox_OnSelectionChanged"
+                            GotFocus="TextBox_SelectAll_OnLGotFocus"
+                            Loaded="TextBox_OnLoaded"/>
+                        <!-- Class Filter -->
+                        <local:MultiComboBox
+                            Header="Class"
+                            Options="{Binding ClassOptions}"
+                            ItemTemplate="{StaticResource ClassOptionItemTemplate}"
+                            ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
+                            SelectionChanged="MultiSelector_OnSelectionChanged"/>
+                        <!-- Set Filter -->
+                        <local:MultiComboBox
+                            Header="Set"
+                            Options="{Binding SetOptions}"
+                            ItemTemplate="{StaticResource SetOptionItemTemplate}"
+                            ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
+                            SelectionChanged="MultiSelector_OnSelectionChanged"/>
+                        <!-- Rarity Filter -->
+                        <local:MultiComboBox
+                            Header="Rarity"
+                            Options="{Binding RarityOptions}"
+                            ItemTemplate="{StaticResource RarityOptionItemTemplate}"
+                            ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
+                            SelectionChanged="MultiSelector_OnSelectionChanged"/>
+                        <!-- Mechanics Filter -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <local:MultiComboBox
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Grid.Row="0"
+                                Header="Mechanics"
+                                Options="{Binding MechanicOptions}"
+                                ItemTemplate="{StaticResource MechanicOptionItemTemplate}"
+                                ItemContainerStyle="{StaticResource SelectionListViewItemStyle}"
+                                SelectionChanged="MultiSelector_OnSelectionChanged"/>
+                            <CheckBox
+                                Grid.Column="0"
+                                Grid.Row="1"
+                                Style="{StaticResource Tk-AccentColouredCheckBoxStyle}"
+                                Content="Any"
+                                IsChecked="{Binding IsAnyMechanismChecked}"/>
+                            <CheckBox
+                                Grid.Column="1"
+                                Grid.Row="1"
+                                Style="{StaticResource Tk-AccentColouredCheckBoxStyle}"
+                                Content="All"
+                                IsChecked="{Binding IsAnyMechanismChecked, Converter={StaticResource InverseBooleanConverter}}"/>
+
+                        </Grid>
+                        <!-- Attack Filter -->
+                        <local:RangeBox
+                            Title="Attack"
+                            Min="{Binding Variables.MinAttack}"
+                            Max="{Binding Variables.MaxAttack}"
+                            From="{Binding SelectedAttackFromOption, Mode=TwoWay}"
+                            To="{Binding SelectedAttackToOption, Mode=TwoWay}"
+                            IsRangeBoxEnabled="{Binding IsAttackFilterEnabled}"
+                            IsCheckedChanged="AttackRangeBox_OnIsCheckedChanged"
+                            RangeValueChanged="RangeBox_OnRangeValueChanged"/>
+                        <!-- Cost Filter -->
+                        <local:RangeBox
+                            Title="Cost"
+                            Min="{Binding Variables.MinCost}"
+                            Max="{Binding Variables.MaxCost}"
+                            From="{Binding SelectedCostFromOption, Mode=TwoWay}"
+                            To="{Binding SelectedCostToOption, Mode=TwoWay}"
+                            IsRangeBoxEnabled="{Binding IsCostFilterEnabled}"
+                            IsCheckedChanged="CostRangeBox_OnIsCheckedChanged"
+                            RangeValueChanged="RangeBox_OnRangeValueChanged"/>
+                    </StackPanel>
+                </ScrollViewer>
             </DataTemplate>
         </HubSection>
         <!-- RESULTS -->

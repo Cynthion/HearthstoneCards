@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Windows.Phone.UI.Input;
+﻿using Windows.Phone.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -140,10 +139,17 @@ namespace HearthstoneCards
 
         private async void AttackRangeBox_OnIsCheckedChanged(object sender, CheckedEventArgs e)
         {
+            _mainVm.IsAttackFilterEnabled = e.IsChecked;
             await _mainVm.OnQueryChangedAsync();
         }
 
-        private async void AttackRangeBox_OnRangeValueChanged(RangeBox sender, RangeBoxEventArgs args)
+        private async void CostRangeBox_OnIsCheckedChanged(object sender, CheckedEventArgs e)
+        {
+            _mainVm.IsCostFilterEnabled = e.IsChecked;
+            await _mainVm.OnQueryChangedAsync();
+        }
+
+        private async void RangeBox_OnRangeValueChanged(RangeBox sender, RangeBoxEventArgs args)
         {
             await _mainVm.OnQueryChangedAsync();
         }

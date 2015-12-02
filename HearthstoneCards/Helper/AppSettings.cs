@@ -8,13 +8,22 @@ namespace HearthstoneCards.Helper
         // settings
         public const string ItemsControlViewInfoIndexKey = "itemsControlViewInfoIndex";
         public const string IsSortedAscendingKey = "sortDirection";
-        public const string IsAttackFilterEnabledKey = "attackFilterEnabled";
+
         public const string SortOptionsSelectionKey = "sortOptionSelection";
         public const string ClassSelectionKey = "classSelection";
         public const string SetSelectionKey = "setSelection";
         public const string RaritySelectionKey = "raritySelection";
+        public const string MechanicsSelectionKey = "mechanicsSelection";
+        public const string IsAnyMechanismCheckedKey = "isAnyMechanismChecked";
+
+        public const string IsAttackFilterEnabledKey = "attackFilterEnabled";
         public const string AttackFromSelectionKey = "attackFromSelection";
         public const string AttackToSelectionKey = "attackToSelection";
+
+        public const string IsCostFilterEnabledKey = "costFilterEnabled";
+        public const string CostFromSelectionKey = "costFromSelection";
+        public const string CostToSelectionKey = "costToSelection";
+
 
         public int ItemsControlViewInfoIndex
         {
@@ -32,6 +41,12 @@ namespace HearthstoneCards.Helper
         {
             get { return Load<bool>(IsAttackFilterEnabledKey); }
             set { Store(IsAttackFilterEnabledKey, value); }
+        }
+
+        public bool IsCostFilterEnabled
+        {
+            get { return Load<bool>(IsCostFilterEnabledKey); }
+            set { Store(IsCostFilterEnabledKey, value); }
         }
 
         public bool[] SortOptionSelection
@@ -58,6 +73,18 @@ namespace HearthstoneCards.Helper
             set { Store(RaritySelectionKey, value); }
         }
 
+        public bool[] MechanicsSelection
+        {
+            get { return Load<bool[]>(MechanicsSelectionKey); }
+            set { Store(MechanicsSelectionKey, value); }
+        }
+
+        public bool IsAnyMechanismChecked
+        {
+            get { return Load<bool>(IsAnyMechanismCheckedKey); }
+            set { Store(IsAnyMechanismCheckedKey, value); }
+        }
+
         public int AttackFromSelection
         {
             get { return Load<int>(AttackFromSelectionKey); }
@@ -68,6 +95,18 @@ namespace HearthstoneCards.Helper
         {
             get { return Load<int>(AttackToSelectionKey); }
             set { Store(AttackToSelectionKey, value); }
+        }
+
+        public int CostFromSelection
+        {
+            get { return Load<int>(CostFromSelectionKey); }
+            set { Store(CostFromSelectionKey, value); }
+        }
+
+        public int CostToSelection
+        {
+            get { return Load<int>(CostToSelectionKey); }
+            set { Store(CostToSelectionKey, value); }
         }
     }
 }

@@ -21,25 +21,25 @@ namespace HearthstoneCards.Helper
             var card = new Card();
             card.Name = ExtractValue<string>(jo, "name");
             card.Cost = ExtractValue<int>(jo, "cost");
-            card.Type = ExtractValue<string>(jo, "type");
+            card.CardType = ExtractCardType(jo, "type");
             card.Rarity = ExtractEnum<Rarity>(jo, "rarity");
-            card.Faction = ExtractValue<string>(jo, "faction");
+            //card.Faction = ExtractValue<string>(jo, "faction");
             card.Race = ExtractValue<string>(jo, "race");
             card.Class = jo["playerClass"] != null ? (string)jo["playerClass"] : "Neutral";
             card.Text = ExtractValue<string>(jo, "text");
-            card.InPlayText = ExtractValue<string>(jo, "inPlayText");
+            //card.InPlayText = ExtractValue<string>(jo, "inPlayText");
             var mechanics = ExtractEnums<Mechanic>(jo, "mechanics");
             card.Mechanics = mechanics.Count > 0 ? mechanics : new[] { Mechanic.None };
-            card.Flavor = ExtractValue<string>(jo, "flavor");
-            card.Artist = ExtractValue<string>(jo, "artist");
+            //card.Flavor = ExtractValue<string>(jo, "flavor");
+            //card.Artist = ExtractValue<string>(jo, "artist");
             card.Attack = ExtractValue<int>(jo, "attack");
             card.Health = ExtractValue<int>(jo, "health");
             card.Durability = ExtractValue<int>(jo, "durability");
             card.Id = ExtractValue<string>(jo, "id");
             card.IsCollectible = ExtractValue<bool>(jo, "collectible");
-            card.IsElite = ExtractValue<bool>(jo, "elite");
+            //card.IsElite = ExtractValue<bool>(jo, "elite");
             card.HowToGet = ExtractValue<string>(jo, "howToGet");
-            card.HowToGetGold = ExtractValue<string>(jo, "howToGetGold");
+            //card.HowToGetGold = ExtractValue<string>(jo, "howToGetGold");
 
             return card;
         }
@@ -54,6 +54,17 @@ namespace HearthstoneCards.Helper
             TEnum extractedEnum;
             Enum.TryParse(ExtractValue<string>(jo, key), true, out extractedEnum);
             return extractedEnum;
+        }
+
+        private static CardType ExtractCardType(JObject jo, string key)
+        {
+            var value = ExtractValue<string>(jo, key);
+            // parse types with whitespaces
+            if (value.Equals("Hero Power"))
+            {
+                return CardType.HeroPower;
+            }
+            return ExtractEnum<CardType>(jo, key);
         }
 
         private static IList<TEnum> ExtractEnums<TEnum>(JObject jo, string key) where TEnum : struct

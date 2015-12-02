@@ -19,13 +19,22 @@ namespace HearthstoneCards.Helper
                 settings.ItemsControlViewInfoIndex = 0;
                 settings.IsSortedAscending = true;
                 settings.IsAttackFilterEnabled = false;
+                settings.IsCostFilterEnabled = false;
                 settings.SortOptionSelection = new[] { true, false, false };
                 // 9 classes, 1 neutral
                 settings.ClassSelection = new [] { true, true, true, true, true, true, true, true, true, true };
                 // 7 sets
                 settings.SetSelection = new[] { true, true, true, true, true, true, true };
+                // 5 rarities
                 settings.RaritySelection = new [] { true, true, true, true, true };
-                
+                // 24 mechanics
+                settings.MechanicsSelection = new[]
+                {
+                    true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true,
+                    true, true, true, true, true, true, true
+                };
+                settings.IsAnyMechanismChecked = true;
+
                 settings.IsFirstRun = false;
 
                 await AddPurchasesAsync();

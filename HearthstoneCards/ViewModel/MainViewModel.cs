@@ -35,6 +35,12 @@ namespace HearthstoneCards.ViewModel
         private ISelectionItem _selectedSortOption;
         public int SelectedAttackFromOption { get; set; }
         public int SelectedAttackToOption { get; set; }
+        public int SelectedCostFromOption { get; set; }
+        public int SelectedCostToOption { get; set; }
+
+        private bool _isTextFilterEnabled;
+        private bool _isAttackFilterEnabled;
+        private bool _isCostFilterEnabled;
 
         private readonly List<Card> _allCards;                                                  // whole DB
         private readonly List<Card> _filteredCards;                                             // filtered DB
@@ -46,9 +52,7 @@ namespace HearthstoneCards.ViewModel
         private bool _isSortConfigurationChanged;
         private bool _isIncrementalLoading;
         private bool _isResultEmpty = true;
-
-        private bool _isTextFilterEnabled;
-        private bool _isAttackFilterEnabled;
+        private bool _isAnyMechanicsChecked;
 
         public MainViewModel()
         {
@@ -93,14 +97,13 @@ namespace HearthstoneCards.ViewModel
                 new SelectionItem<Func<Card, object>>("Attack", c => c.Attack),
                 new SelectionItem<Func<Card, object>>("Class", c => c.Class),
                 new SelectionItem<Func<Card, object>>("Cost", c => c.Cost),
-                new SelectionItem<Func<Card, object>>("Faction", c => c.Faction),
                 new SelectionItem<Func<Card, object>>("Health", c => c.Health),
                 new SelectionItem<Func<Card, object>>("Name", c => c.Name),
                 new SelectionItem<Func<Card, object>>("Race", c => c.Race),
                 new SelectionItem<Func<Card, object>>("Rarity", c => c.Rarity),
                 new SelectionItem<Func<Card, object>>("Set", c => c.Set),
                 new SelectionItem<Func<Card, object>>("Text", c => c.Text),
-                new SelectionItem<Func<Card, object>>("Type", c => c.Type)
+                new SelectionItem<Func<Card, object>>("CardType", c => c.CardType)
             };
             AttackOptions = new List<int>();
             for (var i = 1; i <= 10; i++)
@@ -115,12 +118,19 @@ namespace HearthstoneCards.ViewModel
             
             var settings = new AppSettings();
             IsSortedAscending = settings.IsSortedAscending;
+
             IsAttackFilterEnabled = settings.IsAttackFilterEnabled;
             SelectedAttackFromOption = settings.AttackFromSelection;
             SelectedAttackToOption = settings.AttackToSelection;
+            
+            IsCostFilterEnabled = settings.IsCostFilterEnabled;
+            SelectedCostFromOption = settings.CostFromSelection;
+            SelectedCostToOption = settings.CostToSelection;
+
             LoadSelection(ClassOptions, AppSettings.ClassSelectionKey);
             LoadSelection(SetOptions, AppSettings.SetSelectionKey);
             LoadSelection(RarityOptions, AppSettings.RaritySelectionKey);
+            LoadSelection(MechanicOptions, AppSettings.MechanicsSelectionKey);
             LoadSelection(SortOptions, AppSettings.SortOptionsSelectionKey);
             SelectedSortOption = SortOptions.First(o => o.IsSelected);
         }
@@ -198,6 +208,8 @@ namespace HearthstoneCards.ViewModel
                     var costs = _allCards.Select(c => c.Cost).Distinct().ToList();
                     Variables.MinCost = costs.Min();
                     Variables.MaxCost = costs.Max();
+
+                    //var durability = _allCards.Select(c => c.Durability).Distinct().ToList();
                 }
 
                 // query with current filter
@@ -221,9 +233,11 @@ namespace HearthstoneCards.ViewModel
                 where card.IsCollectible
                 where !IsTextFilterEnabled || (card.Name.Contains(TextFilter) || card.Text.Contains(TextFilter))
                 where !IsAttackFilterEnabled || (card.Attack >= SelectedAttackFromOption && card.Attack <= SelectedAttackToOption)
+                where !IsCostFilterEnabled || (card.Cost >= SelectedCostFromOption && card.Cost <= SelectedCostToOption)
                 where ClassOptions.Where(o => o.IsSelected).Any(o => o.Key.Equals(card.Class))
                 where SetOptions.Where(o => o.IsSelected).Any(o => o.Value.Equals(card.Set))
                 where RarityOptions.Where(o => o.IsSelected).Any(o => o.Value.Equals(card.Rarity))
+                //where MechanicOptions.Where(o => o.IsSelected).Any(o => card.Mechanics.Any(m => m.Equals(o.Value))) // TODO add ALL
                 select card;
 
             await SortAndPresentAsync(filtered.ToList());
@@ -294,7 +308,17 @@ namespace HearthstoneCards.ViewModel
             StoreSelection(ClassOptions, AppSettings.ClassSelectionKey);
             StoreSelection(SetOptions, AppSettings.SetSelectionKey);
             StoreSelection(RarityOptions, AppSettings.RaritySelectionKey);
+            StoreSelection(MechanicOptions, AppSettings.MechanicsSelectionKey);
+            settings.IsAnyMechanismChecked = IsAnyMechanicsChecked;
             settings.ItemsControlViewInfoIndex = ItemsControlViewInfo.Id;
+
+            settings.IsAttackFilterEnabled = IsAttackFilterEnabled;
+            settings.AttackFromSelection = SelectedAttackFromOption;
+            settings.AttackToSelection = SelectedAttackToOption;
+
+            settings.IsCostFilterEnabled = IsCostFilterEnabled;
+            settings.CostFromSelection = SelectedCostFromOption;
+            settings.CostToSelection = SelectedCostToOption;
         }
 
         private static void LoadSelection<T>(IList<T> options, string settingKey) where T : ISelectionItem
@@ -435,6 +459,19 @@ namespace HearthstoneCards.ViewModel
             }
         }
 
+        public bool IsAnyMechanicsChecked
+        {
+            get { return _isAnyMechanicsChecked; }
+            set
+            {
+                if (_isAnyMechanicsChecked != value)
+                {
+                    _isAnyMechanicsChecked = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
         public bool IsAttackFilterEnabled
         {
             get { return _isAttackFilterEnabled; }
@@ -443,6 +480,19 @@ namespace HearthstoneCards.ViewModel
                 if (_isAttackFilterEnabled != value)
                 {
                     _isAttackFilterEnabled = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public bool IsCostFilterEnabled
+        {
+            get { return _isCostFilterEnabled; }
+            set
+            {
+                if (_isCostFilterEnabled != value)
+                {
+                    _isCostFilterEnabled = value;
                     NotifyPropertyChanged();
                 }
             }

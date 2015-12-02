@@ -20,6 +20,7 @@ namespace HearthstoneCards.Helper
 
             foreach (var property in jo.Properties())
             {
+                // only sets that are of interest
                 if (property.Name.Equals("Debug") 
                     || property.Name.Equals("Credits")
                     || property.Name.Equals("Hero Skins")
@@ -49,6 +50,7 @@ namespace HearthstoneCards.Helper
 
         private static Set ExtractSet(string name)
         {
+            // TODO merge with other name-to-enum methods
             switch (name)
             {
                 case "Classic": return Set.Classic;
